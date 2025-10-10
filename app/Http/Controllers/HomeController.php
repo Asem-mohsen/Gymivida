@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProductService;
+use App\Services\ServiceService;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    public function __construct(
+        protected ServiceService $serviceService,
+        protected ProductService $productService
+    ) {
+        $this->serviceService = $serviceService;
+        $this->productService = $productService;
+    }
+
     public function index()
     {
-        return view('index');
+        $services = $this->serviceService->getActiveServices();
+        $products = $this->productService->getActiveProductsWithFeatures();
+
+        return view('index', compact('services', 'products'));
     }
     public function privacy()
     {

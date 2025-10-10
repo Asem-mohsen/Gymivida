@@ -4217,3 +4217,314 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+/*--------------------------------------------------------------
+# Pricing Section
+--------------------------------------------------------------*/
+.pricing.section {
+  padding: 80px 0;
+}
+
+.pricing-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.pricing-toggle .toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 8px 20px;
+  background: var(--surface-color);
+  border-radius: 50px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pricing-toggle .toggle-label {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--heading-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.pricing-toggle .toggle-label .badge {
+  background: linear-gradient(135deg, #afafaf 0%, #000000 100%);
+  color: white;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 5px;
+  letter-spacing: 0.5px;
+}
+
+.pricing-toggle .toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 28px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pricing-toggle .toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pricing-toggle .toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 34px;
+}
+
+.pricing-toggle .toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+
+.pricing-toggle input:checked + .toggle-slider {
+  background-color: var(--accent-color);
+}
+
+.pricing-toggle input:checked + .toggle-slider:before {
+  transform: translateX(24px);
+}
+
+.pricing-card {
+  background: var(--surface-color);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+}
+
+.pricing-card.featured {
+  border: 2px solid var(--accent-color);
+  transform: scale(1.02);
+}
+
+.pricing-card.featured:hover {
+  transform: scale(1.03) translateY(-10px);
+}
+
+.pricing-card .featured-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #afafaf 0%, #000000 100%);
+  color: white;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.pricing-header h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--heading-color);
+}
+
+.pricing-header .pricing-description {
+  font-size: 14px;
+  color: var(--default-color);
+  line-height: 1.6;
+  margin-bottom: 25px;
+  min-height: 60px;
+}
+
+.pricing-price {
+  margin-bottom: 35px;
+  padding-bottom: 25px;
+  border-bottom: 2px solid color-mix(in srgb, var(--default-color), transparent 90%);
+}
+
+.pricing-price .price-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.pricing-price .currency {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--heading-color);
+  margin-right: 5px;
+}
+
+.pricing-price .amount {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--heading-color);
+  line-height: 1;
+}
+
+.pricing-price .period {
+  font-size: 16px;
+  color: var(--default-color);
+  margin-left: 8px;
+}
+
+.pricing-price .yearly-total {
+  text-align: center;
+  font-size: 14px;
+  color: var(--default-color);
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.pricing-features {
+  flex-grow: 1;
+  margin-bottom: 30px;
+}
+
+.pricing-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pricing-features ul li {
+  padding: 12px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--default-color);
+}
+
+.pricing-features ul li i {
+  color: #4CAF50;
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pricing-footer {
+  margin-top: auto;
+}
+
+.pricing-btn {
+  display: block;
+  width: 100%;
+  padding: 15px 30px;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  border: 2px solid var(--accent-color);
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricing-btn:hover {
+  background: transparent;
+  color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-btn.btn-featured {
+  border: 2px solid transparent;
+  color: white;
+}
+
+.pricing-btn.btn-featured:hover {
+  background: transparent;
+  border-color: #000000;
+  color: #000000;
+}
+
+.pricing-note {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  background: color-mix(in srgb, var(--accent-color), transparent 95%);
+  border-radius: 12px;
+}
+
+.pricing-note p {
+  margin: 0;
+  color: var(--default-color);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pricing-note i {
+  color: var(--accent-color);
+  font-size: 18px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+  .pricing-card.featured {
+    transform: scale(1);
+  }
+
+  .pricing-card.featured:hover {
+    transform: scale(1) translateY(-10px);
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing.section {
+    padding: 60px 0;
+  }
+
+  .pricing-card {
+    padding: 30px 20px;
+  }
+
+  .pricing-header h3 {
+    font-size: 24px;
+  }
+
+  .pricing-price .amount {
+    font-size: 42px;
+  }
+
+  .pricing-toggle .toggle-wrapper {
+    padding: 6px 15px;
+  }
+
+  .pricing-toggle .toggle-label {
+    font-size: 14px;
+  }
+}

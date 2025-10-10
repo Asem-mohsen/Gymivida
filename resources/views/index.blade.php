@@ -68,7 +68,7 @@
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <span class="subtitle">About</span>
-        <h2>About Us</h2>
+        <h2>About Gymivida</h2>
         <p>
           At Gymivida, we believe managing a gym should be as powerful and energizing as a great workout. Our mission is to simplify operations for fitness centers of all sizes — helping owners manage members, trainers, schedules, and finances from one smart, intuitive platform.
           We combine technology and fitness insight to help you focus on what truly matters — growing your business and empowering healthier lives.
@@ -152,149 +152,19 @@
 
         <div class="row gy-5">
 
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-graph-up"></i>
+          @foreach($services as $index => $service)
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 200 + ($index % 3) * 100 }}">
+              <div class="service-item">
+                <div class="service-icon">
+                  <i class="{{ $service->icon }}"></i>
+                </div>
+                <h3>{{ $service->title }}</h3>
+                <p>
+                  {{ $service->description }}
+                </p>
               </div>
-              <h3>Advanced Reporting</h3>
-              <p>
-                Get deep insights into performance, revenue, and member engagement through real-time, customizable reports that help you make smarter decisions.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-shield-lock"></i>
-              </div>
-              <h3>Authentication & Authorization</h3>
-              <p>
-                Manage secure access for owners, staff, trainers, and members with flexible, role-based permissions for total control and safety.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-brush"></i>
-              </div>
-              <h3>Branding & Customization</h3>
-              <p>
-                Personalize your gym dashboard with your own logo, colors, and brand identity for a consistent and premium digital presence.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-envelope-paper"></i>
-              </div>
-              <h3>Invitations Management</h3>
-              <p>
-                Invite staff, trainers, and members effortlessly with automated email or link-based invitations to simplify onboarding.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-credit-card"></i>
-              </div>
-              <h3>Memberships & Subscriptions</h3>
-              <p>
-                Manage flexible membership plans, renewals, and recurring payments with ease, boosting your retention and revenue.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-calendar-event"></i>
-              </div>
-              <h3>Classes & Gym Services</h3>
-              <p>
-                Create and manage fitness classes, personal training sessions, and gym services with simple scheduling tools for your team and clients.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-box"></i>
-              </div>
-              <h3>Locker Management (Coming Soon)</h3>
-              <p>
-                Assign, monitor, and control locker usage digitally for added convenience and security — a smarter way to manage member storage.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-qr-code-scan"></i>
-              </div>
-              <h3>Smart Check-In System</h3>
-              <p>
-                Simplify member entry with QR code or hardware-based check-ins, improving efficiency and delivering a seamless gym experience.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-star"></i>
-              </div>
-              <h3>Gym Scoring System</h3>
-              <p>
-                Rank and display gyms by area, city, and performance score — helping members find top-rated gyms and boosting visibility for high-performing ones.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="800">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-diagram-3"></i>
-              </div>
-              <h3>Branches Management</h3>
-              <p>
-                Manage multiple gym branches from one dashboard — unify reporting, memberships, and staff management across all your locations.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="900">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-person-badge"></i>
-              </div>
-              <h3>Staff & Trainers Management</h3>
-              <p>
-                Organize your team efficiently — manage staff roles, trainer schedules, and performance tracking all in one intuitive platform.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="1000">
-            <div class="service-item">
-              <div class="service-icon">
-                <i class="bi bi-cloud-upload"></i>
-              </div>
-              <h3>Data Importing</h3>
-              <p>
-                Seamlessly migrate your existing data from old systems into Gymivida’s CMS — quick, secure, and hassle-free setup with no downtime.
-              </p>
-            </div>
-          </div><!-- End Service Item -->
+            </div><!-- End Service Item -->
+          @endforeach
 
         </div>
       </div>
@@ -398,8 +268,98 @@
     </section>
     <!-- /Why Us Section -->
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio section">
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">Pricing</span>
+        <h2>Choose Your Plan</h2>
+        <p>
+          Flexible pricing options designed to fit gyms of all sizes — from boutique fitness studios to multi-branch chains. Start growing smarter today.
+        </p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- Billing Toggle -->
+        <div class="pricing-toggle" data-aos="fade-up" data-aos-delay="200">
+          <div class="toggle-wrapper">
+            <span class="toggle-label" id="monthlyLabel">Monthly</span>
+            <label class="toggle-switch">
+              <input type="checkbox" id="billingToggle">
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" id="yearlyLabel">Yearly <span class="badge">Save 17%</span></span>
+          </div>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="row gy-4 justify-content-center" data-aos="fade-up" data-aos-delay="300">
+
+          @foreach($products as $index => $product)
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 300 + ($index * 100) }}">
+              <div class="pricing-card {{ $product->name === 'Professional' ? 'featured' : '' }}">
+                
+                @if($product->name === 'Professional')
+                  <div class="featured-badge">Most Popular</div>
+                @endif
+
+                <div class="pricing-header">
+                  <h3>{{ $product->name }}</h3>
+                  <p class="pricing-description">{{ $product->description }}</p>
+                </div>
+
+                <div class="pricing-price">
+                  <div class="price-wrapper">
+                    <span class="currency">$</span>
+                    <span class="amount monthly-price">{{ number_format($product->monthly_price, 0) }}</span>
+                    <span class="amount yearly-price" style="display: none;">{{ number_format($product->yearly_price / 12, 0) }}</span>
+                    <span class="period">
+                      <span class="monthly-period">/month</span>
+                      <span class="yearly-period" style="display: none;">/month</span>
+                    </span>
+                  </div>
+                  <div class="yearly-total" style="display: none;">
+                    Billed ${{ number_format($product->yearly_price, 0) }} annually
+                  </div>
+                </div>
+
+                <div class="pricing-features">
+                  <ul>
+                    @foreach($product->features as $feature)
+                      <li>
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>{{ $feature->name }}</span>
+                      </li>
+                    @endforeach
+                  </ul>
+                </div>
+
+                <div class="pricing-footer">
+                  <a href="#contact" class="pricing-btn {{ $product->name === 'Professional' ? 'btn-featured' : '' }}">
+                    Get Started
+                  </a>
+                </div>
+
+              </div>
+            </div>
+          @endforeach
+
+        </div>
+
+        <!-- Pricing Note -->
+        <div class="pricing-note" data-aos="fade-up" data-aos-delay="600">
+          <p><i class="bi bi-info-circle"></i> All plans include free onboarding support and regular updates. Custom enterprise solutions available upon request.</p>
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Pricing Section -->
+
+    <!-- System Section -->
+    <section id="system" class="portfolio section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -600,7 +560,7 @@
       </div>
 
     </section>
-    <!-- /Portfolio Section -->
+    <!-- /System Section -->
 
     <!-- Team Section -->
     <section id="team" class="team section">
@@ -930,6 +890,57 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
+        
+        // Pricing Toggle Functionality
+        const billingToggle = document.getElementById('billingToggle');
+        const monthlyPrices = document.querySelectorAll('.monthly-price');
+        const yearlyPrices = document.querySelectorAll('.yearly-price');
+        const monthlyPeriods = document.querySelectorAll('.monthly-period');
+        const yearlyPeriods = document.querySelectorAll('.yearly-period');
+        const yearlyTotals = document.querySelectorAll('.yearly-total');
+        const monthlyLabel = document.getElementById('monthlyLabel');
+        const yearlyLabel = document.getElementById('yearlyLabel');
+
+        if (billingToggle) {
+            billingToggle.addEventListener('change', function() {
+                const isYearly = this.checked;
+                
+                monthlyPrices.forEach(price => {
+                    price.style.display = isYearly ? 'none' : 'inline';
+                });
+                
+                yearlyPrices.forEach(price => {
+                    price.style.display = isYearly ? 'inline' : 'none';
+                });
+                
+                monthlyPeriods.forEach(period => {
+                    period.style.display = isYearly ? 'none' : 'inline';
+                });
+                
+                yearlyPeriods.forEach(period => {
+                    period.style.display = isYearly ? 'inline' : 'none';
+                });
+                
+                yearlyTotals.forEach(total => {
+                    total.style.display = isYearly ? 'block' : 'none';
+                });
+
+                // Update label styling
+                if (isYearly) {
+                    monthlyLabel.style.opacity = '0.6';
+                    yearlyLabel.style.opacity = '1';
+                    yearlyLabel.style.fontWeight = '600';
+                    monthlyLabel.style.fontWeight = '400';
+                } else {
+                    monthlyLabel.style.opacity = '1';
+                    yearlyLabel.style.opacity = '0.6';
+                    monthlyLabel.style.fontWeight = '600';
+                    yearlyLabel.style.fontWeight = '400';
+                }
+            });
+        }
+
+
         const contactForm = document.getElementById('contactForm');
         const submitBtn = document.getElementById('submitBtn');
         const btnText = document.getElementById('btnText');
