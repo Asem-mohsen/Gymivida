@@ -544,6 +544,44 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# Contact Form Styles
+--------------------------------------------------------------*/
+.contact-form .form-group {
+  margin-bottom: 20px;
+}
+
+.contact-form .form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.2rem rgba(232, 69, 69, 0.15);
+}
+
+.contact-form .form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.contact-form .error-text {
+  display: block;
+  margin-top: 5px;
+  font-size: 13px;
+  color: #dc3545;
+}
+
+.submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/*--------------------------------------------------------------
 # Preloader
 --------------------------------------------------------------*/
 #preloader {
@@ -783,7 +821,7 @@ section,
 # Hero Section
 --------------------------------------------------------------*/
 .hero {
-  padding: 120px 0 100px;
+  padding: 60px 0 100px;
   position: relative;
   overflow: hidden;
 }
@@ -1173,11 +1211,13 @@ section,
 }
 
 .services .service-item {
-  padding: 60px 40px;
+  padding: 50px 30px;
   background-color: var(--surface-color);
   border-radius: 8px;
   transition: all 0.4s ease-in-out;
   height: 100%;
+  text-align: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   position: relative;

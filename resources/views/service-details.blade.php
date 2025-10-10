@@ -216,6 +216,7 @@
 
       </div>
 
-    </section><!-- /Service Details Section -->
+    </section>
+    <!-- /Service Details Section -->
 
 @endsection
