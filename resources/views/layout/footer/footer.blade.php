@@ -20,7 +20,7 @@
           <h4>Quick Links</h4>
           <ul>
             <li><a href="{{ route('home') }}">Home</a></li>
-            <li><a href="#about">About Us</a></li>
+            <li><a href="#pricing">Pricing</a></li>
             <li><a href="{{ route('terms') }}">Terms</a></li>
             <li><a href="{{ route('privacy') }}">Privacy</a></li>
             <li><a href="#contact">Contact</a></li>
