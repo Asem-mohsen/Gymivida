@@ -7,7 +7,6 @@ use App\Services\ServiceService;
 
 class HomeController extends Controller
 {
-
     public function __construct(
         protected ServiceService $serviceService,
         protected ProductService $productService

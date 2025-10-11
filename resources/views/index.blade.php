@@ -44,7 +44,7 @@
 
           <div class="col-lg-6">
             <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
-              <img src="{{ asset('assets/img/about/about-square-10.webp') }}" alt="Business Success" class="img-fluid">
+              <img src="{{ asset('assets/img/about/gymivida-about-2.png') }}" alt="Business Success" class="img-fluid">
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="600">
                 <div class="card-icon">
                   <i class="bi bi-graph-up-arrow"></i>
@@ -109,14 +109,14 @@
               </div>
 
               <div class="cta-section">
-                <a href="#" team="" class="btn-outline">Meet Our Team</a>
+                <a href="#team" class="btn-outline">Meet Our Team</a>
               </div>
             </div>
           </div>
 
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
             <div class="image-wrapper">
-              <img src="assets/img/about/about-square-12.webp" alt="About us" class="img-fluid">
+              <img src="{{ asset('assets/img/about/gymivida-about-women.png') }}" alt="About Gymivida" class="img-fluid">
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="500">
                 <div class="card-content">
                   <div class="icon">
@@ -196,7 +196,7 @@
           </div>
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
             <div class="image-wrapper">
-              <img src="assets/img/about/about-8.webp" alt="Gymivida platform dashboard" class="img-fluid">
+              <img src="{{ asset('assets/img/about/gymivida-about.png') }}" alt="Gymivida platform dashboard" class="img-fluid">
             </div>
           </div>
         </div>
