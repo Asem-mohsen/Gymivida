@@ -41,5 +41,45 @@ class ContactUsController extends Controller
             ], 500);
         }
     }
+
+    public function verifyToken(): JsonResponse
+    {
+        $token = request('token');
+        $email = request('email');
+
+        if (!$token) {
+            return response()->json([
+                'success' => false,
+                'valid' => false,
+                'message' => 'Token is required.',
+                'data' => null
+            ], 400);
+        }
+
+        try {
+            $result = $this->contactUsService->verifyRegistrationToken($token, $email);
+
+            return response()->json([
+                'success' => $result['valid'],
+                'valid' => $result['valid'],
+                'message' => $result['message'],
+                'data' => $result['data']
+            ], $result['valid'] ? 200 : 404);
+
+        } catch (\Exception $e) {
+            Log::error('Token verification failed', [
+                'token' => $token,
+                'email' => $email,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'valid' => false,
+                'message' => 'An error occurred while verifying the token.',
+                'data' => null
+            ], 500);
+        }
+    }
 }
 

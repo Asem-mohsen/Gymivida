@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Feature extends Model
 {
-    protected $fillable = ['name','description','is_active','is_core'];
+    protected $fillable = ['name', 'key', 'description', 'is_active', 'is_core', 'is_hidden'];
 
     public function products(): BelongsToMany
     {

@@ -14,10 +14,16 @@ class ContactUs extends Model
         'phone',
         'subject',
         'message',
+        'product_id',
+        'wants_registration_email',
+        'registration_token',
+        'registration_email_sent_at',
         'status',
     ];
 
     protected $casts = [
+        'wants_registration_email' => 'boolean',
+        'registration_email_sent_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -39,5 +45,13 @@ class ContactUs extends Model
             self::STATUS_IN_PROGRESS => 'In Progress',
             self::STATUS_RESOLVED => 'Resolved',
         ];
+    }
+
+    /**
+     * Get the product that the user is interested in.
+     */
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }

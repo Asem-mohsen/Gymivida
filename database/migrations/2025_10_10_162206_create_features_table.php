@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('features', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('key')->unique();
             $table->text('description')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_core')->default(false);
+            $table->boolean('is_hidden')->default(false);
             $table->timestamps();
         });
     }

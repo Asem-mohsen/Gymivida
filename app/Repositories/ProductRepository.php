@@ -14,5 +14,20 @@ class ProductRepository
             ->orderBy('monthly_price')
             ->get();
     }
+
+    public function getActiveProducts(): Collection
+    {
+        return Product::select(['id', 'name', 'monthly_price', 'yearly_price', 'currency'])
+            ->where('is_active', true)
+            ->orderBy('name')
+            ->get();
+    }
+
+    public function getActiveProductById(int $id): Product
+    {
+        return Product::whereId($id)->with('features')->select(['id', 'name', 'monthly_price', 'yearly_price', 'description', 'currency'])
+            ->where('is_active', true)
+            ->first();
+    }
 }
 

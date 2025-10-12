@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Home')
+@section('title', 'Gymivida')
 
 @section('body-class', 'home-page')
 
@@ -860,9 +860,28 @@
                 </div>
 
                 <div class="form-group">
+                  <label for="product_id">Interested Product (Optional)</label>
+                  <select name="product_id" id="product_id" class="form-control">
+                    <option value="">-- Select a Product --</option>
+                  </select>
+                  <span class="error-text text-danger" id="product_id-error"></span>
+                </div>
+
+                <div class="form-group">
                   <label for="message">Message <span class="text-danger">*</span></label>
                   <textarea name="message" id="message" class="form-control" rows="5" required></textarea>
                   <span class="error-text text-danger" id="message-error"></span>
+                </div>
+
+                <div class="form-group">
+                  <label class="custom-checkbox-container d-flex">
+                    <input type="checkbox" name="wants_registration_email" id="wants_registration_email" value="1">
+                    <span class="checkmark"></span>
+                    <span class="checkbox-content">
+                      <span class="checkbox-title">Send me a complete registration link</span>
+                      <span class="checkbox-description">I want to receive an email to set up my gym and complete the registration process</span>
+                    </span>
+                  </label>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
@@ -891,7 +910,8 @@
 
     document.addEventListener('DOMContentLoaded', function() {
         
-        // Pricing Toggle Functionality
+        loadProducts();
+        
         const billingToggle = document.getElementById('billingToggle');
         const monthlyPrices = document.querySelectorAll('.monthly-price');
         const yearlyPrices = document.querySelectorAll('.yearly-price');
@@ -1041,7 +1061,7 @@
         }
 
         // Clear error on input change
-        const formInputs = document.querySelectorAll('#contactForm input, #contactForm textarea');
+        const formInputs = document.querySelectorAll('#contactForm input, #contactForm textarea, #contactForm select');
         formInputs.forEach(input => {
             input.addEventListener('input', function() {
                 const errorElement = document.getElementById(`${this.id}-error`);
@@ -1051,6 +1071,32 @@
                 this.classList.remove('is-invalid');
             });
         });
+
+        function loadProducts() {
+            fetch('/api/v1/products', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success && data.data) {
+                    const productSelect = document.getElementById('product_id');
+                    if (productSelect) {
+                        data.data.forEach(product => {
+                            const option = document.createElement('option');
+                            option.value = product.id;
+                            option.textContent = product.name;
+                            productSelect.appendChild(option);
+                        });
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error loading products:', error);
+            });
+        }
     });
 </script>
 @endsection

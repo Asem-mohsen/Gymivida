@@ -13,12 +13,16 @@ return new class extends Migration
     {
         Schema::create('contact_us', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
             $table->string('name');
             $table->string('email');
             $table->string('phone')->nullable();
             $table->string('subject')->nullable();
             $table->text('message');
-            $table->string('status')->default('new'); // new, in_progress, resolved
+            $table->boolean('wants_registration_email')->default(false);
+            $table->string('registration_token')->nullable();
+            $table->timestamp('registration_email_sent_at')->nullable();
+            $table->string('status')->default('new');
             $table->timestamps();
         });
     }

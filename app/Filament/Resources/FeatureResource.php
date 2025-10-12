@@ -27,9 +27,32 @@ class FeatureResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function ($state, Forms\Set $set) {
+                        // Auto-generate key from name
+                        $key = strtolower(str_replace(['&', ' '], ['', '_'], $state));
+                        $key = preg_replace('/_+/', '_', $key); // Remove duplicate underscores
+                        $set('key', $key);
+                    }),
+                Forms\Components\TextInput::make('key')
+                    ->required()
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true)
+                    ->helperText('Unique identifier (auto-generated from name)'),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
+                Forms\Components\Toggle::make('is_active')
+                    ->label('Active')
+                    ->default(true),
+                Forms\Components\Toggle::make('is_core')
+                    ->label('Core Feature')
+                    ->helperText('Core features are available in all products by default')
+                    ->default(false),
+                Forms\Components\Toggle::make('is_hidden')
+                    ->label('Hidden')
+                    ->helperText('Hidden features won\'t be shown in the frontend but are still available')
+                    ->default(false),
             ]);
     }
 
@@ -38,13 +61,33 @@ class FeatureResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('key')
+                    ->searchable()
+                    ->sortable()
+                    ->copyable()
+                    ->badge()
+                    ->color('info'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(50)
                     ->searchable(),
+                Tables\Columns\IconColumn::make('is_core')
+                    ->label('Core')
+                    ->boolean()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_hidden')
+                    ->label('Hidden')
+                    ->boolean()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label('Active')
+                    ->boolean()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('products_count')
                     ->counts('products')
-                    ->label('Products'),
+                    ->label('Products')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -55,7 +98,12 @@ class FeatureResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\TernaryFilter::make('is_core')
+                    ->label('Core Features'),
+                Tables\Filters\TernaryFilter::make('is_hidden')
+                    ->label('Hidden Features'),
+                Tables\Filters\TernaryFilter::make('is_active')
+                    ->label('Active'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

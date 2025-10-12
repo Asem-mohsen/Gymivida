@@ -56,6 +56,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Registration Form Endpoint
+    |--------------------------------------------------------------------------
+    |
+    | This URL is used to generate the complete registration link that will be
+    | sent to users via email. This should point to your external registration
+    | form where users can complete their gym registration.
+    |
+    */
+
+    'registration_form_endpoint' => env('REGISTRATION_FORM_ENDPOINT', 'https://gymivida.com/register'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Timezone
     |--------------------------------------------------------------------------
     |
