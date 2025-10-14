@@ -290,7 +290,7 @@
               <input type="checkbox" id="billingToggle">
               <span class="toggle-slider"></span>
             </label>
-            <span class="toggle-label" id="yearlyLabel">Yearly <span class="badge">Save 17%</span></span>
+            <span class="toggle-label" id="yearlyLabel">Yearly <span class="badge">Save {{ $averageDiscount ?? 17 }}%</span></span>
           </div>
         </div>
 
@@ -312,7 +312,7 @@
 
                 <div class="pricing-price">
                   <div class="price-wrapper">
-                    <span class="currency">$</span>
+                    <span class="currency">{{ $product->currency }}</span>
                     <span class="amount monthly-price">{{ number_format($product->monthly_price, 0) }}</span>
                     <span class="amount yearly-price" style="display: none;">{{ number_format($product->yearly_price / 12, 0) }}</span>
                     <span class="period">
@@ -321,7 +321,7 @@
                     </span>
                   </div>
                   <div class="yearly-total" style="display: none;">
-                    Billed ${{ number_format($product->yearly_price, 0) }} annually
+                    Billed {{ $product->currency . number_format($product->yearly_price, 0) }} annually
                   </div>
                 </div>
 

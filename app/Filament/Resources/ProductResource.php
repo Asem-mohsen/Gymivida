@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class ProductResource extends Resource
 {
@@ -50,6 +51,17 @@ class ProductResource extends Resource
                             ->minValue(0),
                     ])
                     ->columns(2),
+                Forms\Components\Section::make('Features')
+                    ->schema([
+                        Forms\Components\Select::make('feature_ids')
+                            ->label('Attach Features')
+                            ->relationship('features', 'name')
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->helperText('Select multiple features to attach to this product. Features will be ordered automatically.'),
+                    ])
+                    ->collapsible(),
                 Forms\Components\Section::make('Status')
                     ->schema([
                         Forms\Components\Toggle::make('is_active')

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ProductResource\RelationManagers;
 
+use App\Models\Feature;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -9,6 +10,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\DB;
 
 class FeaturesRelationManager extends RelationManager
 {
@@ -23,10 +25,6 @@ class FeaturesRelationManager extends RelationManager
                     ->maxLength(255),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
-                Forms\Components\Toggle::make('is_core')
-                    ->label('Core Feature')
-                    ->helperText('Is this a core feature for this product?')
-                    ->default(false),
                 Forms\Components\TextInput::make('order')
                     ->label('Display Order')
                     ->numeric()
@@ -61,22 +59,6 @@ class FeaturesRelationManager extends RelationManager
                     ->falseLabel('Non-core features only')
                     ->native(false),
             ])
-            ->headerActions([
-                Tables\Actions\AttachAction::make()
-                    ->preloadRecordSelect()
-                    ->form(fn (Tables\Actions\AttachAction $action): array => [
-                        $action->getRecordSelect(),
-                        Forms\Components\Toggle::make('is_core')
-                            ->label('Core Feature')
-                            ->default(false),
-                        Forms\Components\TextInput::make('order')
-                            ->label('Display Order')
-                            ->numeric()
-                            ->default(0)
-                            ->minValue(0),
-                    ]),
-                Tables\Actions\CreateAction::make(),
-            ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DetachAction::make(),
@@ -88,6 +70,8 @@ class FeaturesRelationManager extends RelationManager
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultSort('order');
+            ->reorderable('order')
+            ->defaultSort('order')
+            ->selectCurrentPageOnly(false);
     }
 }
