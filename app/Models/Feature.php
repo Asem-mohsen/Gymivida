@@ -11,6 +11,6 @@ class Feature extends Model
 
     public function products(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class)->withPivot('order')->withTimestamps()->orderByPivot('order');
+        return $this->belongsToMany(Product::class)->withPivot(['order', 'limit'])->withTimestamps()->orderByPivot('order');
     }
 }

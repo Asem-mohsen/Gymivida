@@ -149,23 +149,49 @@
       </div><!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="services-slider swiper init-swiper" data-aos="fade-up" data-aos-delay="150">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 4000
+              },
+              "slidesPerView": 3,
+              "spaceBetween": 30,
+              "navigation": {
+                "nextEl": ".swiper-button-next",
+                "prevEl": ".swiper-button-prev"
+              },
+              "breakpoints": {
+                "768": {
+                  "slidesPerView": 2
+                },
+                "1200": {
+                  "slidesPerView": 3
+                }
+              }
+            }
+          </script>
 
-        <div class="row gy-5">
-
-          @foreach($services as $index => $service)
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 200 + ($index % 3) * 100 }}">
-              <div class="service-item">
-                <div class="service-icon">
-                  <i class="{{ $service->icon }}"></i>
+          <div class="swiper-wrapper">
+            @foreach($services as $index => $service)
+              <div class="swiper-slide" data-aos="fade-up" data-aos-delay="{{ 200 + ($index % 3) * 100 }}">
+                <div class="service-item">
+                  <div class="service-icon">
+                    <i class="{{ $service->icon }}"></i>
+                  </div>
+                  <h3>{{ $service->title }}</h3>
+                  <p>{{ $service->description }}</p>
                 </div>
-                <h3>{{ $service->title }}</h3>
-                <p>
-                  {{ $service->description }}
-                </p>
               </div>
-            </div><!-- End Service Item -->
-          @endforeach
+            @endforeach
+          </div>
 
+          <div class="swiper-navigation">
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
         </div>
       </div>
     </section>
@@ -323,6 +349,14 @@
                   <div class="yearly-total" style="display: none;">
                     Billed {{ $product->currency . number_format($product->yearly_price, 0) }} annually
                   </div>
+                  @if($product->trial_period_days > 0)
+                    <div class="trial-period">
+                      <span class="trial-badge">
+                        <i class="bi bi-gift"></i>
+                        {{ $product->trial_period_days }} days free trial
+                      </span>
+                    </div>
+                  @endif
                 </div>
 
                 <div class="pricing-features">
@@ -389,10 +423,10 @@
                 <div class="row g-4">
                   <div class="col-md-6">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/dashboard.webp') }}" alt="Gymivida Dashboard" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/dashboard/dashboard-1.png') }}" alt="Gymivida Dashboard" class="img-fluid" loading="lazy">
                       <div class="project-overlay">
                         <div class="overlay-content">
-                          <a href="{{ asset('assets/img/portfolio/dashboard.webp') }}" class="view-project glightbox" aria-label="View project image">
+                          <a href="{{ asset('assets/img/portfolio/dashboard/dashboard-1.png') }}" class="view-project glightbox" aria-label="View project image">
                             <i class="bi bi-eye"></i>
                           </a>
                         </div>
@@ -426,7 +460,33 @@
                 <div class="row g-4">
                   <div class="col-md-6 order-md-2">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/memberships.webp') }}" alt="Membership Management" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/memberships/membership-1.png') }}" alt="Membership Management" class="img-fluid" loading="lazy">
+                    </div>
+                  </div>
+                  <div class="col-md-6 order-md-1">
+                    <div class="project-details">
+                      <div class="project-header">
+                        <span class="project-category">Membership</span>
+                        <time class="project-year">2025</time>
+                      </div>
+                      <h3 class="project-title">Membership & Subscription Management</h3>
+                      <p class="project-description">Easily manage active memberships, renewals, freeze requests, and payment tracking — all integrated with your billing system for a seamless experience.</p>
+                      <div class="project-meta">
+                        <div class="project-scope">
+                          <span class="scope-item">Auto Renewal</span>
+                          <span class="scope-item">Payment Tracking</span>
+                          <span class="scope-item">Freeze / Resume</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </article>
+              <article class="portfolio-card">
+                <div class="row g-4">
+                  <div class="col-md-6 order-md-2">
+                    <div class="project-visual">
+                      <img src="{{ asset('assets/img/portfolio/memberships/membership-2.png') }}" alt="Membership Management" class="img-fluid" loading="lazy">
                     </div>
                   </div>
                   <div class="col-md-6 order-md-1">

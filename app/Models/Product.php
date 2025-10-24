@@ -12,19 +12,21 @@ class Product extends Model
         'description',
         'monthly_price',
         'yearly_price',
+        'trial_period_days',
         'is_active',
     ];
 
     protected $casts = [
         'monthly_price' => 'decimal:2',
         'yearly_price' => 'decimal:2',
+        'trial_period_days' => 'integer',
         'is_active' => 'boolean',
     ];
 
 
     public function features(): BelongsToMany
     {
-        return $this->belongsToMany(Feature::class)->withPivot('order')->withTimestamps()->orderByPivot('order');
+        return $this->belongsToMany(Feature::class)->withPivot(['order', 'limit'])->withTimestamps()->orderByPivot('order');
     }
 
 }

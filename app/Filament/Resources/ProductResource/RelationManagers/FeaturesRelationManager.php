@@ -30,6 +30,13 @@ class FeaturesRelationManager extends RelationManager
                     ->numeric()
                     ->default(0)
                     ->minValue(0),
+                Forms\Components\TextInput::make('limit')
+                    ->label('Feature Limit')
+                    ->numeric()
+                    ->nullable()
+                    ->minValue(1)
+                    ->helperText('Leave empty for unlimited usage')
+                    ->placeholder('e.g., 2 for Starter plan'),
             ]);
     }
 
@@ -49,6 +56,12 @@ class FeaturesRelationManager extends RelationManager
                     ->sortable(),
                 Tables\Columns\TextColumn::make('order')
                     ->label('Order')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('limit')
+                    ->label('Limit')
+                    ->formatStateUsing(fn ($state) => $state ? $state : 'Unlimited')
+                    ->badge()
+                    ->color(fn ($state) => $state ? 'warning' : 'success')
                     ->sortable(),
             ])
             ->filters([

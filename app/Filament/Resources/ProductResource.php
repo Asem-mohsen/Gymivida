@@ -49,6 +49,15 @@ class ProductResource extends Resource
                             ->prefix('$')
                             ->step(0.01)
                             ->minValue(0),
+                        Forms\Components\TextInput::make('trial_period_days')
+                            ->label('Free Trial Period (Days)')
+                            ->required()
+                            ->numeric()
+                            ->default(30)
+                            ->minValue(0)
+                            ->maxValue(365)
+                            ->suffix('days')
+                            ->helperText('Number of free trial days for new customers'),
                     ])
                     ->columns(2),
                 Forms\Components\Section::make('Features')
@@ -88,6 +97,12 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('yearly_price')
                     ->money('USD')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('trial_period_days')
+                    ->label('Free Trial')
+                    ->suffix(' days')
+                    ->sortable()
+                    ->badge()
+                    ->color('success'),
                 Tables\Columns\TextColumn::make('features_count')
                     ->counts('features')
                     ->label('Features'),

@@ -17,7 +17,7 @@ class ProductRepository
 
     public function getActiveProducts(): Collection
     {
-        return Product::select(['id', 'name', 'monthly_price', 'yearly_price', 'currency'])
+        return Product::select(['id', 'name', 'monthly_price', 'yearly_price', 'trial_period_days', 'currency'])
             ->where('is_active', true)
             ->orderBy('name')
             ->get();
@@ -25,7 +25,7 @@ class ProductRepository
 
     public function getActiveProductById(int $id): Product
     {
-        return Product::whereId($id)->with('features')->select(['id', 'name', 'monthly_price', 'yearly_price', 'description', 'currency'])
+        return Product::whereId($id)->with('features')->select(['id', 'name', 'monthly_price', 'yearly_price', 'trial_period_days', 'description', 'currency'])
             ->where('is_active', true)
             ->first();
     }

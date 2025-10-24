@@ -29,6 +29,7 @@ class ProductService
                 'name' => $product->name,
                 'monthly_price' => $product->monthly_price,
                 'yearly_price' => $product->yearly_price,
+                'trial_period_days' => $product->trial_period_days,
                 'currency' => $product->currency,
             ];
         })->toArray();

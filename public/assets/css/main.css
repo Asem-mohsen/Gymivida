@@ -1569,7 +1569,7 @@ section,
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(54, 144, 231, 0.85), rgba(54, 144, 231, 0.75));
+  background: linear-gradient(135deg, rgb(30 36 38 / 85%), rgb(0 0 0 / 75%));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2061,7 +2061,9 @@ section,
   transition: all 0.3s ease;
 }
 
-.testimonials .swiper-navigation {
+.testimonials .swiper-navigation,
+.services-slider .swiper-navigation
+{
   position: relative;
   margin-top: 25px;
   display: flex;
@@ -2069,7 +2071,10 @@ section,
 }
 
 .testimonials .swiper-button-prev,
-.testimonials .swiper-button-next {
+.testimonials .swiper-button-next, 
+.services-slider .swiper-button-prev,
+.services-slider .swiper-button-next
+{
   position: static;
   width: 45px;
   height: 45px;
@@ -2086,24 +2091,34 @@ section,
 }
 
 .testimonials .swiper-button-prev:hover,
-.testimonials .swiper-button-next:hover {
+.testimonials .swiper-button-next:hover,
+.services-slider .swiper-button-prev:hover,
+.services-slider .swiper-button-next:hover
+{
   background: color-mix(in srgb, var(--accent-color), var(--heading-color) 20%);
   transform: scale(1.05);
 }
 
 .testimonials .swiper-button-prev::after,
-.testimonials .swiper-button-next::after {
+.testimonials .swiper-button-next::after,
+.services-slider .swiper-button-prev::after,
+.services-slider .swiper-button-next::after
+{
   font-size: 16px;
   font-weight: 600;
 }
 
-.testimonials .swiper-pagination {
+.testimonials .swiper-pagination ,
+.services-slider .swiper-pagination
+{
   position: static;
   margin-top: 30px;
   text-align: center;
 }
 
-.testimonials .swiper-pagination .swiper-pagination-bullet {
+.testimonials .swiper-pagination .swiper-pagination-bullet 
+.services-slider .swiper-pagination .swiper-pagination-bullet
+{
   width: 12px;
   height: 12px;
   background: color-mix(in srgb, var(--default-color), transparent 70%);
@@ -2112,7 +2127,9 @@ section,
   transition: all 0.3s ease;
 }
 
-.testimonials .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.testimonials .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active 
+.services-slider .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active
+{
   background: var(--accent-color);
   transform: scale(1.2);
 }
@@ -2181,14 +2198,20 @@ section,
   }
 
   .testimonials .swiper-button-prev,
-  .testimonials .swiper-button-next {
+  .testimonials .swiper-button-next,
+  .services-slider .swiper-button-prev,
+  .services-slider .swiper-button-next
+{
     width: 40px;
     height: 40px;
     font-size: 14px;
   }
 
   .testimonials .swiper-button-prev::after,
-  .testimonials .swiper-button-next::after {
+  .testimonials .swiper-button-next::after,
+  .services-slider .swiper-button-prev::after,
+  .services-slider .swiper-button-next::after
+  {
     font-size: 14px;
   }
 }
@@ -2227,7 +2250,9 @@ section,
     font-size: 1.2rem;
   }
 
-  .testimonials .swiper-navigation {
+  .testimonials .swiper-navigation,
+  .services-slider .swiper-navigation
+  {
     margin-top: 10px;
   }
 }
@@ -3380,6 +3405,11 @@ section,
 .service-details .service-sidebar .contact-info .contact-item div span {
   color: color-mix(in srgb, var(--default-color), transparent 25%);
   font-size: 0.95rem;
+}
+
+@media (min-width: 768px) {
+  #system .filter-membership article:nth-of-type(even) .order-md-2 { order: 0 !important; }
+  #system .filter-membership article:nth-of-type(even) .order-md-1 { order: 1 !important; }
 }
 
 @media (max-width: 768px) {
@@ -4614,6 +4644,42 @@ section,
 .pricing-note i {
   color: var(--accent-color);
   font-size: 18px;
+}
+
+/* Trial Period Styles */
+.trial-period {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.trial-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.trial-badge i {
+  font-size: 16px;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.5);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+  }
 }
 
 /* Responsive Styles */

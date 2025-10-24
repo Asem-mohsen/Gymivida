@@ -33,6 +33,8 @@ class FeatureSeeder extends Seeder
             ['name' => 'Cash Payment Management', 'description' => 'Manage your gym\'s cash payments', 'is_active' => true, 'is_core' => true, 'is_hidden' => true],
             ['name' => 'Resources Management', 'description' => 'Manage your resources', 'is_active' => true, 'is_core' => true, 'is_hidden' => true],
             ['name' => 'Subscription Management', 'description' => 'Manage the gym memberships and subscriptions', 'is_active' => true, 'is_core' => true, 'is_hidden' => true],
+            ['name' => 'Membership Features Management', 'description' => 'Manage the gym memberships and subscriptions', 'is_active' => true, 'is_core' => true, 'is_hidden' => true],
+            ['name' => 'Staff Invitation Management', 'description' => 'Manage the staff invitations', 'is_active' => true, 'is_core' => true, 'is_hidden' => true],
             
             // Advanced Features
             ['name' => 'Multi-Branch Management', 'description' => 'Manage multiple locations from one dashboard', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
