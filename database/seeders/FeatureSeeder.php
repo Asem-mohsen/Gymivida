@@ -50,6 +50,7 @@ class FeatureSeeder extends Seeder
             ['name' => 'Mobile Application', 'description' => 'Get your mobile application', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'AI Chatbot', 'description' => 'Get your AI chatbot', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Blog Management', 'description' => 'Manage your blog', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
+            ['name' => 'Machine Management', 'description' => 'Manage your machines', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
         ];
 
         foreach ($features as $feature) {
