@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('monthly_price', 10, 2);
             $table->decimal('yearly_price', 10, 2);
-            $table->boolean('currency')->default('EGP');
+            $table->string('currency')->default('EGP');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
