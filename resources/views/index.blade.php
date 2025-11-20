@@ -920,9 +920,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="product_id">Interested Product (Optional)</label>
+                  <label for="product_id">Interested Subscription Plan (Optional)</label>
                   <select name="product_id" id="product_id" class="form-control">
-                    <option value="">-- Select a Product --</option>
+                    <option value="">-- Select a Subscription Plan --</option>
                   </select>
                   <span class="error-text text-danger" id="product_id-error"></span>
                 </div>

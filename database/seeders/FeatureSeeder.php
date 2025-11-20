@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Feature;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class FeatureSeeder extends Seeder
@@ -39,7 +38,6 @@ class FeatureSeeder extends Seeder
             // Advanced Features
             ['name' => 'Multi-Branch Management', 'description' => 'Manage multiple locations from one dashboard', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Different Payment Gateway Integration', 'description' => 'Automated billing and recurring payments', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
-            ['name' => 'Member Mobile App', 'description' => 'Dedicated mobile app for members', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Priority Support', 'description' => 'Phone and chat support with faster response', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Data Import Tool', 'description' => 'Migrate data from existing systems', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Locker Management', 'description' => 'Digital locker assignment and tracking', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
@@ -51,6 +49,8 @@ class FeatureSeeder extends Seeder
             ['name' => 'AI Chatbot', 'description' => 'Get your AI chatbot', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Blog Management', 'description' => 'Manage your blog', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
             ['name' => 'Machine Management', 'description' => 'Manage your machines', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
+            ['name' => 'Weekly Performance Report', 'description' => 'Get weekly performance reports', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
+            ['name' => 'Expense Management', 'description' => 'Manage your expenses', 'is_active' => true, 'is_core' => false, 'is_hidden' => false],
         ];
 
         foreach ($features as $feature) {
