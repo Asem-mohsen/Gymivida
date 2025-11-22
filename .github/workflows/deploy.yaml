@@ -11,22 +11,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Install SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
-        chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan -H ${{ secrets.PROD_HOST }} >> ~/.ssh/known_hosts
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H ${{ secrets.PROD_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Deploy to Production
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production'
-      run: |
-        ssh ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} "
-          cd ${{ secrets.PROD_PATH }} && \
-          git pull && \
-          composer install --no-dev && \
+      - name: Deploy to Server
+        run: |
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << 'EOF'
+          cd ${{ secrets.PROD_PATH }} || exit
+          git pull origin main
+          composer install --no-dev --optimize-autoloader
+          php artisan migrate --force
+          php artisan optimize:clear
           php artisan optimize
-        "
+          EOF
