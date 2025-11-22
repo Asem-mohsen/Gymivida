@@ -23,10 +23,10 @@ jobs:
 
       - name: Test SSH connection
         run: ssh -i ~/.ssh/id_ed25519 root@${{ secrets.PROD_HOST }} "echo Connected!"
-        
+
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/github_actions_key ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << 'EOF'
+          ssh -i ~/.ssh/id_ed25519 ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << 'EOF'
             cd /home/gymivida/htdocs/gymivida.cloud || exit
             git pull origin main
             composer install --no-dev --optimize-autoloader
