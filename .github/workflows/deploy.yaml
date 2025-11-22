@@ -28,6 +28,5 @@ jobs:
           cd ${{ secrets.PROD_PATH }} && \
           git pull && \
           composer install --no-dev && \
-          php artisan optimize && \
-          php artisan migrate --force
+          php artisan optimize
         "
