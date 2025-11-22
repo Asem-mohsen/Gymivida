@@ -21,6 +21,9 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.PROD_HOST }} >> ~/.ssh/known_hosts
 
+      - name: Test SSH connection
+        run: ssh -i ~/.ssh/id_ed25519 root@${{ secrets.PROD_HOST }} "echo Connected!"
+        
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/github_actions_key ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << 'EOF'
