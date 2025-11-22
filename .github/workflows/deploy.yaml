@@ -3,7 +3,7 @@ name: Auto Deploy
 on:
   push:
     branches:
-      - dev
+      - main
       - production
 
 jobs:
@@ -19,15 +19,15 @@ jobs:
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
         chmod 600 ~/.ssh/id_ed25519
-        ssh-keyscan -H ${{ secrets.DEV_HOST }} >> ~/.ssh/known_hosts
         ssh-keyscan -H ${{ secrets.PROD_HOST }} >> ~/.ssh/known_hosts
 
-    - name: Deploy to DEV
-      if: github.ref == 'refs/heads/dev'
+    - name: Deploy to Production
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/production'
       run: |
-        ssh ${{ secrets.DEV_USER }}@${{ secrets.DEV_HOST }} "cd ${{ secrets.DEV_PATH }} && git pull && composer install && php artisan optimize && php artisan migrate --force"
-
-    - name: Deploy to PROD
-      if: github.ref == 'refs/heads/production'
-      run: |
-        ssh ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} "cd ${{ secrets.PROD_PATH }} && git pull && composer install --no-dev && php artisan optimize && php artisan migrate --force"
+        ssh ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} "
+          cd ${{ secrets.PROD_PATH }} && \
+          git pull && \
+          composer install --no-dev && \
+          php artisan optimize && \
+          php artisan migrate --force
+        "
