@@ -24,6 +24,7 @@ jobs:
       - name: Deploy to server
         run: |
           ssh -i ~/.ssh/id_ed25519 ${{ secrets.PROD_USER }}@${{ secrets.PROD_HOST }} << EOF
+          git config --global --add safe.directory ${{ secrets.PROD_PATH }}
           cd "${{ secrets.PROD_PATH }}" || exit
           git pull origin main
           composer install --no-dev --optimize-autoloader
