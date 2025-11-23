@@ -585,7 +585,7 @@
               <a href="#contact" class="primary-action">
                 Book a Demo <i class="bi bi-arrow-right"></i>
               </a>
-              <a href="https://gymivida.com" class="secondary-action" target="_blank">
+              <a href="{{ config('app.gymivida_website') }}" class="secondary-action" target="_blank">
                 Explore Gymivida Website
               </a>
             </div>
