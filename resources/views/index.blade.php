@@ -423,10 +423,10 @@
                 <div class="row g-4">
                   <div class="col-md-6">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/dashboard/dashboard-1.png') }}" alt="Gymivida Dashboard" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/dashboard/dashboard-stat.png') }}" alt="Gymivida Dashboard" class="img-fluid" loading="lazy">
                       <div class="project-overlay">
                         <div class="overlay-content">
-                          <a href="{{ asset('assets/img/portfolio/dashboard/dashboard-1.png') }}" class="view-project glightbox" aria-label="View project image">
+                          <a href="{{ asset('assets/img/portfolio/dashboard/dashboard-stat.png') }}" class="view-project glightbox" aria-label="View project image">
                             <i class="bi bi-eye"></i>
                           </a>
                         </div>
@@ -460,33 +460,7 @@
                 <div class="row g-4">
                   <div class="col-md-6 order-md-2">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/memberships/membership-1.png') }}" alt="Membership Management" class="img-fluid" loading="lazy">
-                    </div>
-                  </div>
-                  <div class="col-md-6 order-md-1">
-                    <div class="project-details">
-                      <div class="project-header">
-                        <span class="project-category">Membership</span>
-                        <time class="project-year">2025</time>
-                      </div>
-                      <h3 class="project-title">Membership & Subscription Management</h3>
-                      <p class="project-description">Easily manage active memberships, renewals, freeze requests, and payment tracking — all integrated with your billing system for a seamless experience.</p>
-                      <div class="project-meta">
-                        <div class="project-scope">
-                          <span class="scope-item">Auto Renewal</span>
-                          <span class="scope-item">Payment Tracking</span>
-                          <span class="scope-item">Freeze / Resume</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </article>
-              <article class="portfolio-card">
-                <div class="row g-4">
-                  <div class="col-md-6 order-md-2">
-                    <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/memberships/membership-2.png') }}" alt="Membership Management" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/memberships/membership-stats.png') }}" alt="Membership Management" class="img-fluid" loading="lazy">
                     </div>
                   </div>
                   <div class="col-md-6 order-md-1">
@@ -516,7 +490,7 @@
                 <div class="row g-4">
                   <div class="col-md-6">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/trainers.webp') }}" alt="Trainer Scheduling" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/staff/staff-stats.png') }}" alt="Trainer Scheduling" class="img-fluid" loading="lazy">
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -546,7 +520,7 @@
                 <div class="row g-4">
                   <div class="col-md-6 order-md-2">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/reports.webp') }}" alt="Analytics Reports" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/dashboard/dashboard-stat.png') }}" alt="Analytics Reports" class="img-fluid" loading="lazy">
                     </div>
                   </div>
                   <div class="col-md-6 order-md-1">
@@ -576,7 +550,7 @@
                 <div class="row g-4">
                   <div class="col-md-6">
                     <div class="project-visual">
-                      <img src="{{ asset('assets/img/portfolio/branches.webp') }}" alt="Branch Management" class="img-fluid" loading="lazy">
+                      <img src="{{ asset('assets/img/portfolio/branches/multi-branch.png') }}" alt="Branch Management" class="img-fluid" loading="lazy">
                     </div>
                   </div>
                   <div class="col-md-6">
@@ -646,10 +620,11 @@
                 <span>Founder & Chief Executive Officer</span>
                 <p>A passionate developer and system architect dedicated to transforming how gyms operate through smart technology. With a deep focus on performance, automation, and scalability.</p>
                 <div class="social">
-                  <a href="https://www.instagram.com/assem__mohsen/" target="_blank"><i class="bi bi-instagram"></i></a>
+                  {{-- <a href="https://www.instagram.com/assem__mohsen/" target="_blank"><i class="bi bi-instagram"></i></a> --}}
                   <a href="https://www.linkedin.com/in/assem-m-89a61414b/" target="_blank"><i class="bi bi-linkedin"></i></a>
-                  <a href=https://www.facebook.com/asem.semsm" target="_blank"><i class="bi bi-facebook"></i></a>
+                  {{-- <a href=https://www.facebook.com/asem.semsm" target="_blank"><i class="bi bi-facebook"></i></a> --}}
                   <a href="https://github.com/Asem-mohsen" target="_blank"><i class="bi bi-github"></i></a>
+                  <a href="mailto:asemmohsen911@gmail.com" target="_blank"><i class="bi bi-envelope"></i></a>
                 </div>
               </div>
             </div>
@@ -663,7 +638,7 @@
     <!-- /Team Section -->
 
     <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials section">
+    {{-- <section id="testimonials" class="testimonials section">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -813,7 +788,7 @@
 
       </div>
 
-    </section>
+    </section> --}}
     <!-- /Testimonials Section -->
 
     <!-- Contact Section -->
