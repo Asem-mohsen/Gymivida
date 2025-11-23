@@ -822,7 +822,7 @@
                 </div>
                 <div class="detail-content">
                   <span class="detail-label">Email Us</span>
-                  <span class="detail-value">support@gymivida.com</span>
+                  <span class="detail-value">{{ config('app.gymivida_email') }}</span>
                 </div>
               </div>
 
@@ -832,7 +832,7 @@
                 </div>
                 <div class="detail-content">
                   <span class="detail-label">Call Us</span>
-                  <span class="detail-value">+20 111 234 5678</span>
+                  <span class="detail-value">{{ config('app.gymivida_phone') }}</span>
                 </div>
               </div>
 

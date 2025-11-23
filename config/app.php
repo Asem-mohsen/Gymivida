@@ -54,6 +54,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
     'gymivida_website' => env('GIMIVIDA_WEBSITE', 'https://gymivida.cloud'),
+    'gymivida_phone' => env('GIMIVIDA_PHONE', '+201152992719'),
+    'gymivida_email' => env('GIMIVIDA_EMAIL', 'support@gymivida.cloud'),
 
     /*
     |--------------------------------------------------------------------------
