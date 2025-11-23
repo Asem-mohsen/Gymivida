@@ -42,8 +42,8 @@
           <h4>Contact Us</h4>
           <p>Smart City Business District</p>
           <p>Cairo, Egypt</p>
-          <p class="mt-4"><strong>Phone:</strong> <span>+20 101 234 5678</span></p>
-          <p><strong>Email:</strong> <span>support@gymivida.com</span></p>
+          <p class="mt-4"><strong>Phone:</strong> <span>{{ config('app.gymivida_phone') }}</span></p>
+          <p><strong>Email:</strong> <span>{{ config('app.gymivida_email') }}</span></p>
         </div>
   
       </div>
