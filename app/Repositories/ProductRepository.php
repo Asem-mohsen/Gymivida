@@ -9,7 +9,16 @@ class ProductRepository
 {
     public function getAllActiveWithFeatures(): Collection
     {
-        return Product::with('features')
+        return Product::select([
+                'id',
+                'name',
+                'description',
+                'monthly_price',
+                'yearly_price',
+                'trial_period_days',
+                'currency',
+            ])
+            ->with(['features:id,name,description'])
             ->where('is_active', true)
             ->orderBy('monthly_price')
             ->get();

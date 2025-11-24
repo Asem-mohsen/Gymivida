@@ -59,7 +59,18 @@
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Preloader -->
-  <div id="preloader"></div>
+  <div id="preloader" aria-label="Loading Gymivida">
+    <div class="preloader-logo">
+      <span>G</span>
+      <span>Y</span>
+      <span>M</span>
+      <span>I</span>
+      <span>V</span>
+      <span>I</span>
+      <span>D</span>
+      <span>A</span>
+    </div>
+  </div>
 
   <!-- Vendor JS Files -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

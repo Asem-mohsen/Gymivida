@@ -392,6 +392,75 @@
     </section>
     <!-- /Pricing Section -->
 
+    <!-- Pricing Comparison -->
+    <section id="pricing-compare" class="pricing-compare section">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <span class="subtitle">Compare Plans</span>
+          <h2>Feature Breakdown</h2>
+          <p>See exactly what each plan includes so you can choose the coverage that fits your branches, trainers, and growth goals.</p>
+        </div>
+
+        @if(!empty($comparisonFeatures))
+          <div class="comparison-table-wrapper" data-aos="fade-up" data-aos-delay="150">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th scope="col">Feature</th>
+                  @foreach($products as $product)
+                    <th scope="col">{{ $product->name }}</th>
+                  @endforeach
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($comparisonFeatures as $feature)
+                  @php
+                    $featureName = $feature['name'];
+                    $featureDescription = $feature['description'] ?? null;
+                  @endphp
+                  <tr>
+                    <td data-label="Feature">
+                      <div class="feature-label">
+                        <span>{{ $featureName }}</span>
+                        @if(!empty($featureDescription))
+                          <button type="button" class="feature-tooltip" data-tooltip="{{ $featureDescription }}" aria-label="More info about {{ $featureName }}">
+                            <i class="bi bi-info-circle"></i>
+                          </button>
+                        @endif
+                      </div>
+                    </td>
+                    @foreach($products as $product)
+                      @php
+                        $hasFeature = $product->features->contains(function($feature) use ($featureName) {
+                          return $feature->name === $featureName;
+                        });
+                      @endphp
+                      <td data-label="{{ $product->name }}">
+                        @if($hasFeature)
+                          <span class="compare-icon compare-icon-true" aria-label="Included">
+                            <i class="bi bi-check-circle-fill"></i>
+                          </span>
+                        @else
+                          <span class="compare-icon compare-icon-false" aria-label="Not included">
+                            <i class="bi bi-x-circle"></i>
+                          </span>
+                        @endif
+                      </td>
+                    @endforeach
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        @else
+          <div class="comparison-empty" data-aos="fade-up" data-aos-delay="150">
+            <p><i class="bi bi-info-circle"></i> Feature details will appear here once they are configured for each plan.</p>
+          </div>
+        @endif
+      </div>
+    </section>
+    <!-- /Pricing Comparison -->
+
     <!-- System Section -->
     <section id="system" class="portfolio section">
 

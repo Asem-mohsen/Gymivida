@@ -56,6 +56,7 @@ return [
     'gymivida_website' => env('GIMIVIDA_WEBSITE', 'https://gymivida.cloud'),
     'gymivida_phone' => env('GIMIVIDA_PHONE', '+201152992719'),
     'gymivida_email' => env('GIMIVIDA_EMAIL', 'support@gymivida.cloud'),
+    'home_page_cache_ttl' => env('HOME_PAGE_CACHE_TTL', 10),
 
     /*
     |--------------------------------------------------------------------------

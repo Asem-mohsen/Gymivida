@@ -10,8 +10,7 @@
       <div class="breadcrumbs">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house"></i> Home</a></li>
-            <li class="breadcrumb-item"><a href="#">Category</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="bi bi-house"></i> Home</a></li>
             <li class="breadcrumb-item active current">Privacy</li>
           </ol>
         </nav>
@@ -19,7 +18,7 @@
 
       <div class="title-wrapper">
         <h1>Privacy</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+        <p>Gymivida is built for trust. This privacy notice explains how we handle the information gyms, staff, and members share with us while using our management platform.</p>
       </div>
     </div><!-- End Page Title -->
 
@@ -33,54 +32,54 @@
 
             <div class="privacy-content">
               <div class="last-updated" data-aos="fade-up" data-aos-delay="200">
-                <p><strong>Last updated:</strong> December 15, 2024</p>
+                <p><strong>Last updated:</strong> November 24, 2025</p>
               </div>
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="300">
                 <h3>Information We Collect</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>We only gather the data required to operate a secure, reliable gym management experience. This includes information provided directly by gym owners, staff, and members, along with system telemetry that helps us keep the platform healthy.</p>
 
                 <h4>Personal Information</h4>
                 <ul>
-                  <li>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum</li>
-                  <li>Excepteur sint occaecat cupidatat non proident sunt in culpa</li>
-                  <li>Qui officia deserunt mollitia animi id est laborum</li>
-                  <li>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</li>
+                  <li>Account details such as name, email, phone number, and role inside your organization</li>
+                  <li>Business information including gym name, branch locations, subscription preferences, and billing contacts</li>
+                  <li>Member records entered by your team (attendance history, membership plans, progress notes, and consents)</li>
+                  <li>Support conversations and feedback shared with the Gymivida success team</li>
                 </ul>
 
                 <h4>Usage Data</h4>
-                <p>Accusantium doloremque laudantium, totam rem aperiam eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
+                <p>We log device identifiers, browser type, IP address, pages visited, feature usage, and timestamps whenever someone interacts with the dashboard or API. This technical data is anonymized where possible and used solely for performance tuning, fraud prevention, and product analytics.</p>
               </div>
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="400">
                 <h3>How We Use Your Information</h3>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+                <p>Data fuels the automations inside Gymivida. We process the information you provide to configure memberships, automate reminders, surface analytics, and deliver proactive assistance.</p>
 
                 <div class="info-box">
                   <h4>Primary Uses</h4>
                   <ol>
-                    <li>Similique sunt in culpa qui officia deserunt mollitia</li>
-                    <li>Et harum quidem rerum facilis est et expedita distinctio</li>
-                    <li>Nam libero tempore cum soluta nobis est eligendi</li>
-                    <li>Temporibus autem quibusdam et aut officiis debitis</li>
+                    <li>Provisioning accounts, authenticating users, and authorizing staff based on roles and permissions</li>
+                    <li>Managing billing cycles, digital contracts, and payment reconciliation for each gym location</li>
+                    <li>Sending transactional communications such as receipts, renewal reminders, incident alerts, and product updates</li>
+                    <li>Improving features through aggregated analytics, A/B testing, and anonymized benchmarking</li>
                   </ol>
                 </div>
               </div>
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="500">
                 <h3>Information Sharing and Disclosure</h3>
-                <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                <p>Gymivida does not monetize customer data. We only share information with trusted partners when it is essential to deliver contracted services, comply with the law, or respond to emergencies.</p>
 
                 <div class="highlight-box" data-aos="fade-up" data-aos-delay="600">
                   <i class="bi bi-shield-check"></i>
                   <h4>We Never Sell Your Data</h4>
-                  <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam nisi ut aliquid ex ea commodi consequatur.</p>
+                  <p>Third parties such as payment gateways, SMS providers, or analytics platforms receive the minimum fields needed to fulfill their role, and every vendor is bound by confidentiality and data-processing agreements.</p>
                 </div>
               </div>
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="700">
                 <h3>Data Security</h3>
-                <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+                <p>We combine technical and organizational safeguards to keep Gymivida resilient. Infrastructure is hosted on hardened cloud environments with continuous monitoring, least-privilege access control, and regular penetration testing.</p>
 
                 <div class="security-measures">
                   <div class="row">
@@ -88,14 +87,14 @@
                       <div class="measure-item">
                         <i class="bi bi-lock-fill"></i>
                         <h5>Encryption</h5>
-                        <p>Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt.</p>
+                        <p>All traffic is protected with TLS 1.2+ and sensitive records are encrypted at rest using AES-256 keys rotated through managed services.</p>
                       </div>
                     </div>
                     <div class="col-md-6" data-aos="fade-left" data-aos-delay="900">
                       <div class="measure-item">
                         <i class="bi bi-server"></i>
                         <h5>Secure Storage</h5>
-                        <p>Mollitia animi id est laborum et dolorum fuga et harum quidem rerum facilis.</p>
+                        <p>Backups, audit logs, and media assets live in isolated networks with automated patching, MFA enforcement, and disaster-recovery drills.</p>
                       </div>
                     </div>
                   </div>
@@ -104,28 +103,28 @@
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="1000">
                 <h3>Your Rights</h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo inventore veritatis.</p>
+                <p>You remain in control of the data stored inside Gymivida. Depending on your jurisdiction, you may exercise the privacy rights below by emailing our support team or submitting a request from inside the platform settings.</p>
 
                 <div class="rights-list">
                   <div class="right-item">
                     <i class="bi bi-eye"></i>
                     <div>
                       <h5>Right to Access</h5>
-                      <p>Et quasi architecto beatae vitae dicta sunt explicabo nemo enim ipsam voluptatem.</p>
+                      <p>Request a copy of the personal information and activity logs associated with your organization.</p>
                     </div>
                   </div>
                   <div class="right-item">
                     <i class="bi bi-pencil"></i>
                     <div>
                       <h5>Right to Rectification</h5>
-                      <p>Quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni.</p>
+                      <p>Update inaccurate information or adjust member records to reflect the latest agreements and consents.</p>
                     </div>
                   </div>
                   <div class="right-item">
                     <i class="bi bi-trash"></i>
                     <div>
                       <h5>Right to Erasure</h5>
-                      <p>Dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.</p>
+                      <p>Ask us to delete or anonymize personal data when it is no longer required for legal, contractual, or security reasons.</p>
                     </div>
                   </div>
                 </div>
@@ -133,7 +132,7 @@
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="1100">
                 <h3>Cookies and Tracking</h3>
-                <p>Qui dolorem ipsum quia dolor sit amet consectetur adipisci velit sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                <p>Cookies help us remember user preferences, keep sessions secure, and understand which features create value. You can manage cookies through your browser settings, although disabling them may degrade certain workflows.</p>
 
                 <div class="cookie-types">
                   <h4>Types of Cookies We Use</h4>
@@ -149,18 +148,18 @@
                       <tbody>
                         <tr>
                           <td>Essential</td>
-                          <td>Ut enim ad minima veniam quis nostrum</td>
+                          <td>Authenticates dashboard sessions, maintains CSRF protection, and stores opt-in choices</td>
                           <td>Session</td>
                         </tr>
                         <tr>
                           <td>Analytics</td>
-                          <td>Exercitationem ullam corporis suscipit</td>
-                          <td>2 Years</td>
+                          <td>Measures feature adoption, detects crashes, and guides product improvements</td>
+                          <td>13 Months</td>
                         </tr>
                         <tr>
                           <td>Marketing</td>
-                          <td>Laboriosam nisi ut aliquid ex ea commodi</td>
-                          <td>1 Year</td>
+                          <td>Supports opt-in nurture campaigns, webinar reminders, and personalized onboarding tips</td>
+                          <td>6 Months</td>
                         </tr>
                       </tbody>
                     </table>
@@ -170,25 +169,25 @@
 
               <div class="privacy-section" data-aos="fade-up" data-aos-delay="1200">
                 <h3>Changes to This Privacy Policy</h3>
-                <p>Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur vel illum qui dolorem eum fugiat quo voluptas nulla pariatur.</p>
+                <p>We review this notice whenever we release new functionality or onboard fresh partners. When updates are significant, we will notify workspace owners via email and highlight the summary inside the dashboard.</p>
               </div>
 
               <div class="contact-section" data-aos="fade-up" data-aos-delay="1300">
                 <h3>Contact Us</h3>
-                <p>Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollitia animi id est laborum sed ut perspiciatis unde omnis.</p>
+                <p>If you have questions about privacy, data processing agreements, or need a signed copy of our Subprocessor List, reach out anytime.</p>
 
                 <div class="contact-info">
                   <div class="contact-item">
                     <i class="bi bi-envelope"></i>
-                    <span>privacy@example.com</span>
+                    <span>{{ config('app.gymivida_email') }}</span>
                   </div>
                   <div class="contact-item">
                     <i class="bi bi-geo-alt"></i>
-                    <span>1234 Privacy Street, Legal City, LC 12345</span>
+                    <span>Smart City Business District, Cairo, Egypt</span>
                   </div>
                   <div class="contact-item">
                     <i class="bi bi-telephone"></i>
-                    <span>+1 (555) 123-4567</span>
+                    <span>{{ config('app.gymivida_phone') }}</span>
                   </div>
                 </div>
               </div>

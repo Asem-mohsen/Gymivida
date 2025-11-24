@@ -19,6 +19,22 @@ class ProductService
         return $this->productRepository->getAllActiveWithFeatures();
     }
 
+    public function getComparisonFeatures(Collection $products): array
+    {
+        return $products->flatMap(function ($product) {
+                return $product->features->map(function ($feature) {
+                    return [
+                        'name' => $feature->name,
+                        'description' => $feature->description,
+                    ];
+                });
+            })
+            ->filter(fn ($feature) => !empty($feature['name']))
+            ->unique('name')
+            ->values()
+            ->toArray();
+    }
+
     public function getActiveProducts(): array
     {
         $products = $this->productRepository->getActiveProducts();

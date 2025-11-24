@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ProductService;
 use App\Services\ServiceService;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -17,12 +18,18 @@ class HomeController extends Controller
 
     public function index()
     {
-        $services = $this->serviceService->getActiveServices();
-        $products = $this->productService->getActiveProductsWithFeatures();
-        
-        $averageDiscount = $this->calculateAverageDiscount($products);
+        $cacheTtl = now()->addMinutes(config('app.home_page_cache_ttl', 10));
 
-        return view('index', compact('services', 'products', 'averageDiscount'));
+        $homeData = Cache::remember('home_page_data', $cacheTtl, function () {
+            $services = $this->serviceService->getActiveServices();
+            $products = $this->productService->getActiveProductsWithFeatures();
+            $comparisonFeatures = $this->productService->getComparisonFeatures($products);
+            $averageDiscount = $this->calculateAverageDiscount($products);
+
+            return compact('services', 'products', 'comparisonFeatures', 'averageDiscount');
+        });
+
+        return view('index', $homeData);
     }
     
     private function calculateAverageDiscount($products)
