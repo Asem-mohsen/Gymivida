@@ -12,7 +12,7 @@
             <a href="#"><i class="bi bi-twitter-x"></i></a>
             <a href="#"><i class="bi bi-facebook"></i></a>
             <a href="#"><i class="bi bi-instagram"></i></a>
-            <a href="#"><i class="bi bi-linkedin"></i></a>
+            <a href="https://www.linkedin.com/company/pyraven/"><i class="bi bi-linkedin"></i></a>
           </div>
         </div>
   
@@ -20,21 +20,21 @@
           <h4>Quick Links</h4>
           <ul>
             <li><a href="{{ route('home') }}">Home</a></li>
-            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="{{ route('home') }}#pricing">Pricing</a></li>
             <li><a href="{{ route('terms') }}">Terms</a></li>
             <li><a href="{{ route('privacy') }}">Privacy</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="{{ route('home') }}#contact">Contact</a></li>
           </ul>
         </div>
   
         <div class="col-lg-2 col-6 footer-links">
           <h4>Services</h4>
           <ul>
-            <li><a href="#services">Gym & Branch Management</a></li>
-            <li><a href="#services">Staff & Trainer Control</a></li>
-            <li><a href="#services">Attendance & Reports</a></li>
-            <li><a href="#services">Performance Scoring</a></li>
-            <li><a href="#services">Data Migration Tools</a></li>
+            <li><a href="{{ route('home') }}#services">Gym & Branch Management</a></li>
+            <li><a href="{{ route('home') }}#services">Staff & Trainer Control</a></li>
+            <li><a href="{{ route('home') }}#services">Attendance & Reports</a></li>
+            <li><a href="{{ route('home') }}#services">Performance Scoring</a></li>
+            <li><a href="{{ route('home') }}#services">Data Migration Tools</a></li>
           </ul>
         </div>
   
