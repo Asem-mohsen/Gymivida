@@ -1,138 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete Your Gym Registration</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            padding: 30px;
-            text-align: center;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
-        .content {
-            padding: 30px;
-        }
-        .content h2 {
-            color: #667eea;
-            margin-top: 0;
-        }
-        .content p {
-            margin: 15px 0;
-        }
-        .info-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 20px 0;
-        }
-        .info-box p {
-            margin: 5px 0;
-        }
-        .info-box strong {
-            color: #667eea;
-        }
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            margin: 20px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff !important;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            text-align: center;
-        }
-        .button:hover {
-            opacity: 0.9;
-        }
-        .footer {
-            background-color: #f8f9fa;
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-        }
-        .footer p {
-            margin: 5px 0;
-        }
-        .note {
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            border-radius: 4px;
-            padding: 15px;
-            margin: 20px 0;
-            color: #856404;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🏋️ Gymivida</h1>
-            <p>Your Complete Gym Management Solution</p>
-        </div>
-        
-        <div class="content">
-            <h2>Hello {{ $contact->name }}!</h2>
-            
-            <p>Thank you for your interest in Gymivida! We're excited to help you take your gym to the next level.</p>
-            
-            <p>You've requested to complete your gym registration. We've prepared a personalized registration form for you to provide us with more details about your gym.</p>
-            
-            <div class="info-box">
-                <p><strong>Your Contact Information:</strong></p>
-                <p>Name: {{ $contact->name }}</p>
-                <p>Email: {{ $contact->email }}</p>
-                @if($contact->phone)
-                <p>Phone: {{ $contact->phone }}</p>
-                @endif
-                @if($contact->product)
-                <p>Interested Product: {{ $contact->product->name }}</p>
-                @endif
-            </div>
-            
-            <div style="text-align: center;">
-                <a href="{{ $registrationUrl }}" class="button">Complete Your Registration</a>
-            </div>
-            
-            <div class="note">
-                <p><strong>⏰ Important:</strong> This registration link is unique to you and will remain active. Please complete your registration at your earliest convenience.</p>
-            </div>
-            
-            <p>If you have any questions or need assistance, please don't hesitate to reach out to our support team.</p>
-            
-            <p>Best regards,<br>
-            <strong>The Gymivida Team</strong></p>
-        </div>
-        
-        <div class="footer">
-            <p><strong>Gymivida</strong> - Complete Gym Management Solution</p>
-            <p>New Cairo, Egypt | +20 111 234 5678</p>
-            <p>&copy; {{ date('Y') }} Gymivida. All rights reserved.</p>
-        </div>
-    </div>
-</body>
-</html>
+@extends('emails.layout')
 
+@php
+    $gymName = 'Gymivida';
+    $gymTagline = 'Your Complete Gym Management Solution';
+    $emailTitle = 'Complete Your Gym Registration';
+    $contactEmail = $contactEmail ?? config('app.gymivida_email');
+    $disclaimer = 'This email was sent to ' . $contact->email . '. If you did not request this email, please ignore it.';
+    $buttonUrl = $registrationUrl;
+    $buttonText = 'Complete Your Registration';
+@endphp
+
+@section('content')
+    @if(isset($userName) && $userName)
+    <p style="margin: 0 0 15px 0;">Hello {{ $userName }},</p>
+    @else
+    <p style="margin: 0 0 15px 0;">Hello {{ $contact->name }},</p>
+    @endif
+    
+    <p style="margin: 0 0 15px 0;">Thank you for your interest in Gymivida. We are excited to help you take your gym to the next level.</p>
+    
+    <p style="margin: 0 0 20px 0;">You have requested to complete your gym registration. We have prepared a personalized registration form for you to provide us with more details about your gym.</p>
+    
+    <!-- Information Box -->
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 20px 0; background-color: #f8f8f8; border-left: 3px solid #333333;">
+        <tr>
+            <td style="padding: 15px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="font-size: 14px; line-height: 1.6; color: #333333;">
+                            <p style="margin: 0 0 10px 0; font-weight: bold; color: #333333;">Your Contact Information:</p>
+                            <p style="margin: 0 0 5px 0;">Name: {{ $contact->name }}</p>
+                            <p style="margin: 0 0 5px 0;">Email: {{ $contact->email }}</p>
+                            @if($contact->phone)
+                            <p style="margin: 0 0 5px 0;">Phone: {{ $contact->phone }}</p>
+                            @endif
+                            @if($contact->product)
+                            <p style="margin: 0;">Interested Product: {{ $contact->product->name }}</p>
+                            @endif
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    <!-- Important Note -->
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin: 20px 0; background-color: #f8f8f8; border: 1px solid #e0e0e0;">
+        <tr>
+            <td style="padding: 15px;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                        <td style="font-size: 13px; line-height: 1.6; color: #333333;">
+                            <p style="margin: 0; font-weight: bold;">Important:</p>
+                            <p style="margin: 5px 0 0 0;">This registration link is unique to you and will remain active. Please complete your registration at your earliest convenience.</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    
+    <p style="margin: 20px 0 15px 0;">If you have any questions or need assistance, please do not hesitate to reach out to our support team.</p>
+    
+    <p style="margin: 15px 0 0 0;">Best regards,<br><strong style="color: #333333;">The Gymivida Team</strong></p>
+@endsection
