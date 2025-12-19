@@ -666,9 +666,9 @@
     <!-- /System Section -->
 
     <!-- Team Section -->
-    <section id="team" class="team section">
+    {{-- Hidden for now --}}
+    {{-- <section id="team" class="team section">
 
-      <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <span class="subtitle">Team</span>
         <h2>Meet the Minds Behind Gymivida</h2>
@@ -689,9 +689,9 @@
                 <span>Founder & Chief Executive Officer</span>
                 <p>A passionate developer and system architect dedicated to transforming how gyms operate through smart technology. With a deep focus on performance, automation, and scalability.</p>
                 <div class="social">
-                  {{-- <a href="https://www.instagram.com/assem__mohsen/" target="_blank"><i class="bi bi-instagram"></i></a> --}}
+                  <a href="https://www.instagram.com/assem__mohsen/" target="_blank"><i class="bi bi-instagram"></i></a>
                   <a href="https://www.linkedin.com/in/assem-m-89a61414b/" target="_blank"><i class="bi bi-linkedin"></i></a>
-                  {{-- <a href=https://www.facebook.com/asem.semsm" target="_blank"><i class="bi bi-facebook"></i></a> --}}
+                  <a href=https://www.facebook.com/asem.semsm" target="_blank"><i class="bi bi-facebook"></i></a>
                   <a href="https://github.com/Asem-mohsen" target="_blank"><i class="bi bi-github"></i></a>
                   <a href="mailto:asemmohsen911@gmail.com" target="_blank"><i class="bi bi-envelope"></i></a>
                 </div>
@@ -703,7 +703,7 @@
 
       </div>
 
-    </section>
+    </section> --}}
     <!-- /Team Section -->
 
     <!-- Testimonials Section -->
