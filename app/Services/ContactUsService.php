@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Mail\CompleteRegistrationMail;
+use App\Mail\NewContactSubmissionMail;
 use App\Models\ContactUs;
 use App\Repositories\ContactUsRepository;
 use Illuminate\Support\Facades\Log;
@@ -33,7 +34,27 @@ class ContactUsService
             $this->sendRegistrationEmail($contact);
         }
 
+        $this->sendAdminNotificationEmail($contact);
+
         return $contact;
+    }
+
+    public function sendAdminNotificationEmail(ContactUs $contact): bool
+    {
+        $adminEmail = env('ADMIN_EMAIL', 'asemmohsen911@gmail.com');
+
+        try {
+            Mail::to($adminEmail)->send(new NewContactSubmissionMail($contact));
+            
+            return true;
+        } catch (\Exception $e) {
+            Log::error('Failed to send admin notification email', [
+                'contact_id' => $contact->id,
+                'admin_email' => $adminEmail,
+                'error' => $e->getMessage()
+            ]);
+            return false;
+        }
     }
 
     public function sendRegistrationEmail(ContactUs $contact): bool

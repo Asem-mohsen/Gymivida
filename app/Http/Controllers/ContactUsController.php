@@ -17,7 +17,6 @@ class ContactUsController extends Controller
     public function store(StoreContactUsRequest $request): JsonResponse
     {
         try {
-            // Store the contact submission
             $contact = $this->contactUsService->store($request->validated());
 
             return response()->json([
