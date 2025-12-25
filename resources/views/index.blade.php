@@ -20,10 +20,12 @@
               </p>
               <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
                 <a href="#about" class="btn-primary">Get Started Today</a>
-                <a href="#https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn-secondary glightbox">
-                  <i class="bi bi-play-circle"></i>
-                  Watch Demo
-                </a>
+                @if($demoDocumentation && $demoDocumentation->file_path)
+                  <a href="{{ $demoDocumentation->file_url }}" class="btn-secondary" download="{{ $demoDocumentation->file_name ?: basename($demoDocumentation->file_path) }}">
+                    <i class="bi bi-download"></i>
+                    Download Demo
+                  </a>
+                @endif
               </div>
               <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
                 <div class="stat-item">
@@ -109,7 +111,7 @@
               </div>
 
               <div class="cta-section">
-                <a href="#team" class="btn-outline">Meet Our Team</a>
+                <a href="#contact" class="btn-outline">Meet Our Team</a>
               </div>
             </div>
           </div>
@@ -384,7 +386,11 @@
 
         <!-- Pricing Note -->
         <div class="pricing-note" data-aos="fade-up" data-aos-delay="600">
-          <p><i class="bi bi-info-circle"></i> All plans include free onboarding support and regular updates. Custom enterprise solutions available upon request.</p>
+          <p><i class="bi bi-info-circle"></i> All plans include free onboarding support and regular updates. Custom enterprise solutions available upon request. 
+            @if($demoDocumentation && $demoDocumentation->file_path)
+              <a href="{{ $demoDocumentation->file_url }}" class="text-decoration-underline fw-semibold" download="{{ $demoDocumentation->file_name ?: basename($demoDocumentation->file_path) }}">Click here to download a demo</a>.
+            @endif
+          </p>
         </div>
 
       </div>
@@ -914,6 +920,22 @@
                   <span class="detail-value">Gymivida HQ<br>New Cairo, Egypt</span>
                 </div>
               </div>
+
+              @if($registrationDemo && $registrationDemo->file_path)
+                <div class="detail-item">
+                  <div class="detail-icon">
+                    <i class="bi bi-file-earmark-pdf"></i>
+                  </div>
+                  <div class="detail-content">
+                    <span class="detail-label">Registration Demo</span>
+                    <span class="detail-value">
+                      <a href="{{ $registrationDemo->file_url }}" download="{{ $registrationDemo->file_name ?: basename($registrationDemo->file_path) }}" style="text-decoration: underline;">
+                        Download Registration Demo Documentation
+                      </a>
+                    </span>
+                  </div>
+                </div>
+              @endif
 
             </div>
 

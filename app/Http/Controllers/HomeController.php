@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Documentation;
 use App\Services\ProductService;
 use App\Services\ServiceService;
 use Illuminate\Support\Facades\Cache;
@@ -25,9 +26,18 @@ class HomeController extends Controller
             $products = $this->productService->getActiveProductsWithFeatures();
             $comparisonFeatures = $this->productService->getComparisonFeatures($products);
             $averageDiscount = $this->calculateAverageDiscount($products);
-
-            return compact('services', 'products', 'comparisonFeatures', 'averageDiscount');
+            $demoDocumentation = Documentation::getByType('documentation');
+            $registrationDemo = Documentation::getByType('registration');
+            return compact('services', 'products', 'comparisonFeatures', 'averageDiscount', 'demoDocumentation', 'registrationDemo');
         });
+
+        // Ensure documentation variables exist (fallback for old cache)
+        if (!isset($homeData['demoDocumentation'])) {
+            $homeData['demoDocumentation'] = Documentation::getByType('documentation');
+        }
+        if (!isset($homeData['registrationDemo'])) {
+            $homeData['registrationDemo'] = Documentation::getByType('registration');
+        }
 
         return view('index', $homeData);
     }
@@ -75,5 +85,26 @@ class HomeController extends Controller
     public function portfolioDetails()
     {
         return view('portfolio-details');
+    }
+
+    public function downloadDocumentation($type)
+    {
+        $documentation = \App\Models\Documentation::getByType($type);
+        
+        if (!$documentation || !$documentation->file_path) {
+            abort(404, 'Documentation not found');
+        }
+
+        $filePath = storage_path('app/public/' . $documentation->file_path);
+        
+        if (!file_exists($filePath)) {
+            abort(404, 'File not found');
+        }
+
+        $fileName = $documentation->file_name ?: basename($documentation->file_path);
+        
+        return response()->download($filePath, $fileName, [
+            'Content-Type' => 'application/pdf',
+        ]);
     }
 }
