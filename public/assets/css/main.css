@@ -4758,6 +4758,16 @@ section,
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.04);
   overflow-x: auto;
+  overflow-y: visible;
+  position: relative;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comparison-table-wrapper .comparison-table,
+.comparison-table-wrapper .comparison-table td,
+.comparison-table-wrapper .feature-label {
+  overflow: visible;
 }
 
 .comparison-table {
@@ -4765,6 +4775,13 @@ section,
   border-collapse: separate;
   border-spacing: 0;
   min-width: 600px;
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
+}
+
+.comparison-table-wrapper {
+  touch-action: pan-x pan-y;
+  -webkit-overflow-scrolling: touch;
 }
 
 .comparison-table th,
@@ -4811,6 +4828,8 @@ section,
   gap: 10px;
   font-weight: 600;
   color: inherit;
+  position: relative;
+  overflow: visible;
 }
 
 .feature-tooltip {
@@ -4844,7 +4863,17 @@ section,
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  z-index: 5;
+  z-index: 99999;
+  white-space: normal;
+  word-wrap: break-word;
+  will-change: opacity, transform;
+}
+
+.feature-tooltip:hover,
+.feature-tooltip:focus,
+.feature-tooltip:active {
+  position: relative;
+  z-index: 100000;
 }
 
 .feature-tooltip::before {
@@ -4862,10 +4891,25 @@ section,
 
 .feature-tooltip:hover::after,
 .feature-tooltip:focus-visible::after,
+.feature-tooltip:active::after,
 .feature-tooltip:hover::before,
-.feature-tooltip:focus-visible::before {
+.feature-tooltip:focus-visible::before,
+.feature-tooltip:active::before {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
+}
+
+.feature-tooltip.tooltip-active::after,
+.feature-tooltip.tooltip-active::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Hide CSS tooltip when JavaScript tooltip is active */
+.comparison-table-wrapper .feature-tooltip.js-tooltip-active::after,
+.comparison-table-wrapper .feature-tooltip.js-tooltip-active::before {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .compare-icon {
@@ -4886,6 +4930,23 @@ section,
 .compare-icon-false {
   background: rgba(255, 102, 102, 0.18);
   color: #d64545;
+}
+
+/* Dynamic tooltip styling */
+.dynamic-tooltip {
+  position: fixed;
+  background: #111;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 220px;
+  z-index: 99999;
+  pointer-events: none;
+  white-space: normal;
+  word-wrap: break-word;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .comparison-empty {
@@ -4969,5 +5030,23 @@ section,
     padding-left: 20px;
     font-size: 16px;
     background: color-mix(in srgb, var(--surface-color), white 45%);
+  }
+
+  .comparison-table td:first-child::before {
+    content: none;
+  }
+
+  .comparison-table td:first-child {
+    overflow: visible;
+  }
+
+  .comparison-table-wrapper {
+    overflow-y: visible;
+  }
+
+  .comparison-table-wrapper .comparison-table,
+  .comparison-table-wrapper .comparison-table td,
+  .comparison-table-wrapper .feature-label {
+    overflow: visible;
   }
 }

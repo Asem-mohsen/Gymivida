@@ -159,7 +159,7 @@
               "autoplay": {
                 "delay": 4000
               },
-              "slidesPerView": 3,
+              "slidesPerView": 1,
               "spaceBetween": 30,
               "navigation": {
                 "nextEl": ".swiper-button-next",
@@ -1223,6 +1223,183 @@
                 console.error('Error loading products:', error);
             });
         }
+
+        // Prevent swipe gestures on comparison table
+        const comparisonTableWrapper = document.querySelector('.comparison-table-wrapper');
+        if (comparisonTableWrapper) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchStartTime = 0;
+            let lastTouchX = 0;
+            let lastTouchY = 0;
+            let isScrolling = false;
+
+            comparisonTableWrapper.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                lastTouchX = touchStartX;
+                lastTouchY = touchStartY;
+                touchStartTime = Date.now();
+                isScrolling = false;
+            }, { passive: true });
+
+            comparisonTableWrapper.addEventListener('touchmove', function(e) {
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+                const deltaX = touchX - lastTouchX;
+                const deltaY = touchY - lastTouchY;
+                const totalDeltaX = Math.abs(touchX - touchStartX);
+                const totalDeltaY = Math.abs(touchY - touchStartY);
+
+                lastTouchX = touchX;
+                lastTouchY = touchY;
+
+                // If there's significant vertical movement, it's scrolling
+                if (totalDeltaY > 10) {
+                    isScrolling = true;
+                }
+
+                // Check if this is a horizontal swipe gesture (not table scrolling)
+                if (Math.abs(deltaX) > Math.abs(deltaY) && totalDeltaX > 30 && !isScrolling) {
+                    const scrollLeft = comparisonTableWrapper.scrollLeft;
+                    const scrollWidth = comparisonTableWrapper.scrollWidth;
+                    const clientWidth = comparisonTableWrapper.clientWidth;
+                    const maxScroll = scrollWidth - clientWidth;
+
+                    // Only prevent if we're trying to swipe beyond scroll boundaries
+                    const tryingToSwipeLeft = deltaX < 0 && scrollLeft <= 5;
+                    const tryingToSwipeRight = deltaX > 0 && scrollLeft >= (maxScroll - 5);
+
+                    if (tryingToSwipeLeft || tryingToSwipeRight || maxScroll <= 0) {
+                        // This is a swipe gesture, prevent it
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return false;
+                    }
+                }
+            }, { passive: false });
+
+            comparisonTableWrapper.addEventListener('touchend', function(e) {
+                const touchEndX = e.changedTouches[0].clientX;
+                const touchEndY = e.changedTouches[0].clientY;
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = Math.abs(touchEndY - touchStartY);
+                const deltaTime = Date.now() - touchStartTime;
+                const minSwipeDistance = 50;
+                const maxSwipeTime = 400;
+
+                // Prevent fast horizontal swipes that aren't scrolling
+                if (!isScrolling && 
+                    Math.abs(deltaX) > deltaY && 
+                    Math.abs(deltaX) > minSwipeDistance && 
+                    deltaTime < maxSwipeTime) {
+                    // This is a swipe gesture - prevent any navigation
+                    e.stopPropagation();
+                    e.stopImmediatePropagation();
+                }
+            }, { passive: true });
+        }
+
+        // Fix tooltip positioning to prevent clipping (only for comparison table)
+        const comparisonTableTooltips = document.querySelectorAll('.comparison-table-wrapper .feature-tooltip');
+        comparisonTableTooltips.forEach(function(button) {
+            let tooltipElement = null;
+            let closeHandler = null;
+
+            function showTooltip() {
+                if (tooltipElement) {
+                    return;
+                }
+
+                const tooltipText = button.getAttribute('data-tooltip');
+                if (!tooltipText) return;
+
+                // Hide CSS tooltip by adding a class
+                button.classList.add('js-tooltip-active');
+
+                const rect = button.getBoundingClientRect();
+                tooltipElement = document.createElement('div');
+                tooltipElement.className = 'dynamic-tooltip';
+                tooltipElement.textContent = tooltipText;
+                
+                // Calculate position
+                const leftPos = rect.left + (rect.width / 2);
+                const bottomPos = window.innerHeight - rect.top + 10;
+                
+                tooltipElement.style.cssText = `
+                    position: fixed;
+                    background: #111;
+                    color: #fff;
+                    padding: 8px 12px;
+                    border-radius: 6px;
+                    font-size: 12px;
+                    line-height: 1.4;
+                    max-width: 220px;
+                    z-index: 99999;
+                    pointer-events: none;
+                    opacity: 0;
+                    transition: opacity 0.2s ease;
+                    left: ${leftPos}px;
+                    bottom: ${bottomPos}px;
+                    transform: translateX(-50%);
+                    white-space: normal;
+                    word-wrap: break-word;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+                `;
+                document.body.appendChild(tooltipElement);
+
+                // Show tooltip
+                setTimeout(() => {
+                    tooltipElement.style.opacity = '1';
+                }, 10);
+            }
+
+            function hideTooltip() {
+                if (tooltipElement) {
+                    tooltipElement.style.opacity = '0';
+                    setTimeout(() => {
+                        if (tooltipElement && tooltipElement.parentNode) {
+                            tooltipElement.remove();
+                        }
+                        tooltipElement = null;
+                    }, 200);
+                }
+                // Remove class to restore CSS tooltip
+                button.classList.remove('js-tooltip-active');
+                
+                // Remove close handler if exists
+                if (closeHandler) {
+                    document.removeEventListener('click', closeHandler);
+                    closeHandler = null;
+                }
+            }
+
+            // For mobile (touch devices) - click to toggle
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (tooltipElement) {
+                    hideTooltip();
+                } else {
+                    showTooltip();
+                    // Close on outside click
+                    setTimeout(() => {
+                        closeHandler = function(event) {
+                            if (!button.contains(event.target) && (!tooltipElement || !tooltipElement.contains(event.target))) {
+                                hideTooltip();
+                            }
+                        };
+                        document.addEventListener('click', closeHandler);
+                    }, 100);
+                }
+            });
+
+            // For desktop (hover) - use JavaScript tooltip to prevent clipping
+            button.addEventListener('mouseenter', showTooltip);
+            button.addEventListener('mouseleave', hideTooltip);
+            button.addEventListener('focus', showTooltip);
+            button.addEventListener('blur', hideTooltip);
+        });
     });
 </script>
 @endsection
