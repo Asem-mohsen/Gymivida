@@ -120,21 +120,32 @@
             <p>You agree to defend and indemnify Gymivida, its officers, employees, and partners against claims arising from your misuse of the platform, violation of these terms, infringement of third-party rights, or breach of applicable laws while using our services.</p>
           </div>
 
+          <!-- Refund Policy -->
+          <div id="refund-policy" class="content-section">
+            <h3>8. Refund Policy</h3>
+            <p>Gymivida operates on a subscription-based billing model for gym owners.</p>
+            <p>All subscription fees are charged in advance and are non-refundable once payment is processed.</p>
+            <p>Gym owners may cancel their subscription at any time. Upon cancellation, access to the platform will remain active until the end of the current billing period. No further charges will be applied after cancellation.</p>
+            <p>We do not provide prorated refunds, partial refunds, or credits for unused subscription time.</p>
+            <p>Subscription cancellation is separate from gym account deactivation. Deactivating a gym or requesting data deletion does not entitle the subscriber to any refund.</p>
+            <p>Refunds may only be issued in cases of duplicate charges or confirmed billing errors and will be reviewed on a case-by-case basis. Approved refunds will be returned to the original payment method within 7–14 business days.</p>
+          </div>
+
           <!-- Termination -->
           <div id="termination" class="content-section">
-            <h3>8. Termination</h3>
+            <h3>9. Termination</h3>
             <p>We may suspend or terminate access if you fail to pay fees, materially breach these terms, or pose a security risk. You may terminate at the end of your billing cycle by providing the notice stated in your order form. Upon termination, you remain responsible for outstanding amounts and we can provide a data export upon request.</p>
           </div>
 
           <!-- Governing Law -->
           <div id="governing-law" class="content-section">
-            <h3>9. Governing Law</h3>
+            <h3>10. Governing Law</h3>
             <p>These Terms are governed by the laws of the Arab Republic of Egypt. Any dispute that cannot be resolved informally will be submitted to the competent courts in Cairo, subject to each party’s right to seek urgent injunctive relief elsewhere.</p>
           </div>
 
           <!-- Changes -->
           <div id="changes" class="content-section">
-            <h3>10. Changes to Terms</h3>
+            <h3>11. Changes to Terms</h3>
             <p>We may update these terms to reflect new features, regulatory requirements, or pricing models. Material changes will be communicated by email or in-app banners at least 14 days before they take effect, unless the change addresses a security issue or legal obligation.</p>
             <div class="notice-box">
               <i class="bi bi-bell"></i>

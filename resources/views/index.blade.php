@@ -322,6 +322,16 @@
           </div>
         </div>
 
+        <!-- No-Payment Trial Highlight -->
+        <div class="pricing-trial-highlight" data-aos="fade-up" data-aos-delay="250">
+          <div class="pricing-trial-highlight-inner">
+            <i class="bi bi-shield-check"></i>
+            <div class="pricing-trial-highlight-text">
+              <strong>No payments required upfront.</strong> Payments start only after your trial period ends — try everything risk-free first.
+            </div>
+          </div>
+        </div>
+
         <!-- Pricing Cards -->
         <div class="row gy-4 justify-content-center" data-aos="fade-up" data-aos-delay="300">
 

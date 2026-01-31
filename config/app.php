@@ -57,6 +57,10 @@ return [
     'gymivida_phone' => env('GIMIVIDA_PHONE', '+201152992719'),
     'gymivida_email' => env('GIMIVIDA_EMAIL', 'support@gymivida.cloud'),
     'home_page_cache_ttl' => env('HOME_PAGE_CACHE_TTL', 10),
+    'gymivida_twitter' => env('GIMIVIDA_TWITTER', 'https://x.com/gymivida'),
+    'gymivida_facebook' => env('GIMIVIDA_FACEBOOK', 'https://www.facebook.com/gymivida'),
+    'gymivida_instagram' => env('GIMIVIDA_INSTAGRAM', 'https://www.instagram.com/gymivida'),
+    'gymivida_linkedin' => env('GIMIVIDA_LINKEDIN', 'https://www.linkedin.com/company/gymivida'),
 
     /*
     |--------------------------------------------------------------------------
