@@ -18,7 +18,7 @@ class ProductRepository
                 'trial_period_days',
                 'currency',
             ])
-            ->with(['features:id,name,description'])
+            ->with(['features:id,key,name,description'])
             ->where('is_active', true)
             ->orderBy('monthly_price')
             ->get();

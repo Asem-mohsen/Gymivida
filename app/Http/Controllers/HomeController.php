@@ -6,6 +6,7 @@ use App\Models\Documentation;
 use App\Services\ProductService;
 use App\Services\ServiceService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -19,9 +20,11 @@ class HomeController extends Controller
 
     public function index()
     {
+        $locale = app()->getLocale();
         $cacheTtl = now()->addMinutes(config('app.home_page_cache_ttl', 10));
+        $cacheKey = 'home_page_data_' . $locale;
 
-        $homeData = Cache::remember('home_page_data', $cacheTtl, function () {
+        $homeData = Cache::remember($cacheKey, $cacheTtl, function () {
             $services = $this->serviceService->getActiveServices();
             $products = $this->productService->getActiveProductsWithFeatures();
             $comparisonFeatures = $this->productService->getComparisonFeatures($products);
@@ -87,23 +90,32 @@ class HomeController extends Controller
         return view('portfolio-details');
     }
 
-    public function downloadDocumentation($type)
+    public function downloadDocumentation(string $type)
     {
-        $documentation = \App\Models\Documentation::getByType($type);
-        
+        $documentation = Documentation::getByType($type);
+
         if (!$documentation || !$documentation->file_path) {
             abort(404, 'Documentation not found');
         }
 
-        $filePath = storage_path('app/public/' . $documentation->file_path);
-        
-        if (!file_exists($filePath)) {
+        $disk = Storage::disk('public');
+
+        // Support both "demos/file.pdf" and "file.pdf" (legacy)
+        $path = $documentation->file_path;
+        if (!str_contains($path, '/')) {
+            $dir = $type === 'documentation' ? 'demos' : 'registration-demos';
+            $path = $dir . '/' . $path;
+        }
+
+        if (!$disk->exists($path)) {
             abort(404, 'File not found');
         }
 
-        $fileName = $documentation->file_name ?: basename($documentation->file_path);
-        
-        return response()->download($filePath, $fileName, [
+        $absolutePath = $disk->path($path);
+        $fileName = $documentation->file_name ?: basename($path);
+        $fileName = preg_replace('/[^\w\s\-\.]/', '_', $fileName) ?: 'documentation.pdf';
+
+        return response()->download($absolutePath, $fileName, [
             'Content-Type' => 'application/pdf',
         ]);
     }

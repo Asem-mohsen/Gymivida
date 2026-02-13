@@ -4,10 +4,10 @@
     <div class="row gy-4">
       
       <div class="col-lg-5 col-md-12 footer-about">
-        <a href="{{ route('home') }}" class="logo d-flex align-items-center">
+        <a href="{{ route('home', ['locale' => $currentLocale]) }}" class="logo d-flex align-items-center">
           <span class="sitename">Gymivida</span>
         </a>
-        <p>Gymivida is the all-in-one gym management system designed to simplify daily operations, enhance member experience, and help gym owners grow faster. Manage branches, trainers, memberships, and reports — all in one smart platform.</p>
+        <p>{{ __('common.footer_tagline') }}</p>
         <div class="social-links d-flex mt-4">
           <a href="#"><i class="bi bi-twitter-x"></i></a>
           <a href="#"><i class="bi bi-facebook"></i></a>
@@ -17,31 +17,28 @@
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Quick Links</h4>
+        <h4>{{ __('common.footer_quick_links') }}</h4>
         <ul>
-          <li><a href="{{ route('home') }}">Home</a></li>
-          <li><a href="{{ route('home') }}#pricing">Pricing</a></li>
-          <li><a href="{{ route('terms') }}">Terms</a></li>
-          <li><a href="{{ route('privacy') }}">Privacy</a></li>
-          <li><a href="{{ route('home') }}#contact">Contact</a></li>
-          <li><a href="{{ route('terms') }}#refund-policy">Refund Policy</a></li>
+          <li><a href="{{ route('home', ['locale' => $currentLocale]) }}">{{ __('nav.home') }}</a></li>
+          <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#pricing">{{ __('nav.pricing') }}</a></li>
+          <li><a href="{{ route('terms', ['locale' => $currentLocale]) }}">{{ __('nav.terms') }}</a></li>
+          <li><a href="{{ route('privacy', ['locale' => $currentLocale]) }}">{{ __('nav.privacy') }}</a></li>
+          <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.contact') }}</a></li>
+          <li><a href="{{ route('terms', ['locale' => $currentLocale]) }}#refund-policy">{{ __('nav.refund_policy') }}</a></li>
         </ul>
       </div>
 
       <div class="col-lg-2 col-6 footer-links">
-        <h4>Services</h4>
+        <h4>{{ __('common.footer_services') }}</h4>
         <ul>
-          <li><a href="{{ route('home') }}#services">Gym & Branch Management</a></li>
-          <li><a href="{{ route('home') }}#services">Staff & Trainer Control</a></li>
-          <li><a href="{{ route('home') }}#services">Attendance & Reports</a></li>
-          <li><a href="{{ route('home') }}#services">Performance Scoring</a></li>
-          <li><a href="{{ route('home') }}#services">Data Migration Tools</a></li>
-          <li><a href="{{ route('home') }}#services">Payment Gateway Integration</a></li>
+          @foreach(($footerServices ?? collect())->take(6) as $service)
+            <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ $service->getTranslation('title', app()->getLocale()) }}</a></li>
+          @endforeach
         </ul>
       </div>
 
       <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-        <h4>Contact Us</h4>
+        <h4>{{ __('common.footer_contact_us') }}</h4>
         <p>Smart City Business District</p>
         <p>Cairo, Egypt</p>
         <p class="mt-4"><strong>Phone:</strong> <span>{{ config('app.gymivida_phone') }}</span></p>
@@ -52,7 +49,7 @@
   </div>
 
   <div class="container copyright text-center mt-4">
-    <p>© <span>Copyright</span> <strong class="px-1 sitename">{{ config('app.name') }}</strong> <span>All Rights Reserved</span></p>
+    <p>© <span>{{ __('common.footer_copyright') }}</span> <strong class="px-1 sitename">{{ config('app.name') }}</strong> <span>{{ __('common.footer_all_rights') }}</span></p>
   </div>
 </footer>
 
@@ -60,8 +57,8 @@
 <!-- Scroll Top -->
 <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-<!-- Preloader -->
-<div id="preloader" aria-label="Loading Gymivida">
+<!-- Preloader (dir="ltr" keeps brand name order in RTL) -->
+<div id="preloader" aria-label="Loading Gymivida" dir="ltr">
   <div class="preloader-logo">
     <span>G</span>
     <span>Y</span>

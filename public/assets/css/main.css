@@ -193,6 +193,9 @@ h6 {
 @media (min-width: 1200px) {
   .navmenu {
     padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
   .navmenu ul {
@@ -420,6 +423,20 @@ h6 {
 
   .mobile-nav-active .navmenu>ul {
     display: block;
+  }
+
+  .lang-switcher-mobile-item {
+    padding: 10px 20px;
+    list-style: none;
+    border-top: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+    margin-top: 6px;
+  }
+  .lang-switcher-mobile-item .lang-switcher-dropdown {
+    margin-left: 0;
+  }
+  .lang-switcher-mobile-item .lang-switcher-trigger {
+    width: 100%;
+    justify-content: flex-start;
   }
 }
 
@@ -4838,6 +4855,11 @@ section,
 .comparison-table td:first-child {
   text-align: left;
   font-weight: 600;
+}
+
+[dir="rtl"] .comparison-table th:first-child,
+[dir="rtl"] .comparison-table td:first-child {
+  text-align: right;
 }
 
 .comparison-table thead th {

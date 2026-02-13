@@ -28,11 +28,30 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\Section::make('Product Information')
                     ->schema([
-                        Forms\Components\TextInput::make('name')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Textarea::make('description')
-                            ->rows(3)
+                        Forms\Components\Tabs::make('Translations')
+                            ->tabs([
+                                Forms\Components\Tabs\Tab::make('English')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name_en')
+                                            ->label('Name (English)')
+                                            ->required()
+                                            ->maxLength(255),
+                                        Forms\Components\Textarea::make('description_en')
+                                            ->label('Description (English)')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                    ]),
+                                Forms\Components\Tabs\Tab::make('Arabic')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name_ar')
+                                            ->label('Name (العربية)')
+                                            ->maxLength(255),
+                                        Forms\Components\Textarea::make('description_ar')
+                                            ->label('Description (العربية)')
+                                            ->rows(3)
+                                            ->columnSpanFull(),
+                                    ]),
+                            ])
                             ->columnSpanFull(),
                     ]),
                 Forms\Components\Section::make('Pricing')
@@ -64,7 +83,8 @@ class ProductResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('feature_ids')
                             ->label('Attach Features')
-                            ->relationship('features', 'name')
+                            ->relationship('features', titleAttribute: 'key')
+                            ->getOptionLabelFromRecordUsing(fn ($record) => $record->getTranslation('name', 'en') ?: $record->key)
                             ->multiple()
                             ->searchable()
                             ->preload()

@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'subtitle' => 'Contact',
+    'title' => 'Get in Touch with Gymivida',
+    'description' => 'Whether you\'re managing a single gym or a growing fitness network, our team is here to help you streamline operations and unlock your gym\'s full potential. Let\'s start the conversation today.',
+    'we_here_to_help' => 'We\'re Here to Help',
+    'we_here_to_help_description' => 'Our support and partnership teams are available to answer your questions, guide you through setup, and help you grow with Gymivida.',
+    'email_us' => 'Email Us',
+    'call_us' => 'Call Us',
+    'visit_us' => 'Visit Us',
+    'registration_demo' => 'Registration Demo',
+    'download_registration_demo' => 'Download Registration Demo Documentation',
+    'send_message' => 'Send Us a Message',
+    'send_message_description' => 'Have a question or want a demo? Fill out the form and our team will get back to you shortly.',
+    'full_name' => 'Full Name',
+    'email_address' => 'Email Address',
+    'phone_number' => 'Phone Number',
+    'subject' => 'Subject',
+    'interested_plan' => 'Interested Subscription Plan (Optional)',
+    'select_plan' => '-- Select a Subscription Plan --',
+    'message' => 'Message',
+    'send_registration_link' => 'Send me a complete registration link',
+    'send_registration_link_description' => 'I want to receive an email to set up my gym and complete the registration process',
+    'send_message_button' => 'Send Message',
+    'sending' => 'Sending...',
+];

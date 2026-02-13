@@ -21,7 +21,7 @@ class Documentation extends Model
     }
 
     /**
-     * Get the URL for the file.
+     * Get the URL to download the file via the app (avoids /storage/ being handled by Laravel and returning HTML).
      */
     public function getFileUrlAttribute(): ?string
     {
@@ -29,7 +29,6 @@ class Documentation extends Model
             return null;
         }
 
-        // Use route to download via controller for proper file serving
         return route('download.documentation', ['type' => $this->type]);
     }
 }

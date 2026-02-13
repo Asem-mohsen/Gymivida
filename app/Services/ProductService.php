@@ -21,16 +21,19 @@ class ProductService
 
     public function getComparisonFeatures(Collection $products): array
     {
-        return $products->flatMap(function ($product) {
-                return $product->features->map(function ($feature) {
+        $locale = app()->getLocale();
+
+        return $products->flatMap(function ($product) use ($locale) {
+                return $product->features->map(function ($feature) use ($locale) {
                     return [
-                        'name' => $feature->name,
-                        'description' => $feature->description,
+                        'key' => $feature->key,
+                        'name' => $feature->getTranslation('name', $locale),
+                        'description' => $feature->getTranslation('description', $locale),
                     ];
                 });
             })
-            ->filter(fn ($feature) => !empty($feature['name']))
-            ->unique('name')
+            ->filter(fn ($feature) => !empty($feature['key']))
+            ->unique('key')
             ->values()
             ->toArray();
     }

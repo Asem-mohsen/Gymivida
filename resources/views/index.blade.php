@@ -14,31 +14,31 @@
         <div class="row align-items-center">
           <div class="col-lg-6">
             <div class="hero-content">
-              <h1 data-aos="fade-up" data-aos-delay="200">Empower Your Gym. Simplify Management. Grow Faster.</h1>
+              <h1 data-aos="fade-up" data-aos-delay="200">{{ __('hero.title') }}</h1>
               <p data-aos="fade-up" data-aos-delay="300">
-                Take full control of your gym operations — from memberships and trainers to reports and real-time tracking — all in one powerful platform. Gymivida helps you save time, reduce costs, and elevate the member experience.
+                {{ __('hero.subtitle') }}
               </p>
               <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
-                <a href="#about" class="btn-primary">Get Started Today</a>
+                <a href="#about" class="btn-primary">{{ __('hero.get_started') }}</a>
                 @if($demoDocumentation && $demoDocumentation->file_path)
                   <a href="{{ $demoDocumentation->file_url }}" class="btn-secondary" download="{{ $demoDocumentation->file_name ?: basename($demoDocumentation->file_path) }}">
                     <i class="bi bi-download"></i>
-                    Download Demo
+                    {{ __('hero.download_demo') }}
                   </a>
                 @endif
               </div>
               <div class="hero-stats" data-aos="fade-up" data-aos-delay="500">
                 <div class="stat-item">
                   <div class="stat-number">100+</div>
-                  <div class="stat-label">Gyms & Fitness Centers</div>
+                  <div class="stat-label">{{ __('hero.stats_gyms') }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number">500+</div>
-                  <div class="stat-label">Users</div>
+                  <div class="stat-label">{{ __('hero.stats_users') }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number">200+</div>
-                  <div class="stat-label">Services & Classes</div>
+                  <div class="stat-label">{{ __('hero.stats_services') }}</div>
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@
                   <i class="bi bi-graph-up-arrow"></i>
                 </div>
                 <div class="card-content">
-                  <h5>Covered Cities</h5>
+                  <h5>{{ __('hero.covered_cities') }}</h5>
                   <div class="growth-percentage">+20</div>
                 </div>
               </div>
@@ -69,11 +69,10 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">About</span>
-        <h2>About Gymivida</h2>
+        <span class="subtitle">{{ __('about.subtitle') }}</span>
+        <h2>{{ __('about.title') }}</h2>
         <p>
-          At Gymivida, we believe managing a gym should be as powerful and energizing as a great workout. Our mission is to simplify operations for fitness centers of all sizes — helping owners manage members, trainers, schedules, and finances from one smart, intuitive platform.
-          We combine technology and fitness insight to help you focus on what truly matters — growing your business and empowering healthier lives.
+          {{ __('about.description') }}
         </p>
       </div><!-- End Section Title -->
 
@@ -82,36 +81,36 @@
         <div class="row align-items-center">
           <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
             <div class="content">
-              <h2>Empowering Gyms Through Smart Innovation</h2>
+              <h2>{{ __('about.heading') }}</h2>
               <p class="lead">
-                At Gymivida, we blend technology and passion for fitness to help gym owners manage, grow, and elevate their businesses effortlessly.
+                {{ __('about.lead') }}
               </p>
               
               <p>
-                We understand the challenges of running a fitness center — from handling memberships and trainer schedules to tracking performance and payments. That’s why we built a powerful, all-in-one platform designed to simplify operations and enhance the member experience.
+                {{ __('about.paragraph1') }}
               </p>
               
               <p>
-                With automation, real-time insights, and seamless control, Gymivida enables you to focus on what truly matters — building stronger communities, achieving growth, and inspiring healthier lifestyles every day.
+                {{ __('about.paragraph2') }}
               </p>
 
               <div class="stats-row">
                 <div class="stat-item">
                   <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"></div>
-                  <div class="stat-label">Years Experience</div>
+                  <div class="stat-label">{{ __('about.years_experience') }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="850" data-purecounter-duration="1"></div>
-                  <div class="stat-label">Projects Completed</div>
+                  <div class="stat-label">{{ __('about.projects_completed') }}</div>
                 </div>
                 <div class="stat-item">
                   <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="240" data-purecounter-duration="1"></div>
-                  <div class="stat-label">Happy Clients</div>
+                  <div class="stat-label">{{ __('about.happy_clients') }}</div>
                 </div>
               </div>
 
               <div class="cta-section">
-                <a href="#contact" class="btn-outline">Meet Our Team</a>
+                <a href="#contact" class="btn-outline">{{ __('about.meet_team') }}</a>
               </div>
             </div>
           </div>
@@ -125,8 +124,8 @@
                     <i class="bi bi-award"></i>
                   </div>
                   <div class="text">
-                    <h4>Award Winning</h4>
-                    <p>Recognized for excellence in our industry</p>
+                    <h4>{{ __('about.award_winning') }}</h4>
+                    <p>{{ __('about.award_description') }}</p>
                   </div>
                 </div>
               </div>
@@ -143,10 +142,10 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Our Solutions</span>
-        <h2>What Gymivida Offers</h2>
+        <span class="subtitle">{{ __('services.subtitle') }}</span>
+        <h2>{{ __('services.title') }}</h2>
         <p>
-          Gymivida is your all-in-one platform to manage, grow, and elevate your fitness business. From daily operations to advanced analytics, we provide the tools you need to deliver a smarter, more efficient gym experience.
+          {{ __('services.description') }}
         </p>
       </div><!-- End Section Title -->
 
@@ -183,8 +182,8 @@
                   <div class="service-icon">
                     <i class="{{ $service->icon }}"></i>
                   </div>
-                  <h3>{{ $service->title }}</h3>
-                  <p>{{ $service->description }}</p>
+                  <h3>{{ $service->getTranslation('title', app()->getLocale()) }}</h3>
+                  <p>{{ $service->getTranslation('description', app()->getLocale()) }}</p>
                 </div>
               </div>
             @endforeach
@@ -204,10 +203,10 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Why Gymivida</span>
-        <h2>Why Choose Gymivida</h2>
+        <span class="subtitle">{{ __('why_us.subtitle') }}</span>
+        <h2>{{ __('why_us.title') }}</h2>
         <p>
-          Because running a gym shouldn’t be complicated. Gymivida empowers fitness businesses with powerful tools, real-time insights, and a seamless experience designed to simplify operations and accelerate growth.
+          {{ __('why_us.description') }}
         </p>
       </div><!-- End Section Title -->
 
@@ -216,9 +215,9 @@
         <div class="row">
           <div class="col-lg-6" data-aos="fade-right" data-aos-delay="200">
             <div class="content">
-              <h2>Built for Gym Owners Who Want to Grow</h2>
+              <h2>{{ __('why_us.heading') }}</h2>
               <p>
-                Gymivida combines innovation, usability, and reliability to give gym owners full control of their business — from managing members to tracking performance. We’re not just another software; we’re your digital partner in success.
+                {{ __('why_us.paragraph') }}
               </p>
             </div>
           </div>
@@ -238,9 +237,9 @@
                   <i class="bi bi-lightbulb"></i>
                 </div>
                 <div class="feature-content">
-                  <h3>Smart & Scalable Technology</h3>
+                  <h3>{{ __('why_us.smart_scalable') }}</h3>
                   <p>
-                    Our system grows with your gym — from a single branch to a nationwide network. Enjoy fast, reliable, and scalable performance built on modern technology.
+                    {{ __('why_us.smart_scalable_description') }}
                   </p>
                 </div>
               </div>
@@ -252,9 +251,9 @@
                   <i class="bi bi-award"></i>
                 </div>
                 <div class="feature-content">
-                  <h3>Trusted Expertise</h3>
+                  <h3>{{ __('why_us.trusted_expertise') }}</h3>
                   <p>
-                    Developed by a team that understands both fitness and technology, Gymivida delivers a platform tailored to real gym workflows and industry needs.
+                    {{ __('why_us.trusted_expertise_description') }}
                   </p>
                 </div>
               </div>
@@ -266,9 +265,9 @@
                   <i class="bi bi-headset"></i>
                 </div>
                 <div class="feature-content">
-                  <h3>Responsive Support</h3>
+                  <h3>{{ __('why_us.responsive_support') }}</h3>
                   <p>
-                    Our support team is always ready to help — whether you’re onboarding, setting up new features, or optimizing your daily operations.
+                    {{ __('why_us.responsive_support_description') }}
                   </p>
                 </div>
               </div>
@@ -280,9 +279,9 @@
                   <i class="bi bi-graph-up-arrow"></i>
                 </div>
                 <div class="feature-content">
-                  <h3>Maximum Efficiency</h3>
+                  <h3>{{ __('why_us.maximum_efficiency') }}</h3>
                   <p>
-                    Save time and resources through automation and data-driven insights — so you can focus more on growing your gym, not managing it.
+                    {{ __('why_us.maximum_efficiency_description') }}
                   </p>
                 </div>
               </div>
@@ -301,10 +300,10 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Pricing</span>
-        <h2>Choose Your Plan</h2>
+        <span class="subtitle">{{ __('pricing.subtitle') }}</span>
+        <h2>{{ __('pricing.title') }}</h2>
         <p>
-          Flexible pricing options designed to fit gyms of all sizes — from boutique fitness studios to multi-branch chains. Start growing smarter today.
+          {{ __('pricing.description') }}
         </p>
       </div><!-- End Section Title -->
 
@@ -313,12 +312,12 @@
         <!-- Billing Toggle -->
         <div class="pricing-toggle" data-aos="fade-up" data-aos-delay="200">
           <div class="toggle-wrapper">
-            <span class="toggle-label" id="monthlyLabel">Monthly</span>
+            <span class="toggle-label" id="monthlyLabel">{{ __('pricing.monthly') }}</span>
             <label class="toggle-switch">
               <input type="checkbox" id="billingToggle">
               <span class="toggle-slider"></span>
             </label>
-            <span class="toggle-label" id="yearlyLabel">Yearly <span class="badge">Save {{ $averageDiscount ?? 17 }}%</span></span>
+            <span class="toggle-label" id="yearlyLabel">{{ __('pricing.yearly') }} <span class="badge">{{ __('pricing.save') }} {{ $averageDiscount ?? 17 }}%</span></span>
           </div>
         </div>
 
@@ -327,7 +326,7 @@
           <div class="pricing-trial-highlight-inner">
             <i class="bi bi-shield-check"></i>
             <div class="pricing-trial-highlight-text">
-              <strong>No payments required upfront.</strong> Payments start only after your trial period ends — try everything risk-free first.
+              <strong>{{ __('pricing.no_payment_required') }}</strong>
             </div>
           </div>
         </div>
@@ -339,13 +338,13 @@
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 300 + ($index * 100) }}">
               <div class="pricing-card {{ $product->name === 'Professional' ? 'featured' : '' }}">
                 
-                @if($product->name === 'Professional')
-                  <div class="featured-badge">Most Popular</div>
+                @if($product->getTranslation('name', 'en') === 'Professional')
+                  <div class="featured-badge">{{ __('pricing.most_popular') }}</div>
                 @endif
 
                 <div class="pricing-header">
-                  <h3>{{ $product->name }}</h3>
-                  <p class="pricing-description">{{ $product->description }}</p>
+                  <h3>{{ $product->getTranslation('name', app()->getLocale()) }}</h3>
+                  <p class="pricing-description">{{ $product->getTranslation('description', app()->getLocale()) }}</p>
                 </div>
 
                 <div class="pricing-price">
@@ -354,18 +353,18 @@
                     <span class="amount monthly-price">{{ number_format($product->monthly_price, 0) }}</span>
                     <span class="amount yearly-price" style="display: none;">{{ number_format($product->yearly_price / 12, 0) }}</span>
                     <span class="period">
-                      <span class="monthly-period">/month</span>
-                      <span class="yearly-period" style="display: none;">/month</span>
+                      <span class="monthly-period">{{ __('pricing.month') }}</span>
+                      <span class="yearly-period" style="display: none;">{{ __('pricing.month') }}</span>
                     </span>
                   </div>
                   <div class="yearly-total" style="display: none;">
-                    Billed {{ $product->currency . number_format($product->yearly_price, 0) }} annually
+                    {{ __('pricing.billed_annually', ['amount' => $product->currency . number_format($product->yearly_price, 0)]) }}
                   </div>
                   @if($product->trial_period_days > 0)
                     <div class="trial-period">
                       <span class="trial-badge">
                         <i class="bi bi-gift"></i>
-                        {{ $product->trial_period_days }} days free trial
+                        {{ __('pricing.days_free_trial', ['days' => $product->trial_period_days]) }}
                       </span>
                     </div>
                   @endif
@@ -376,15 +375,15 @@
                     @foreach($product->features as $feature)
                       <li>
                         <i class="bi bi-check-circle-fill"></i>
-                        <span>{{ $feature->name }}</span>
+                        <span>{{ $feature->getTranslation('name', app()->getLocale()) }}</span>
                       </li>
                     @endforeach
                   </ul>
                 </div>
 
                 <div class="pricing-footer">
-                  <a href="#contact" class="pricing-btn {{ $product->name === 'Professional' ? 'btn-featured' : '' }}">
-                    Get Started
+                  <a href="#contact" class="pricing-btn {{ $product->getTranslation('name', 'en') === 'Professional' ? 'btn-featured' : '' }}">
+                    {{ __('pricing.get_started') }}
                   </a>
                 </div>
 
@@ -396,9 +395,9 @@
 
         <!-- Pricing Note -->
         <div class="pricing-note" data-aos="fade-up" data-aos-delay="600">
-          <p><i class="bi bi-info-circle"></i> All plans include free onboarding support and regular updates. Custom enterprise solutions available upon request. 
+          <p><i class="bi bi-info-circle"></i> {{ __('pricing.all_plans_note') }}
             @if($demoDocumentation && $demoDocumentation->file_path)
-              <a href="{{ $demoDocumentation->file_url }}" class="text-decoration-underline fw-semibold" download="{{ $demoDocumentation->file_name ?: basename($demoDocumentation->file_path) }}">Click here to download a demo</a>.
+              <a href="{{ $demoDocumentation->file_url }}" class="text-decoration-underline fw-semibold" download="{{ $demoDocumentation->file_name ?: basename($demoDocumentation->file_path) }}">{{ __('pricing.download_demo_link') }}</a>.
             @endif
           </p>
         </div>
@@ -412,9 +411,9 @@
     <section id="pricing-compare" class="pricing-compare section">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
-          <span class="subtitle">Compare Plans</span>
-          <h2>Feature Breakdown</h2>
-          <p>See exactly what each plan includes so you can choose the coverage that fits your branches, trainers, and growth goals.</p>
+          <span class="subtitle">{{ __('pricing.compare_subtitle') }}</span>
+          <h2>{{ __('pricing.compare_title') }}</h2>
+          <p>{{ __('pricing.compare_description') }}</p>
         </div>
 
         @if(!empty($comparisonFeatures))
@@ -422,24 +421,25 @@
             <table class="comparison-table">
               <thead>
                 <tr>
-                  <th scope="col">Feature</th>
+                  <th scope="col">{{ __('pricing.feature') }}</th>
                   @foreach($products as $product)
-                    <th scope="col">{{ $product->name }}</th>
+                    <th scope="col">{{ $product->getTranslation('name', app()->getLocale()) }}</th>
                   @endforeach
                 </tr>
               </thead>
               <tbody>
                 @foreach($comparisonFeatures as $feature)
                   @php
+                    $featureKey = $feature['key'];
                     $featureName = $feature['name'];
                     $featureDescription = $feature['description'] ?? null;
                   @endphp
                   <tr>
-                    <td data-label="Feature">
+                    <td data-label="{{ __('pricing.feature') }}">
                       <div class="feature-label">
                         <span>{{ $featureName }}</span>
                         @if(!empty($featureDescription))
-                          <button type="button" class="feature-tooltip" data-tooltip="{{ $featureDescription }}" aria-label="More info about {{ $featureName }}">
+                          <button type="button" class="feature-tooltip" data-tooltip="{{ $featureDescription }}" aria-label="{{ __('pricing.feature') }}: {{ $featureName }}">
                             <i class="bi bi-info-circle"></i>
                           </button>
                         @endif
@@ -447,17 +447,15 @@
                     </td>
                     @foreach($products as $product)
                       @php
-                        $hasFeature = $product->features->contains(function($feature) use ($featureName) {
-                          return $feature->name === $featureName;
-                        });
+                        $hasFeature = $product->features->contains('key', $featureKey);
                       @endphp
-                      <td data-label="{{ $product->name }}">
+                      <td data-label="{{ $product->getTranslation('name', app()->getLocale()) }}">
                         @if($hasFeature)
-                          <span class="compare-icon compare-icon-true" aria-label="Included">
+                          <span class="compare-icon compare-icon-true" aria-label="{{ __('pricing.included') }}">
                             <i class="bi bi-check-circle-fill"></i>
                           </span>
                         @else
-                          <span class="compare-icon compare-icon-false" aria-label="Not included">
+                          <span class="compare-icon compare-icon-false" aria-label="{{ __('pricing.not_included') }}">
                             <i class="bi bi-x-circle"></i>
                           </span>
                         @endif
@@ -482,21 +480,21 @@
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">System Preview</span>
-        <h2>Explore Gymivida in Action</h2>
-        <p>Take a closer look at how Gymivida transforms your gym operations into a smart, efficient, and fully connected management experience.</p>
+        <span class="subtitle">{{ __('system.subtitle') }}</span>
+        <h2>{{ __('system.title') }}</h2>
+        <p>{{ __('system.description') }}</p>
       </div>
       <!-- End Section Title -->
 
       <div class="container" data-aos="fade-up" data-aos-delay="100">
         <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
           <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="200">
-            <li data-filter="*" class="filter-active">All</li>
-            <li data-filter=".filter-dashboard">Dashboard</li>
-            <li data-filter=".filter-membership">Membership</li>
-            <li data-filter=".filter-trainers">Trainers</li>
-            <li data-filter=".filter-reports">Reports</li>
-            <li data-filter=".filter-branches">Branches</li>
+            <li data-filter="*" class="filter-active">{{ __('system.all') }}</li>
+            <li data-filter=".filter-dashboard">{{ __('system.dashboard') }}</li>
+            <li data-filter=".filter-membership">{{ __('system.membership') }}</li>
+            <li data-filter=".filter-trainers">{{ __('system.trainers') }}</li>
+            <li data-filter=".filter-reports">{{ __('system.reports') }}</li>
+            <li data-filter=".filter-branches">{{ __('system.branches') }}</li>
           </ul>
           <!-- End Portfolio Filters -->
 
@@ -521,16 +519,16 @@
                   <div class="col-md-6">
                     <div class="project-details">
                       <div class="project-header">
-                        <span class="project-category">Dashboard</span>
+                        <span class="project-category">{{ __('system.dashboard') }}</span>
                         <time class="project-year">2025</time>
                       </div>
-                      <h3 class="project-title">All-in-One Control Panel</h3>
-                      <p class="project-description">Monitor gym performance, attendance, revenue, and trainer activity in real-time. The Gymivida dashboard provides instant insights into every corner of your business.</p>
+                      <h3 class="project-title">{{ __('system.dashboard_title') }}</h3>
+                      <p class="project-description">{{ __('system.dashboard_description') }}</p>
                       <div class="project-meta">
                         <div class="project-scope">
-                          <span class="scope-item">Real-Time Data</span>
-                          <span class="scope-item">KPIs & Charts</span>
-                          <span class="scope-item">Smart Filters</span>
+                          <span class="scope-item">{{ __('system.scope_realtime') }}</span>
+                          <span class="scope-item">{{ __('system.scope_kpis') }}</span>
+                          <span class="scope-item">{{ __('system.scope_smart_filters') }}</span>
                         </div>
                       </div>
                     </div>
@@ -551,16 +549,16 @@
                   <div class="col-md-6 order-md-1">
                     <div class="project-details">
                       <div class="project-header">
-                        <span class="project-category">Membership</span>
+                        <span class="project-category">{{ __('system.membership') }}</span>
                         <time class="project-year">2025</time>
                       </div>
-                      <h3 class="project-title">Membership & Subscription Management</h3>
-                      <p class="project-description">Easily manage active memberships, renewals, freeze requests, and payment tracking — all integrated with your billing system for a seamless experience.</p>
+                      <h3 class="project-title">{{ __('system.membership_title') }}</h3>
+                      <p class="project-description">{{ __('system.membership_description') }}</p>
                       <div class="project-meta">
                         <div class="project-scope">
-                          <span class="scope-item">Auto Renewal</span>
-                          <span class="scope-item">Payment Tracking</span>
-                          <span class="scope-item">Freeze / Resume</span>
+                          <span class="scope-item">{{ __('system.scope_auto_renewal') }}</span>
+                          <span class="scope-item">{{ __('system.scope_payment_tracking') }}</span>
+                          <span class="scope-item">{{ __('system.scope_freeze_resume') }}</span>
                         </div>
                       </div>
                     </div>
@@ -581,16 +579,16 @@
                   <div class="col-md-6">
                     <div class="project-details">
                       <div class="project-header">
-                        <span class="project-category">Trainers</span>
+                        <span class="project-category">{{ __('system.trainers') }}</span>
                         <time class="project-year">2025</time>
                       </div>
-                      <h3 class="project-title">Trainer & Staff Management</h3>
-                      <p class="project-description">Organize trainer schedules, assign classes, and track performance. Empower your team with easy communication tools and performance analytics.</p>
+                      <h3 class="project-title">{{ __('system.trainers_title') }}</h3>
+                      <p class="project-description">{{ __('system.trainers_description') }}</p>
                       <div class="project-meta">
                         <div class="project-scope">
-                          <span class="scope-item">Scheduling</span>
-                          <span class="scope-item">Trainer Profiles</span>
-                          <span class="scope-item">Performance Reports</span>
+                          <span class="scope-item">{{ __('system.scope_scheduling') }}</span>
+                          <span class="scope-item">{{ __('system.scope_trainer_profiles') }}</span>
+                          <span class="scope-item">{{ __('system.scope_performance_reports') }}</span>
                         </div>
                       </div>
                     </div>
@@ -611,16 +609,16 @@
                   <div class="col-md-6 order-md-1">
                     <div class="project-details">
                       <div class="project-header">
-                        <span class="project-category">Reports</span>
+                        <span class="project-category">{{ __('system.reports') }}</span>
                         <time class="project-year">2025</time>
                       </div>
-                      <h3 class="project-title">Analytics & Reports</h3>
-                      <p class="project-description">Generate detailed reports on member activity, income, trainer performance, and more — helping you make data-driven decisions effortlessly.</p>
+                      <h3 class="project-title">{{ __('system.reports_title') }}</h3>
+                      <p class="project-description">{{ __('system.reports_description') }}</p>
                       <div class="project-meta">
                         <div class="project-scope">
-                          <span class="scope-item">PDF & CSV Exports</span>
-                          <span class="scope-item">Custom Filters</span>
-                          <span class="scope-item">KPI Analysis</span>
+                          <span class="scope-item">{{ __('system.scope_pdf_csv') }}</span>
+                          <span class="scope-item">{{ __('system.scope_custom_filters') }}</span>
+                          <span class="scope-item">{{ __('system.scope_kpi_analysis') }}</span>
                         </div>
                       </div>
                     </div>
@@ -641,16 +639,16 @@
                   <div class="col-md-6">
                     <div class="project-details">
                       <div class="project-header">
-                        <span class="project-category">Branches</span>
+                        <span class="project-category">{{ __('system.branches') }}</span>
                         <time class="project-year">2025</time>
                       </div>
-                      <h3 class="project-title">Multi-Branch Management</h3>
-                      <p class="project-description">Manage all your branches from one central system — monitor performance by city, staff, and member engagement across locations.</p>
+                      <h3 class="project-title">{{ __('system.branches_title') }}</h3>
+                      <p class="project-description">{{ __('system.branches_description') }}</p>
                       <div class="project-meta">
                         <div class="project-scope">
-                          <span class="scope-item">Centralized Control</span>
-                          <span class="scope-item">Area-Based Scoring</span>
-                          <span class="scope-item">Branch Analytics</span>
+                          <span class="scope-item">{{ __('system.scope_centralized') }}</span>
+                          <span class="scope-item">{{ __('system.scope_area_scoring') }}</span>
+                          <span class="scope-item">{{ __('system.scope_branch_analytics') }}</span>
                         </div>
                       </div>
                     </div>
@@ -664,14 +662,14 @@
 
         <div class="portfolio-conclusion" data-aos="fade-up" data-aos-delay="400">
           <div class="conclusion-content">
-            <h4>See Gymivida in Action</h4>
-            <p>Discover how Gymivida helps you streamline operations, empower your staff, and elevate the member experience — all from a single platform.</p>
+            <h4>{{ __('system.see_in_action') }}</h4>
+            <p>{{ __('system.see_in_action_description') }}</p>
             <div class="conclusion-actions">
               <a href="#contact" class="primary-action">
-                Book a Demo <i class="bi bi-arrow-right"></i>
+                {{ __('system.book_demo') }} <i class="bi bi-arrow-right"></i>
               </a>
               <a href="{{ config('app.gymivida_website') }}" class="secondary-action" target="_blank">
-                Explore Gymivida Website
+                {{ __('system.explore_website') }}
               </a>
             </div>
           </div>
@@ -880,9 +878,9 @@
     <section id="contact" class="contact section light-background">
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <span class="subtitle">Contact</span>
-        <h2>Get in Touch with Gymivida</h2>
-        <p>Whether you're managing a single gym or a growing fitness network, our team is here to help you streamline operations and unlock your gym’s full potential. Let’s start the conversation today.</p>
+        <span class="subtitle">{{ __('contact.subtitle') }}</span>
+        <h2>{{ __('contact.title') }}</h2>
+        <p>{{ __('contact.description') }}</p>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -894,8 +892,8 @@
                 <i class="bi bi-chat-dots"></i>
               </div>
               <div class="info-content">
-                <h4>We’re Here to Help</h4>
-                <p>Our support and partnership teams are available to answer your questions, guide you through setup, and help you grow with Gymivida.</p>
+                <h4>{{ __('contact.we_here_to_help') }}</h4>
+                <p>{{ __('contact.we_here_to_help_description') }}</p>
               </div>
             </div>
 
@@ -906,7 +904,7 @@
                   <i class="bi bi-envelope-open"></i>
                 </div>
                 <div class="detail-content">
-                  <span class="detail-label">Email Us</span>
+                  <span class="detail-label">{{ __('contact.email_us') }}</span>
                   <span class="detail-value">{{ config('app.gymivida_email') }}</span>
                 </div>
               </div>
@@ -916,7 +914,7 @@
                   <i class="bi bi-telephone-outbound"></i>
                 </div>
                 <div class="detail-content">
-                  <span class="detail-label">Call Us</span>
+                  <span class="detail-label">{{ __('contact.call_us') }}</span>
                   <span class="detail-value">{{ config('app.gymivida_phone') }}</span>
                 </div>
               </div>
@@ -926,7 +924,7 @@
                   <i class="bi bi-geo-alt-fill"></i>
                 </div>
                 <div class="detail-content">
-                  <span class="detail-label">Visit Us</span>
+                  <span class="detail-label">{{ __('contact.visit_us') }}</span>
                   <span class="detail-value">Gymivida HQ<br>New Cairo, Egypt</span>
                 </div>
               </div>
@@ -937,10 +935,10 @@
                     <i class="bi bi-file-earmark-pdf"></i>
                   </div>
                   <div class="detail-content">
-                    <span class="detail-label">Registration Demo</span>
+                    <span class="detail-label">{{ __('contact.registration_demo') }}</span>
                     <span class="detail-value">
                       <a href="{{ $registrationDemo->file_url }}" download="{{ $registrationDemo->file_name ?: basename($registrationDemo->file_path) }}" style="text-decoration: underline;">
-                        Download Registration Demo Documentation
+                        {{ __('contact.download_registration_demo') }}
                       </a>
                     </span>
                   </div>
@@ -954,8 +952,8 @@
           <div class="col-lg-7">
             <div class="form-wrapper">
               <div class="form-header">
-                <h3>Send Us a Message</h3>
-                <p>Have a question or want a demo? Fill out the form and our team will get back to you shortly.</p>
+                <h3>{{ __('contact.send_message') }}</h3>
+                <p>{{ __('contact.send_message_description') }}</p>
               </div>
 
               <form id="contactForm" class="contact-form">
@@ -964,14 +962,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Full Name <span class="text-danger">*</span></label>
+                      <label>{{ __('contact.full_name') }} <span class="text-danger">*</span></label>
                       <input type="text" name="name" id="name" class="form-control" required>
                       <span class="error-text text-danger" id="name-error"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Email Address <span class="text-danger">*</span></label>
+                      <label>{{ __('contact.email_address') }} <span class="text-danger">*</span></label>
                       <input type="email" name="email" id="email" class="form-control" required>
                       <span class="error-text text-danger" id="email-error"></span>
                     </div>
@@ -981,14 +979,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Phone Number</label>
+                      <label>{{ __('contact.phone_number') }}</label>
                       <input type="text" name="phone" id="phone" class="form-control">
                       <span class="error-text text-danger" id="phone-error"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>Subject</label>
+                      <label>{{ __('contact.subject') }}</label>
                       <input type="text" name="subject" id="subject" class="form-control">
                       <span class="error-text text-danger" id="subject-error"></span>
                     </div>
@@ -996,15 +994,15 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="product_id">Interested Subscription Plan (Optional)</label>
+                  <label for="product_id">{{ __('contact.interested_plan') }}</label>
                   <select name="product_id" id="product_id" class="form-control">
-                    <option value="">-- Select a Subscription Plan --</option>
+                    <option value="">{{ __('contact.select_plan') }}</option>
                   </select>
                   <span class="error-text text-danger" id="product_id-error"></span>
                 </div>
 
                 <div class="form-group">
-                  <label for="message">Message <span class="text-danger">*</span></label>
+                  <label for="message">{{ __('contact.message') }} <span class="text-danger">*</span></label>
                   <textarea name="message" id="message" class="form-control" rows="5" required></textarea>
                   <span class="error-text text-danger" id="message-error"></span>
                 </div>
@@ -1014,14 +1012,14 @@
                     <input type="checkbox" name="wants_registration_email" id="wants_registration_email" value="1">
                     <span class="checkmark"></span>
                     <span class="checkbox-content">
-                      <span class="checkbox-title">Send me a complete registration link</span>
-                      <span class="checkbox-description">I want to receive an email to set up my gym and complete the registration process</span>
+                      <span class="checkbox-title">{{ __('contact.send_registration_link') }}</span>
+                      <span class="checkbox-description">{{ __('contact.send_registration_link_description') }}</span>
                     </span>
                   </label>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
-                  <span id="btnText">Send Message</span>
+                  <span id="btnText">{{ __('contact.send_message_button') }}</span>
                   <i class="bi bi-arrow-right" id="btnIcon"></i>
                   <span class="spinner-border spinner-border-sm d-none" id="btnSpinner" role="status">
                     <span class="visually-hidden">Loading...</span>
@@ -1112,7 +1110,7 @@
 
                 // Disable submit button and show loading state
                 submitBtn.disabled = true;
-                btnText.textContent = 'Sending...';
+                btnText.textContent = '{{ __('contact.sending') }}';
                 btnIcon.classList.add('d-none');
                 btnSpinner.classList.remove('d-none');
 
@@ -1156,7 +1154,7 @@
                 .finally(() => {
                     // Re-enable submit button and restore original state
                     submitBtn.disabled = false;
-                    btnText.textContent = 'Send Message';
+                    btnText.textContent = '{{ __('contact.send_message_button') }}';
                     btnIcon.classList.remove('d-none');
                     btnSpinner.classList.add('d-none');
                 });

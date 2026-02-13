@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', 'Terms')
+@section('title', __('terms.title'))
 
 @section('body-class', 'terms-page')
 
@@ -10,15 +10,15 @@
       <div class="breadcrumbs">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}"><i class="bi bi-house"></i> Home</a></li>
-            <li class="breadcrumb-item active current">Terms</li>
+            <li class="breadcrumb-item"><a href="{{ route('home', ['locale' => $currentLocale]) }}"><i class="bi bi-house"></i> {{ __('nav.home') }}</a></li>
+            <li class="breadcrumb-item active current">{{ __('terms.breadcrumb') }}</li>
           </ol>
         </nav>
       </div>
 
       <div class="title-wrapper">
-        <h1>Terms</h1>
-        <p>These terms govern how gyms, staff, and partners use the Gymivida platform, APIs, and related services. Please review them carefully before activating your workspace.</p>
+        <h1>{{ __('terms.title') }}</h1>
+        <p>{{ __('terms.intro') }}</p>
       </div>
     </div>
     <!-- End Page Title -->
@@ -29,66 +29,66 @@
       <div class="container" data-aos="fade-up">
         <!-- Page Header -->
         <div class="tos-header text-center" data-aos="fade-up">
-          <span class="last-updated">Last Updated: November 24, 2025</span>
+          <span class="last-updated">{{ __('terms.last_updated') }}</span>
         </div>
 
         <!-- Content -->
         <div class="tos-content" data-aos="fade-up" data-aos-delay="200">
           <!-- Agreement Section -->
           <div id="agreement" class="content-section">
-            <h3>1. Agreement to Terms</h3>
-            <p>By creating a Gymivida workspace, signing an order form, or accessing any part of the platform, you acknowledge that you have read, understood, and agree to these Terms of Service and our Privacy Policy. If you are accepting on behalf of a company, you confirm that you have the authority to bind that company to this agreement.</p>
+            <h3>{{ __('terms.agreement_title') }}</h3>
+            <p>{{ __('terms.agreement_p') }}</p>
             <div class="info-box">
               <i class="bi bi-info-circle"></i>
-              <p>These terms apply to every user — founders, branch managers, trainers, front-desk staff, contractors, and guests — who signs in to Gymivida or interacts with our APIs.</p>
+              <p>{{ __('terms.agreement_note') }}</p>
             </div>
           </div>
 
           <!-- Intellectual Property -->
           <div id="intellectual-property" class="content-section">
-            <h3>2. Intellectual Property Rights</h3>
-            <p>The Gymivida brand, source code, designs, and documentation are owned by Gymivida or its licensors. Your subscription grants a limited, revocable license to use the software for your internal gym operations.</p>
+            <h3>{{ __('terms.ip_title') }}</h3>
+            <p>{{ __('terms.ip_p') }}</p>
             <ul class="list-items">
-              <li>You may not reverse engineer, decompile, or create derivative works of the platform</li>
-              <li>Logos, product names, and interface assets cannot be used without written permission</li>
-              <li>We may reference your gym name and logo as part of customer lists unless you opt out in writing</li>
-              <li>Data you upload remains yours; we only process it to deliver contracted features</li>
+              <li>{{ __('terms.ip_1') }}</li>
+              <li>{{ __('terms.ip_2') }}</li>
+              <li>{{ __('terms.ip_3') }}</li>
+              <li>{{ __('terms.ip_4') }}</li>
             </ul>
           </div>
 
           <!-- User Accounts -->
           <div id="user-accounts" class="content-section">
-            <h3>3. User Accounts</h3>
-            <p>Workspace owners are responsible for inviting and managing team members. You must provide accurate information, maintain unique login credentials for each user, and immediately notify us of any unauthorized access or suspected breach.</p>
+            <h3>{{ __('terms.accounts_title') }}</h3>
+            <p>{{ __('terms.accounts_p') }}</p>
             <div class="alert-box">
               <i class="bi bi-exclamation-triangle"></i>
               <div class="alert-content">
-                <h5>Important Notice</h5>
-                <p>You are accountable for the actions performed with your credentials, including data entered into the system and communications triggered from your workspace.</p>
+                <h5>{{ __('terms.accounts_notice_title') }}</h5>
+                <p>{{ __('terms.accounts_notice_p') }}</p>
               </div>
             </div>
           </div>
 
           <!-- Prohibited Activities -->
           <div id="prohibited" class="content-section">
-            <h3>4. Prohibited Activities</h3>
-            <p>Gymivida must be used responsibly. Any misuse that degrades service performance, harms other customers, or circumvents billing obligations is strictly forbidden.</p>
+            <h3>{{ __('terms.prohibited_title') }}</h3>
+            <p>{{ __('terms.prohibited_p') }}</p>
             <div class="prohibited-list">
               <div class="prohibited-item">
                 <i class="bi bi-x-circle"></i>
-                <span>Scraping, bulk exporting, or systematically retrieving content outside of approved APIs</span>
+                <span>{{ __('terms.prohibited_1') }}</span>
               </div>
               <div class="prohibited-item">
                 <i class="bi bi-x-circle"></i>
-                <span>Uploading malicious code, performing penetration tests without consent, or attempting to bypass security controls</span>
+                <span>{{ __('terms.prohibited_2') }}</span>
               </div>
               <div class="prohibited-item">
                 <i class="bi bi-x-circle"></i>
-                <span>Reselling the platform or offering shared logins outside your organization</span>
+                <span>{{ __('terms.prohibited_3') }}</span>
               </div>
               <div class="prohibited-item">
                 <i class="bi bi-x-circle"></i>
-                <span>Attempting to access data that belongs to another customer or branch without authorization</span>
+                <span>{{ __('terms.prohibited_4') }}</span>
               </div>
             </div>
           </div>
@@ -110,46 +110,46 @@
 
           <!-- Limitation of Liability -->
           <div id="limitation" class="content-section">
-            <h3>6. Limitation of Liability</h3>
-            <p>To the maximum extent permitted by law, Gymivida and its affiliates are not liable for lost profits, lost data, business interruption, or indirect damages. Our aggregate liability for any claim is limited to the fees you paid to Gymivida during the twelve (12) months preceding the incident.</p>
+            <h3>{{ __('terms.limitation_title') }}</h3>
+            <p>{{ __('terms.limitation_p') }}</p>
           </div>
 
           <!-- Indemnification -->
           <div id="indemnification" class="content-section">
-            <h3>7. Indemnification</h3>
-            <p>You agree to defend and indemnify Gymivida, its officers, employees, and partners against claims arising from your misuse of the platform, violation of these terms, infringement of third-party rights, or breach of applicable laws while using our services.</p>
+            <h3>{{ __('terms.indemnification_title') }}</h3>
+            <p>{{ __('terms.indemnification_p') }}</p>
           </div>
 
           <!-- Refund Policy -->
           <div id="refund-policy" class="content-section">
-            <h3>8. Refund Policy</h3>
-            <p>Gymivida operates on a subscription-based billing model for gym owners.</p>
-            <p>All subscription fees are charged in advance and are non-refundable once payment is processed.</p>
-            <p>Gym owners may cancel their subscription at any time. Upon cancellation, access to the platform will remain active until the end of the current billing period. No further charges will be applied after cancellation.</p>
-            <p>We do not provide prorated refunds, partial refunds, or credits for unused subscription time.</p>
-            <p>Subscription cancellation is separate from gym account deactivation. Deactivating a gym or requesting data deletion does not entitle the subscriber to any refund.</p>
-            <p>Refunds may only be issued in cases of duplicate charges or confirmed billing errors and will be reviewed on a case-by-case basis. Approved refunds will be returned to the original payment method within 7–14 business days.</p>
+            <h3>{{ __('terms.refund_title') }}</h3>
+            <p>{{ __('terms.refund_1') }}</p>
+            <p>{{ __('terms.refund_2') }}</p>
+            <p>{{ __('terms.refund_3') }}</p>
+            <p>{{ __('terms.refund_4') }}</p>
+            <p>{{ __('terms.refund_5') }}</p>
+            <p>{{ __('terms.refund_6') }}</p>
           </div>
 
           <!-- Termination -->
           <div id="termination" class="content-section">
-            <h3>9. Termination</h3>
-            <p>We may suspend or terminate access if you fail to pay fees, materially breach these terms, or pose a security risk. You may terminate at the end of your billing cycle by providing the notice stated in your order form. Upon termination, you remain responsible for outstanding amounts and we can provide a data export upon request.</p>
+            <h3>{{ __('terms.termination_title') }}</h3>
+            <p>{{ __('terms.termination_p') }}</p>
           </div>
 
           <!-- Governing Law -->
           <div id="governing-law" class="content-section">
-            <h3>10. Governing Law</h3>
-            <p>These Terms are governed by the laws of the Arab Republic of Egypt. Any dispute that cannot be resolved informally will be submitted to the competent courts in Cairo, subject to each party’s right to seek urgent injunctive relief elsewhere.</p>
+            <h3>{{ __('terms.governing_title') }}</h3>
+            <p>{{ __('terms.governing_p') }}</p>
           </div>
 
           <!-- Changes -->
           <div id="changes" class="content-section">
-            <h3>11. Changes to Terms</h3>
-            <p>We may update these terms to reflect new features, regulatory requirements, or pricing models. Material changes will be communicated by email or in-app banners at least 14 days before they take effect, unless the change addresses a security issue or legal obligation.</p>
+            <h3>{{ __('terms.changes_title') }}</h3>
+            <p>{{ __('terms.changes_p') }}</p>
             <div class="notice-box">
               <i class="bi bi-bell"></i>
-              <p>Continuing to use Gymivida after the effective date of a change constitutes acceptance of the revised terms.</p>
+              <p>{{ __('terms.changes_notice') }}</p>
             </div>
           </div>
         </div>
@@ -161,9 +161,9 @@
               <i class="bi bi-envelope"></i>
             </div>
             <div class="contact-content">
-              <h4>Questions About Terms?</h4>
-              <p>If you have any questions about these Terms, please contact us.</p>
-              <a href="{{ route('home') }}#contact" class="contact-link">Contact Support</a>
+              <h4>{{ __('terms.contact_questions') }}</h4>
+              <p>{{ __('terms.contact_intro') }}</p>
+              <a href="{{ route('home', ['locale' => $currentLocale]) }}#contact" class="contact-link">{{ __('terms.contact_link') }}</a>
             </div>
           </div>
         </div>

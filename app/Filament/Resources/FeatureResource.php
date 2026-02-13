@@ -25,23 +25,41 @@ class FeatureResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255)
-                    ->live(onBlur: true)
-                    ->afterStateUpdated(function ($state, Forms\Set $set) {
-                        // Auto-generate key from name
-                        $key = strtolower(str_replace(['&', ' '], ['', '_'], $state));
-                        $key = preg_replace('/_+/', '_', $key); // Remove duplicate underscores
-                        $set('key', $key);
-                    }),
+                Forms\Components\Tabs::make('Translations')
+                    ->tabs([
+                        Forms\Components\Tabs\Tab::make('English')
+                            ->schema([
+                                Forms\Components\TextInput::make('name_en')
+                                    ->label('Name (English)')
+                                    ->required()
+                                    ->maxLength(255)
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function ($state, Forms\Set $set) {
+                                        if ($state === null) return;
+                                        $key = strtolower(str_replace(['&', ' '], ['', '_'], $state));
+                                        $key = preg_replace('/_+/', '_', $key);
+                                        $set('key', $key);
+                                    }),
+                                Forms\Components\Textarea::make('description_en')
+                                    ->label('Description (English)')
+                                    ->columnSpanFull(),
+                            ]),
+                        Forms\Components\Tabs\Tab::make('Arabic')
+                            ->schema([
+                                Forms\Components\TextInput::make('name_ar')
+                                    ->label('Name (العربية)')
+                                    ->maxLength(255),
+                                Forms\Components\Textarea::make('description_ar')
+                                    ->label('Description (العربية)')
+                                    ->columnSpanFull(),
+                            ]),
+                    ])
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('key')
                     ->required()
                     ->maxLength(255)
                     ->unique(ignoreRecord: true)
-                    ->helperText('Unique identifier (auto-generated from name)'),
-                Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
+                    ->helperText('Unique identifier (auto-generated from English name)'),
                 Forms\Components\Toggle::make('is_active')
                     ->label('Active')
                     ->default(true),
