@@ -43,7 +43,7 @@
     border-radius: 8px;
     cursor: pointer;
     font-size: 0.9rem;
-    color: var(--nav-color, #999);
+    color: var(--nav-color, #666);
     transition: border-color .2s, color .2s, box-shadow .2s;
 }
 .lang-switcher-trigger:hover {

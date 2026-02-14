@@ -9,10 +9,10 @@
         </a>
         <p>{{ __('common.footer_tagline') }}</p>
         <div class="social-links d-flex mt-4">
-          <a href="#"><i class="bi bi-twitter-x"></i></a>
-          <a href="#"><i class="bi bi-facebook"></i></a>
-          <a href="{{ config('app.gymivida_instagram') }}" target="_blank"><i class="bi bi-instagram"></i></a>
-          <a href="{{ config('app.gymivida_linkedin') }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+          <a href="#" aria-label="Twitter" title="Twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
+          <a href="#" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          <a href="{{ config('app.gymivida_instagram') }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
+          <a href="{{ config('app.gymivida_linkedin') }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
         </div>
       </div>
 

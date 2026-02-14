@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
     <url>
-    <loc>http://127.0.0.1:8001/</loc>
+    <loc>https://gymivida.pyraven.com/en</loc>
+    <lastmod>2026-02-14T09:52:24+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8001/privacy</loc>
+    <loc>https://gymivida.pyraven.com/en/privacy</loc>
+    <lastmod>2026-02-14T09:52:24+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
             </url>
     <url>
-    <loc>http://127.0.0.1:8001/terms</loc>
+    <loc>https://gymivida.pyraven.com/en/terms</loc>
+    <lastmod>2026-02-14T09:52:24+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+            </url>
+    <url>
+    <loc>https://gymivida.pyraven.com/ar</loc>
+    <lastmod>2026-02-14T09:52:24+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+            </url>
+    <url>
+    <loc>https://gymivida.pyraven.com/ar/privacy</loc>
+    <lastmod>2026-02-14T09:52:24+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+            </url>
+    <url>
+    <loc>https://gymivida.pyraven.com/ar/terms</loc>
+    <lastmod>2026-02-14T09:52:24+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
             </url>

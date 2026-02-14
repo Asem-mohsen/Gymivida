@@ -46,13 +46,16 @@
 
           <div class="col-lg-6">
             <div class="hero-image" data-aos="fade-left" data-aos-delay="300">
-              <img src="{{ asset('assets/img/about/gymivida-about-2.png') }}" alt="Business Success" class="img-fluid">
+              <picture>
+                <source srcset="{{ asset('assets/img/about/gymivida-about-2.webp') }}" type="image/webp">
+                <img src="{{ asset('assets/img/about/gymivida-about-2.png') }}" alt="Business Success" class="img-fluid" width="1024" height="1024" fetchpriority="high" decoding="async">
+              </picture>
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="600">
                 <div class="card-icon">
                   <i class="bi bi-graph-up-arrow"></i>
                 </div>
                 <div class="card-content">
-                  <h5>{{ __('hero.covered_cities') }}</h5>
+                  <p class="card-title">{{ __('hero.covered_cities') }}</p>
                   <div class="growth-percentage">+20</div>
                 </div>
               </div>
@@ -117,14 +120,17 @@
 
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
             <div class="image-wrapper">
-              <img src="{{ asset('assets/img/about/gymivida-about-women.png') }}" alt="About Gymivida" class="img-fluid">
+              <picture>
+                <source srcset="{{ asset('assets/img/about/gymivida-about-women.webp') }}" type="image/webp">
+                <img src="{{ asset('assets/img/about/gymivida-about-women.png') }}" alt="About Gymivida" class="img-fluid" width="1024" height="1024" loading="lazy" decoding="async">
+              </picture>
               <div class="floating-card" data-aos="zoom-in" data-aos-delay="500">
                 <div class="card-content">
                   <div class="icon">
                     <i class="bi bi-award"></i>
                   </div>
                   <div class="text">
-                    <h4>{{ __('about.award_winning') }}</h4>
+                    <p class="card-title">{{ __('about.award_winning') }}</p>
                     <p>{{ __('about.award_description') }}</p>
                   </div>
                 </div>
@@ -223,7 +229,10 @@
           </div>
           <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
             <div class="image-wrapper">
-              <img src="{{ asset('assets/img/about/gymivida-about.png') }}" alt="Gymivida platform dashboard" class="img-fluid">
+              <picture>
+                <source srcset="{{ asset('assets/img/about/gymivida-about.webp') }}" type="image/webp">
+                <img src="{{ asset('assets/img/about/gymivida-about.png') }}" alt="Gymivida platform dashboard" class="img-fluid" width="1536" height="1024" loading="lazy" decoding="async">
+              </picture>
             </div>
           </div>
         </div>
@@ -314,7 +323,7 @@
           <div class="toggle-wrapper">
             <span class="toggle-label" id="monthlyLabel">{{ __('pricing.monthly') }}</span>
             <label class="toggle-switch">
-              <input type="checkbox" id="billingToggle">
+              <input type="checkbox" id="billingToggle" aria-labelledby="monthlyLabel yearlyLabel">
               <span class="toggle-slider"></span>
             </label>
             <span class="toggle-label" id="yearlyLabel">{{ __('pricing.yearly') }} <span class="badge">{{ __('pricing.save') }} {{ $averageDiscount ?? 17 }}%</span></span>
@@ -451,12 +460,12 @@
                       @endphp
                       <td data-label="{{ $product->getTranslation('name', app()->getLocale()) }}">
                         @if($hasFeature)
-                          <span class="compare-icon compare-icon-true" aria-label="{{ __('pricing.included') }}">
-                            <i class="bi bi-check-circle-fill"></i>
+                          <span class="compare-icon compare-icon-true" role="img" aria-label="{{ __('pricing.included') }}">
+                            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
                           </span>
                         @else
-                          <span class="compare-icon compare-icon-false" aria-label="{{ __('pricing.not_included') }}">
-                            <i class="bi bi-x-circle"></i>
+                          <span class="compare-icon compare-icon-false" role="img" aria-label="{{ __('pricing.not_included') }}">
+                            <i class="bi bi-x-circle" aria-hidden="true"></i>
                           </span>
                         @endif
                       </td>
@@ -892,7 +901,7 @@
                 <i class="bi bi-chat-dots"></i>
               </div>
               <div class="info-content">
-                <h4>{{ __('contact.we_here_to_help') }}</h4>
+                <h3>{{ __('contact.we_here_to_help') }}</h3>
                 <p>{{ __('contact.we_here_to_help_description') }}</p>
               </div>
             </div>
@@ -962,14 +971,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>{{ __('contact.full_name') }} <span class="text-danger">*</span></label>
+                      <label for="name">{{ __('contact.full_name') }} <span class="text-danger">*</span></label>
                       <input type="text" name="name" id="name" class="form-control" required>
                       <span class="error-text text-danger" id="name-error"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>{{ __('contact.email_address') }} <span class="text-danger">*</span></label>
+                      <label for="email">{{ __('contact.email_address') }} <span class="text-danger">*</span></label>
                       <input type="email" name="email" id="email" class="form-control" required>
                       <span class="error-text text-danger" id="email-error"></span>
                     </div>
@@ -979,14 +988,14 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>{{ __('contact.phone_number') }}</label>
+                      <label for="phone">{{ __('contact.phone_number') }}</label>
                       <input type="text" name="phone" id="phone" class="form-control">
                       <span class="error-text text-danger" id="phone-error"></span>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <label>{{ __('contact.subject') }}</label>
+                      <label for="subject">{{ __('contact.subject') }}</label>
                       <input type="text" name="subject" id="subject" class="form-control">
                       <span class="error-text text-danger" id="subject-error"></span>
                     </div>

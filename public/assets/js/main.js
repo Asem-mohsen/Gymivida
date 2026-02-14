@@ -65,9 +65,20 @@
    */
   const preloader = document.querySelector('#preloader');
   if (preloader) {
-    window.addEventListener('load', () => {
-      preloader.remove();
-    });
+    const removePreloader = () => {
+      preloader.style.opacity = '0';
+      preloader.style.visibility = 'hidden';
+      preloader.style.pointerEvents = 'none';
+      setTimeout(() => preloader.remove(), 250);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', removePreloader, { once: true });
+    } else {
+      removePreloader();
+    }
+
+    window.addEventListener('load', () => preloader.remove(), { once: true });
   }
 
   /**
@@ -102,7 +113,11 @@
       mirror: false
     });
   }
-  window.addEventListener('load', aosInit);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', aosInit, { once: true });
+  } else {
+    aosInit();
+  }
 
   /**
    * Initiate glightbox

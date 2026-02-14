@@ -38,6 +38,10 @@
     @endforeach
     <link rel="alternate" hreflang="x-default" href="{{ $alternateUrls['en'] ?? $currentUrl }}">
 
+    @if($routeName === 'home')
+        <link rel="preload" as="image" href="{{ asset('assets/img/about/gymivida-about-2.webp') }}" type="image/webp" fetchpriority="high">
+    @endif
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ $currentUrl }}">
@@ -67,18 +71,29 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     @if($currentLocale === 'ar')
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
     @endif
 
     <!-- Vendor CSS Files -->
     <link href="{{ asset('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link href="{{ asset('assets/css/toastr.min.css') }}" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@500;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+        @if($currentLocale === 'ar')
+            <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+        @endif
+        <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/aos/aos.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/toastr.min.css') }}" rel="stylesheet">
+    </noscript>
 
     <!-- Main CSS File -->
     <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
