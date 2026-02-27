@@ -96,8 +96,8 @@
               <p>
                 {{ __('about.paragraph2') }}
               </p>
-
-              <div class="stats-row">
+              {{-- TODO: Add stats --}}
+              {{-- <div class="stats-row">
                 <div class="stat-item">
                   <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"></div>
                   <div class="stat-label">{{ __('about.years_experience') }}</div>
@@ -110,7 +110,7 @@
                   <div class="stat-number purecounter" data-purecounter-start="0" data-purecounter-end="240" data-purecounter-duration="1"></div>
                   <div class="stat-label">{{ __('about.happy_clients') }}</div>
                 </div>
-              </div>
+              </div> --}}
 
               <div class="cta-section">
                 <a href="#contact" class="btn-outline">{{ __('about.meet_team') }}</a>
