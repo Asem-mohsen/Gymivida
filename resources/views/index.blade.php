@@ -1018,7 +1018,7 @@
 
                 <div class="form-group">
                   <label class="custom-checkbox-container d-flex">
-                    <input type="checkbox" name="wants_registration_email" id="wants_registration_email" value="1">
+                    <input type="checkbox" name="wants_registration_email" id="wants_registration_email" value="1" checked>
                     <span class="checkmark"></span>
                     <span class="checkbox-content">
                       <span class="checkbox-title">{{ __('contact.send_registration_link') }}</span>
