@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'affiliate_url' => env('AFFILIATE_URL', 'https://gymivida.com/affiliate'),
     'gymivida_website' => env('GIMIVIDA_WEBSITE', 'https://gymivida.com'),
     'gymivida_phone' => env('GIMIVIDA_PHONE', '+201027885933'),
     'gymivida_email' => env('GIMIVIDA_EMAIL', 'support@gymivida.cloud'),

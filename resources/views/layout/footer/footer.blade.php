@@ -9,8 +9,8 @@
         </a>
         <p>{{ __('common.footer_tagline') }}</p>
         <div class="social-links d-flex mt-4">
-          <a href="#" aria-label="Twitter" title="Twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i></a>
-          <a href="#" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
+          {{-- <a href="#" aria-label="Twitter" title="Twitter"><i class="bi bi-twitter-x" aria-hidden="true"></i></a> --}}
+          <a href="{{ config('app.gymivida_facebook') }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><i class="bi bi-facebook" aria-hidden="true"></i></a>
           <a href="{{ config('app.gymivida_instagram') }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><i class="bi bi-instagram" aria-hidden="true"></i></a>
           <a href="{{ config('app.gymivida_linkedin') }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn"><i class="bi bi-linkedin" aria-hidden="true"></i></a>
         </div>
@@ -20,6 +20,7 @@
         <h4>{{ __('common.footer_quick_links') }}</h4>
         <ul>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}">{{ __('nav.home') }}</a></li>
+          <li><a href="{{ config('app.affiliate_url') }}" target="_blank" rel="noopener noreferrer" aria-label="Affiliate" title="Affiliate">{{__('nav.affiliate')}}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#pricing">{{ __('nav.pricing') }}</a></li>
           <li><a href="{{ route('terms', ['locale' => $currentLocale]) }}">{{ __('nav.terms') }}</a></li>
           <li><a href="{{ route('privacy', ['locale' => $currentLocale]) }}">{{ __('nav.privacy') }}</a></li>
@@ -31,7 +32,7 @@
       <div class="col-lg-2 col-6 footer-links">
         <h4>{{ __('common.footer_services') }}</h4>
         <ul>
-          @foreach(($footerServices ?? collect())->take(6) as $service)
+          @foreach(($footerServices ?? collect())->take(7) as $service)
             <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ $service->getTranslation('title', app()->getLocale()) }}</a></li>
           @endforeach
         </ul>

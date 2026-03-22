@@ -10,4 +10,5 @@ return [
     'terms' => 'Terms',
     'privacy' => 'Privacy',
     'refund_policy' => 'Refund Policy',
+    'affiliate' => 'Affiliate',
 ];
