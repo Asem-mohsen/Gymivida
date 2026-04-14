@@ -345,7 +345,7 @@
 
           @foreach($products as $index => $product)
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ 300 + ($index * 100) }}">
-              <div class="pricing-card {{ $product->name === 'Professional' ? 'featured' : '' }}">
+              <div class="pricing-card {{ $product->name === 'Professional' ? 'featured' : '' }}" data-plan-id="{{ $product->id }}">
                 
                 @if($product->getTranslation('name', 'en') === 'Professional')
                   <div class="featured-badge">{{ __('pricing.most_popular') }}</div>
@@ -391,9 +391,16 @@
                 </div>
 
                 <div class="pricing-footer">
-                  <a href="#contact" class="pricing-btn {{ $product->getTranslation('name', 'en') === 'Professional' ? 'btn-featured' : '' }}">
+                  <a href="#contact" class="pricing-btn js-get-started {{ $product->getTranslation('name', 'en') === 'Professional' ? 'btn-featured' : '' }}">
                     {{ __('pricing.get_started') }}
                   </a>
+                  <button
+                    type="button"
+                    class="pricing-btn js-upgrade-plan-btn d-none {{ $product->getTranslation('name', 'en') === 'Professional' ? 'btn-featured' : '' }}"
+                    data-plan-id="{{ $product->id }}"
+                  >
+                    {{ __('pricing.upgrade_to_this_plan') }}
+                  </button>
                 </div>
 
               </div>
@@ -432,7 +439,21 @@
                 <tr>
                   <th scope="col">{{ __('pricing.feature') }}</th>
                   @foreach($products as $product)
-                    <th scope="col">{{ $product->getTranslation('name', app()->getLocale()) }}</th>
+                    <th scope="col" data-plan-id="{{ $product->id }}">{{ $product->getTranslation('name', app()->getLocale()) }}</th>
+                  @endforeach
+                </tr>
+                <tr class="js-upgrade-actions-row d-none">
+                  <th scope="col"></th>
+                  @foreach($products as $product)
+                    <th scope="col">
+                      <button
+                        type="button"
+                        class="pricing-btn js-upgrade-plan-btn d-none"
+                        data-plan-id="{{ $product->id }}"
+                      >
+                        {{ __('pricing.upgrade') }}
+                      </button>
+                    </th>
                   @endforeach
                 </tr>
               </thead>
@@ -1052,7 +1073,20 @@
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
-        
+
+        try {
+            const upgradeToastRaw = sessionStorage.getItem('upgrade_toast');
+            if (upgradeToastRaw) {
+                sessionStorage.removeItem('upgrade_toast');
+                const upgradeToast = JSON.parse(upgradeToastRaw);
+                if (upgradeToast && upgradeToast.type && upgradeToast.message && typeof toastr !== 'undefined') {
+                    toastr[upgradeToast.type](upgradeToast.message);
+                }
+            }
+        } catch (e) {
+            // ignore
+        }
+
         loadProducts();
         
         const billingToggle = document.getElementById('billingToggle');
@@ -1417,6 +1451,214 @@
             button.addEventListener('focus', showTooltip);
             button.addEventListener('blur', hideTooltip);
         });
+
+        initUpgradePlanFlow();
+
+        function initUpgradePlanFlow() {
+            const url = new URL(window.location.href);
+            const upgradeToken =
+                url.searchParams.get('upgrade_token') ||
+                new URLSearchParams((window.location.hash || '').split('?')[1] || '').get('upgrade_token');
+            if (!upgradeToken) {
+                return;
+            }
+
+            const locale = @json($currentLocale);
+
+            try {
+                window.history.replaceState({}, '', `/${locale}#pricing`);
+            } catch (e) {
+                // ignore
+            }
+
+            const pricingSection = document.getElementById('pricing');
+            if (pricingSection) {
+                pricingSection.classList.add('js-upgrade-loading');
+            }
+
+            const gymividaWebsiteBaseUrl = @json(rtrim((string) config('app.gymivida_website'), '/'));
+            fetch(`${gymividaWebsiteBaseUrl}/api/v1/subscription/validate-token`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: upgradeToken }),
+            })
+            .then(async (response) => {
+                if (response.status === 403) {
+                    return { isValid: false };
+                }
+                if (!response.ok) {
+                    throw new Error(`Token validation failed (${response.status})`);
+                }
+                const payload = await response.json().catch(() => ({}));
+                return { isValid: true, payload };
+            })
+            .then(({ isValid, payload }) => {
+                if (!isValid) {
+                    return;
+                }
+                const currentPlanId =
+                    payload?.current_plan_id ??
+                    payload?.currentPlanId ??
+                    payload?.data?.current_plan_id ??
+                    payload?.data?.currentPlanId ??
+                    null;
+                enableUpgradeUI({ upgradeToken, currentPlanId });
+            })
+            .catch(() => {
+                // fail closed
+            })
+            .finally(() => {
+                if (pricingSection) {
+                    pricingSection.classList.remove('js-upgrade-loading');
+                }
+            });
+        }
+
+        function enableUpgradeUI({ upgradeToken, currentPlanId }) {
+            document.documentElement.classList.add('js-upgrade-mode');
+
+            document.querySelectorAll('.pricing-card[data-plan-id]').forEach((card) => {
+                const planId = card.getAttribute('data-plan-id');
+                const getStarted = card.querySelector('.js-get-started');
+                const upgradeBtn = card.querySelector('.js-upgrade-plan-btn[data-plan-id]');
+
+                if (getStarted) {
+                    getStarted.classList.add('d-none');
+                }
+                if (upgradeBtn) {
+                    upgradeBtn.classList.remove('d-none');
+                    upgradeBtn.dataset.upgradeToken = upgradeToken;
+                }
+                if (currentPlanId !== null && String(currentPlanId) === String(planId)) {
+                    card.classList.add('current-plan');
+                    if (upgradeBtn) {
+                        upgradeBtn.disabled = true;
+                        upgradeBtn.textContent = @json(__('pricing.current_plan'));
+                    }
+                }
+            });
+
+            const upgradeActionsRow = document.querySelector('.js-upgrade-actions-row');
+            if (upgradeActionsRow) {
+                upgradeActionsRow.classList.remove('d-none');
+                upgradeActionsRow.querySelectorAll('.js-upgrade-plan-btn[data-plan-id]').forEach((btn) => {
+                    btn.classList.remove('d-none');
+                    btn.dataset.upgradeToken = upgradeToken;
+                    if (currentPlanId !== null && String(currentPlanId) === String(btn.dataset.planId)) {
+                        btn.disabled = true;
+                        btn.textContent = @json(__('pricing.current_plan'));
+                    }
+                });
+            }
+
+            if (currentPlanId !== null) {
+                const currentHeader = document.querySelector(`.comparison-table thead th[data-plan-id="${currentPlanId}"]`);
+                if (currentHeader) {
+                    currentHeader.classList.add('current-plan');
+                }
+            }
+
+            document.addEventListener('click', function(e) {
+                const target = e.target;
+                if (!(target instanceof HTMLElement)) {
+                    return;
+                }
+                const upgradeBtn = target.closest('.js-upgrade-plan-btn');
+                if (!(upgradeBtn instanceof HTMLButtonElement)) {
+                    return;
+                }
+                if (upgradeBtn.disabled) {
+                    return;
+                }
+                const selectedPlanId = upgradeBtn.dataset.planId;
+                const token = upgradeBtn.dataset.upgradeToken;
+                if (!selectedPlanId || !token) {
+                    return;
+                }
+                runUpgrade({ token, selectedPlanId, upgradeBtn });
+            }, { passive: true });
+        }
+
+        function runUpgrade({ token, selectedPlanId, upgradeBtn }) {
+            const originalText = upgradeBtn.textContent;
+            upgradeBtn.disabled = true;
+            upgradeBtn.classList.add('js-upgrading');
+            upgradeBtn.textContent = @json(__('pricing.upgrading'));
+
+            fetch('/api/subscription/upgrade', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token,
+                    selected_plan_id: Number(selectedPlanId),
+                }),
+            })
+            .then(async (response) => {
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    const message = data?.message || @json(__('pricing.upgrade_failed'));
+                    throw new Error(message);
+                }
+
+                const paymentUrl = (function resolvePaymentUrl(payload) {
+                    if (!payload || typeof payload !== 'object') {
+                        return null;
+                    }
+                    const inner = payload.data && typeof payload.data === 'object' ? payload.data : null;
+                    const candidates = [
+                        payload.payment_url,
+                        payload.paymentUrl,
+                        inner?.payment_url,
+                        inner?.paymentUrl,
+                    ];
+                    for (let i = 0; i < candidates.length; i++) {
+                        const u = candidates[i];
+                        if (typeof u === 'string' && u.trim()) {
+                            return u.trim();
+                        }
+                    }
+                    return null;
+                })(data);
+
+                try {
+                    sessionStorage.setItem('upgrade_toast', JSON.stringify({
+                        type: 'success',
+                        message: data?.message || @json(__('pricing.upgrade_request_sent')),
+                    }));
+                } catch (e) {
+                    // ignore
+                }
+
+                const locale = @json($currentLocale);
+                try {
+                    window.history.replaceState({}, '', `/${locale}#pricing`);
+                } catch (e) {
+                    // ignore
+                }
+
+                if (paymentUrl) {
+                    // Full navigation avoids popup blockers (window.open after async fetch is often blocked).
+                    window.location.assign(paymentUrl);
+                    return;
+                }
+
+                window.location.reload();
+            })
+            .catch((err) => {
+                if (typeof toastr !== 'undefined') {
+                    toastr.error(err?.message || @json(__('pricing.upgrade_failed')));
+                }
+                upgradeBtn.disabled = false;
+                upgradeBtn.classList.remove('js-upgrading');
+                upgradeBtn.textContent = originalText;
+            });
+        }
     });
 </script>
 @endsection

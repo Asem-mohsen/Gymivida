@@ -3,8 +3,10 @@
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\FeatureController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('/subscription/upgrade', [SubscriptionController::class, 'upgrade']);
 
 Route::prefix('v1')->group(function () {
     Route::post('/contact', [ContactUsController::class, 'store']);

@@ -188,9 +188,10 @@
    */
   window.addEventListener('load', function(e) {
     if (window.location.hash) {
-      if (document.querySelector(window.location.hash)) {
+      const safeHash = window.location.hash.split('?')[0];
+      if (safeHash && document.querySelector(safeHash)) {
         setTimeout(() => {
-          let section = document.querySelector(window.location.hash);
+          let section = document.querySelector(safeHash);
           let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
           window.scrollTo({
             top: section.offsetTop - parseInt(scrollMarginTop),
@@ -209,7 +210,8 @@
   function navmenuScrollspy() {
     navmenulinks.forEach(navmenulink => {
       if (!navmenulink.hash) return;
-      let section = document.querySelector(navmenulink.hash);
+      const safeHash = navmenulink.hash.split('?')[0];
+      let section = document.querySelector(safeHash);
       if (!section) return;
       let position = window.scrollY + 200;
       if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
