@@ -26,7 +26,7 @@ class ProductSeeder extends Seeder
         foreach ($starterFeatures as $index => $feature) {
             $limit = null;
             
-            if ($feature->key === 'multi_branch_management') {
+            if (in_array($feature->key, ['multi_branch_management', 'multi-branch_management'], true)) {
                 $limit = 2;
             }
             
@@ -51,7 +51,7 @@ class ProductSeeder extends Seeder
             $feature = Feature::find($featureId);
             $limit = null;
             
-            if ($feature && $feature->key === 'multi_branch_management') {
+            if ($feature && in_array($feature->key, ['multi_branch_management', 'multi-branch_management'], true)) {
                 $limit = 6;
             }
             

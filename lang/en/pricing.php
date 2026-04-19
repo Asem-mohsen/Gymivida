@@ -26,5 +26,9 @@ return [
     'feature' => 'Feature',
     'included' => 'Included',
     'not_included' => 'Not included',
+    'branch_limit_up_to' => 'Up to :count branches',
+    'branch_limit_unlimited' => 'Unlimited branches',
+    'included_with_branch_limit' => 'Included: up to :count branches',
+    'included_unlimited_branches' => 'Included: unlimited branches',
     'no_payment_required' => 'No payments required upfront. Payments start only after your trial period ends — try everything risk-free first.',
 ];

@@ -382,9 +382,22 @@
                 <div class="pricing-features">
                   <ul>
                     @foreach($product->features as $feature)
+                      @php
+                        $isMultiBranchFeature = in_array($feature->key ?? '', ['multi_branch_management', 'multi-branch_management'], true);
+                        $branchLimit = $feature->pivot->limit ?? null;
+                      @endphp
                       <li>
                         <i class="bi bi-check-circle-fill"></i>
-                        <span>{{ $feature->getTranslation('name', app()->getLocale()) }}</span>
+                        <span class="pricing-feature-line">
+                          <span class="pricing-feature-name">{{ $feature->getTranslation('name', app()->getLocale()) }}</span>
+                          @if($isMultiBranchFeature)
+                            @if($branchLimit !== null && $branchLimit !== '')
+                              <span class="pricing-feature-limit">{{ __('pricing.branch_limit_up_to', ['count' => (int) $branchLimit]) }}</span>
+                            @else
+                              <span class="pricing-feature-limit">{{ __('pricing.branch_limit_unlimited') }}</span>
+                            @endif
+                          @endif
+                        </span>
                       </li>
                     @endforeach
                   </ul>
@@ -478,12 +491,36 @@
                     @foreach($products as $product)
                       @php
                         $hasFeature = $product->features->contains('key', $featureKey);
+                        $isMultiBranchRow = in_array($featureKey, ['multi_branch_management', 'multi-branch_management'], true);
+                        $planFeature = $hasFeature ? $product->features->firstWhere('key', $featureKey) : null;
+                        $planBranchLimit = $planFeature?->pivot?->limit;
                       @endphp
                       <td data-label="{{ $product->getTranslation('name', app()->getLocale()) }}">
                         @if($hasFeature)
-                          <span class="compare-icon compare-icon-true" role="img" aria-label="{{ __('pricing.included') }}">
-                            <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
-                          </span>
+                          @if($isMultiBranchRow)
+                            <div class="compare-cell-branch">
+                              <span class="compare-icon compare-icon-true" aria-hidden="true">
+                                <i class="bi bi-check-circle-fill"></i>
+                              </span>
+                              @if($planBranchLimit !== null && $planBranchLimit !== '')
+                                <span
+                                  class="compare-branch-caption"
+                                  role="img"
+                                  aria-label="{{ __('pricing.included_with_branch_limit', ['count' => (int) $planBranchLimit]) }}"
+                                >{{ __('pricing.branch_limit_up_to', ['count' => (int) $planBranchLimit]) }}</span>
+                              @else
+                                <span
+                                  class="compare-branch-caption"
+                                  role="img"
+                                  aria-label="{{ __('pricing.included_unlimited_branches') }}"
+                                >{{ __('pricing.branch_limit_unlimited') }}</span>
+                              @endif
+                            </div>
+                          @else
+                            <span class="compare-icon compare-icon-true" role="img" aria-label="{{ __('pricing.included') }}">
+                              <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                            </span>
+                          @endif
                         @else
                           <span class="compare-icon compare-icon-false" role="img" aria-label="{{ __('pricing.not_included') }}">
                             <i class="bi bi-x-circle" aria-hidden="true"></i>

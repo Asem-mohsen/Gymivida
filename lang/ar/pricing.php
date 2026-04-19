@@ -26,5 +26,9 @@ return [
     'feature' => 'الميزة',
     'included' => 'مشمول',
     'not_included' => 'غير مشمول',
+    'branch_limit_up_to' => 'حتى :count فرعًا',
+    'branch_limit_unlimited' => 'فروع غير محدودة',
+    'included_with_branch_limit' => 'مشمول: حتى :count فرعًا',
+    'included_unlimited_branches' => 'مشمول: فروع غير محدودة',
     'no_payment_required' => 'لا توجد مدفوعات مطلوبة مقدمًا. تبدأ المدفوعات فقط بعد انتهاء فترة التجربة — جرب كل شيء بدون مخاطر أولاً.',
 ];

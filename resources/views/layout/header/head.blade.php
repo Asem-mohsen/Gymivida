@@ -65,8 +65,8 @@
     <meta name="twitter:creator" content="@Gymividagym">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/logo/favicon/favicon.ico') }}" rel="icon">
-    <link href="{{ asset('assets/img/logo/favicon/favicon.ico') }}" rel="apple-touch-icon">
+    <link href="{{ asset('assets/img/logo/favicon/gymivida_logo.png') }}" rel="icon">
+    <link href="{{ asset('assets/img/logo/favicon/gymivida_logo.png') }}" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
