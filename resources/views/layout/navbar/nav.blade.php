@@ -13,6 +13,7 @@
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#pricing">{{ __('nav.pricing') }}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#system">{{ __('nav.system') }}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.contact') }}</a></li>
+          <li><a href="{{ route('faqs', ['locale' => $currentLocale]) }}">{{ __('nav.faq') }}</a></li>
           <li class="lang-switcher-mobile-item d-xl-none">
             @include('components.language-switcher')
           </li>

@@ -7,6 +7,7 @@ return [
     'pricing' => 'Pricing',
     'system' => 'System',
     'contact' => 'Contact',
+    'faq' => 'FAQ',
     'terms' => 'Terms',
     'privacy' => 'Privacy',
     'refund_policy' => 'Refund Policy',

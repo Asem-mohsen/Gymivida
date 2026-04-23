@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\FaqKind;
 use App\Models\Documentation;
+use App\Services\FaqService;
 use App\Services\ProductService;
 use App\Services\ServiceService;
 use Illuminate\Support\Facades\Cache;
@@ -12,10 +14,12 @@ class HomeController extends Controller
 {
     public function __construct(
         protected ServiceService $serviceService,
-        protected ProductService $productService
+        protected ProductService $productService,
+        protected FaqService $faqService
     ) {
         $this->serviceService = $serviceService;
         $this->productService = $productService;
+        $this->faqService = $faqService;
     }
 
     public function index()
@@ -29,9 +33,10 @@ class HomeController extends Controller
             $products = $this->productService->getActiveProductsWithFeatures();
             $comparisonFeatures = $this->productService->getComparisonFeatures($products);
             $averageDiscount = $this->calculateAverageDiscount($products);
+            $faqs = $this->faqService->getOrdered();
             $demoDocumentation = Documentation::getByType('documentation');
             $registrationDemo = Documentation::getByType('registration');
-            return compact('services', 'products', 'comparisonFeatures', 'averageDiscount', 'demoDocumentation', 'registrationDemo');
+            return compact('services', 'products', 'comparisonFeatures', 'averageDiscount', 'faqs', 'demoDocumentation', 'registrationDemo');
         });
 
         // Ensure documentation variables exist (fallback for old cache)
@@ -41,6 +46,17 @@ class HomeController extends Controller
         if (!isset($homeData['registrationDemo'])) {
             $homeData['registrationDemo'] = Documentation::getByType('registration');
         }
+        if (!isset($homeData['faqs'])) {
+            $homeData['faqs'] = $this->faqService->getOrdered();
+        }
+
+        $allFaqs = $homeData['faqs'];
+        $freeTrialFaq = $allFaqs->first(fn ($faq) => $faq->kind === FaqKind::FreeTrial);
+        $otherFaqs = $allFaqs->filter(fn ($faq) => $faq->kind !== FaqKind::FreeTrial)->values();
+        $homeData['faqsHomePreview'] = $otherFaqs
+            ->take(3)
+            ->when($freeTrialFaq, fn ($c) => $c->push($freeTrialFaq))
+            ->take(4);
 
         return view('index', $homeData);
     }
@@ -78,6 +94,22 @@ class HomeController extends Controller
     public function terms()
     {
         return view('terms');
+    }
+
+    public function faqs()
+    {
+        $locale = app()->getLocale();
+        $cacheTtl = now()->addMinutes(config('app.home_page_cache_ttl', 10));
+        $cacheKey = 'faqs_page_data_' . $locale;
+
+        $data = Cache::remember($cacheKey, $cacheTtl, function () {
+            return [
+                'faqs' => $this->faqService->getOrdered(),
+                'products' => $this->productService->getActiveProductsWithFeatures(),
+            ];
+        });
+
+        return view('faqs', $data);
     }
 
     public function serviceDetails()

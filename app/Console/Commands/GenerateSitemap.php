@@ -24,6 +24,7 @@ class GenerateSitemap extends Command
             'home' => ['priority' => 1.0, 'changeFrequency' => Url::CHANGE_FREQUENCY_DAILY],
             'privacy' => ['priority' => 0.6, 'changeFrequency' => Url::CHANGE_FREQUENCY_MONTHLY],
             'terms' => ['priority' => 0.6, 'changeFrequency' => Url::CHANGE_FREQUENCY_MONTHLY],
+            'faqs' => ['priority' => 0.6, 'changeFrequency' => Url::CHANGE_FREQUENCY_MONTHLY],
         ];
 
         // Add routes for each locale

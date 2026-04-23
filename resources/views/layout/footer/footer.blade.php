@@ -24,6 +24,7 @@
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#pricing">{{ __('nav.pricing') }}</a></li>
           <li><a href="{{ route('terms', ['locale' => $currentLocale]) }}">{{ __('nav.terms') }}</a></li>
           <li><a href="{{ route('privacy', ['locale' => $currentLocale]) }}">{{ __('nav.privacy') }}</a></li>
+          <li><a href="{{ route('faqs', ['locale' => $currentLocale]) }}">{{ __('nav.faq') }}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.contact') }}</a></li>
           <li><a href="{{ route('terms', ['locale' => $currentLocale]) }}#refund-policy">{{ __('nav.refund_policy') }}</a></li>
         </ul>

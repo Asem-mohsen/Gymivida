@@ -1104,6 +1104,34 @@
 
     </section>
     <!-- /Contact Section -->
+
+    @if(isset($faqsHomePreview) && $faqsHomePreview->isNotEmpty())
+    <section id="faqs" class="faq section">
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">{{ __('faq.section_subtitle') }}</span>
+        <h2>{{ __('faq.section_title') }}</h2>
+        <p>{{ __('faq.section_description') }}</p>
+      </div>
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row justify-content-center">
+          <div class="col-lg-9 col-xl-8">
+            <x-faq-accordion
+              :faqs="$faqsHomePreview"
+              :products="$products"
+              accordion-id="faqHomeAccordion"
+            />
+            <div class="faq-cta" data-aos="fade-up" data-aos-delay="150">
+              <a href="{{ route('faqs', ['locale' => $currentLocale]) }}" class="btn-faq-primary">
+                {{ __('faq.view_all') }}
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+              </a>
+              <p class="faq-cta-hint">{{ __('faq.home_cta_hint') }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    @endif
 @endsection
 
 @section('scripts')
