@@ -24,7 +24,9 @@ class ProductService
         $locale = app()->getLocale();
 
         return $products->flatMap(function ($product) use ($locale) {
-                return $product->features->map(function ($feature) use ($locale) {
+                return $product->features
+                    ->where('is_active', true)
+                    ->map(function ($feature) use ($locale) {
                     return [
                         'key' => $feature->key,
                         'name' => $feature->getTranslation('name', $locale),

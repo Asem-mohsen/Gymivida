@@ -18,7 +18,17 @@ class ProductRepository
                 'trial_period_days',
                 'currency',
             ])
-            ->with(['features:id,key,name,description'])
+            ->with([
+                'features' => fn ($query) => $query
+                    ->select([
+                        'features.id',
+                        'features.key',
+                        'features.name',
+                        'features.description',
+                        'features.is_active',
+                    ])
+                    ->where('features.is_active', true),
+            ])
             ->where('is_active', true)
             ->orderBy('monthly_price')
             ->get();
