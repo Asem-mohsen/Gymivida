@@ -5550,3 +5550,61 @@ section,
     padding-right: calc(1.25rem + 40px + 0.75rem);
   }
 }
+
+/*--------------------------------------------------------------
+# Book Demo / Calendly Section
+--------------------------------------------------------------*/
+.book-demo .book-demo-widget {
+  min-width: 320px;
+  height: 700px;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--surface-color);
+}
+
+.book-demo .book-demo-fallback {
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.book-demo .book-demo-fallback p {
+  margin-bottom: 28px;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+  line-height: 1.7;
+}
+
+.book-demo .book-demo-fallback .primary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 12px 28px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.book-demo .book-demo-fallback .primary-action i {
+  transition: 0.3s;
+}
+
+.book-demo .book-demo-fallback .primary-action:hover {
+  background: color-mix(in srgb, var(--accent-color), transparent 15%);
+}
+
+.book-demo .book-demo-fallback .primary-action:hover i {
+  transform: translateX(4px);
+}
+
+[dir="rtl"] .book-demo .book-demo-fallback .primary-action:hover i {
+  transform: translateX(-4px);
+}
+
+@media (max-width: 768px) {
+  .book-demo .book-demo-widget {
+    height: 900px;
+  }
+}

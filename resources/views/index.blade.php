@@ -732,7 +732,7 @@
             <h4>{{ __('system.see_in_action') }}</h4>
             <p>{{ __('system.see_in_action_description') }}</p>
             <div class="conclusion-actions">
-              <a href="#contact" class="primary-action">
+              <a href="#book-demo" class="primary-action">
                 {{ __('system.book_demo') }} <i class="bi bi-arrow-right"></i>
               </a>
               <a href="{{ config('app.gymivida_website') }}" class="secondary-action" target="_blank">
@@ -745,6 +745,35 @@
 
     </section>
     <!-- /System Section -->
+
+    <!-- Book Demo Section -->
+    <section id="book-demo" class="book-demo section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <span class="subtitle">{{ __('demo.subtitle') }}</span>
+        <h2>{{ __('demo.title') }}</h2>
+        <p>{{ __('demo.description') }}</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        @if(filled(config('app.calendly_url')))
+          <div
+            class="calendly-inline-widget book-demo-widget"
+            data-url="{{ config('app.calendly_url') }}"
+            style="min-width:320px;height:700px;"
+            role="region"
+            aria-label="{{ __('demo.title') }}"
+          ></div>
+        @else
+          <div class="book-demo-fallback text-center">
+            <p>{{ __('demo.unavailable') }}</p>
+            <a href="#contact" class="primary-action">
+              {{ __('demo.contact_instead') }} <i class="bi bi-arrow-right"></i>
+            </a>
+          </div>
+        @endif
+      </div>
+    </section>
+    <!-- /Book Demo Section -->
 
     <!-- Team Section -->
     {{-- Hidden for now --}}
@@ -1135,6 +1164,9 @@
 @endsection
 
 @section('scripts')
+@if(filled(config('app.calendly_url')))
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+@endif
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
