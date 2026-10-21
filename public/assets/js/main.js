@@ -184,23 +184,83 @@
   window.addEventListener("load", initSwiper);
 
   /**
-   * Correct scrolling position upon page load for URLs containing hash links.
+   * Hash targets on the home page use content-visibility placeholders until scrolled.
+   * Reveal sections through the target so scroll position matches real layout height.
    */
-  window.addEventListener('load', function(e) {
-    if (window.location.hash) {
-      const safeHash = window.location.hash.split('?')[0];
-      if (safeHash && document.querySelector(safeHash)) {
-        setTimeout(() => {
-          let section = document.querySelector(safeHash);
-          let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
-          window.scrollTo({
-            top: section.offsetTop - parseInt(scrollMarginTop),
-            behavior: 'smooth'
-          });
-        }, 100);
-      }
+  function revealHomeSectionsUpTo(targetSection) {
+    if (!document.body.classList.contains('home-page') || !targetSection) {
+      return;
     }
+
+    document.querySelectorAll('body.home-page main.main > section').forEach((section) => {
+      section.style.contentVisibility = 'visible';
+    });
+  }
+
+  function scrollToHashSection(hash, behavior = 'auto') {
+    const safeHash = (hash || '').split('?')[0];
+    if (!safeHash || safeHash === '#') {
+      return false;
+    }
+
+    const section = document.querySelector(safeHash);
+    if (!section) {
+      return false;
+    }
+
+    revealHomeSectionsUpTo(section);
+
+    const scrollMarginTop = parseInt(getComputedStyle(section).scrollMarginTop, 10) || 0;
+    const top = section.getBoundingClientRect().top + window.scrollY - scrollMarginTop;
+    window.scrollTo({ top: Math.max(0, top), behavior });
+
+    return true;
+  }
+
+  function ensureHashScroll(hash) {
+    const run = (behavior) => scrollToHashSection(hash, behavior);
+
+    run('auto');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => run('auto'));
+    });
+    [100, 350, 700].forEach((delay) => {
+      setTimeout(() => run('auto'), delay);
+    });
+  }
+
+  document.querySelectorAll('a[href*="#"]').forEach((link) => {
+    link.addEventListener('click', function(e) {
+      let url;
+      try {
+        url = new URL(this.href, window.location.href);
+      } catch (error) {
+        return;
+      }
+
+      const hash = (url.hash || '').split('?')[0];
+      if (!hash || hash === '#') {
+        return;
+      }
+
+      if (url.pathname !== window.location.pathname) {
+        return;
+      }
+
+      e.preventDefault();
+      window.history.pushState(null, '', `${url.pathname}${url.search}${hash}`);
+      scrollToHashSection(hash, 'smooth');
+      [100, 350, 700].forEach((delay) => {
+        setTimeout(() => scrollToHashSection(hash, 'auto'), delay);
+      });
+    });
   });
+
+  if (window.location.hash) {
+    const initialHash = window.location.hash.split('?')[0];
+    ensureHashScroll(initialHash);
+    window.addEventListener('load', () => ensureHashScroll(initialHash), { once: true });
+  }
 
   /**
    * Navmenu Scrollspy

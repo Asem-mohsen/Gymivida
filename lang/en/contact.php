@@ -17,7 +17,7 @@ return [
     'email_address' => 'Email Address',
     'phone_number' => 'Phone Number',
     'subject' => 'Subject',
-    'interested_plan' => 'Interested Subscription Plan (Optional)',
+    'interested_plan' => 'Interested Subscription Plan',
     'select_plan' => '-- Select a Subscription Plan --',
     'message' => 'Message',
     'send_registration_link' => 'Send me a complete registration link',

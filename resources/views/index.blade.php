@@ -1090,8 +1090,8 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="product_id">{{ __('contact.interested_plan') }}</label>
-                  <select name="product_id" id="product_id" class="form-control">
+                  <label for="product_id">{{ __('contact.interested_plan') }} <span class="text-danger">*</span></label>
+                  <select name="product_id" id="product_id" class="form-control" required>
                     <option value="">{{ __('contact.select_plan') }}</option>
                   </select>
                   <span class="error-text text-danger" id="product_id-error"></span>
@@ -1337,13 +1337,15 @@
         // Clear error on input change
         const formInputs = document.querySelectorAll('#contactForm input, #contactForm textarea, #contactForm select');
         formInputs.forEach(input => {
-            input.addEventListener('input', function() {
+            const clearFieldError = function() {
                 const errorElement = document.getElementById(`${this.id}-error`);
                 if (errorElement) {
                     errorElement.textContent = '';
                 }
                 this.classList.remove('is-invalid');
-            });
+            };
+            input.addEventListener('input', clearFieldError);
+            input.addEventListener('change', clearFieldError);
         });
 
         function loadProducts() {

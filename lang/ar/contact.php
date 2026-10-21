@@ -17,7 +17,7 @@ return [
     'email_address' => 'عنوان البريد الإلكتروني',
     'phone_number' => 'رقم الهاتف',
     'subject' => 'الموضوع',
-    'interested_plan' => 'خطة الاشتراك المهتمة (اختياري)',
+    'interested_plan' => 'خطة الاشتراك المهتمة',
     'select_plan' => '-- اختر خطة اشتراك --',
     'message' => 'الرسالة',
     'send_registration_link' => 'أرسل لي رابط تسجيل كامل',
