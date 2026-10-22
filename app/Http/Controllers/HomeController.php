@@ -4,23 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Enums\FaqKind;
 use App\Models\Documentation;
+use App\Services\DocumentationService;
 use App\Services\FaqService;
 use App\Services\ProductService;
 use App\Services\ServiceService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller
 {
     public function __construct(
         protected ServiceService $serviceService,
         protected ProductService $productService,
-        protected FaqService $faqService
-    ) {
-        $this->serviceService = $serviceService;
-        $this->productService = $productService;
-        $this->faqService = $faqService;
-    }
+        protected FaqService $faqService,
+        protected DocumentationService $documentationService,
+    ) {}
 
     public function index()
     {
@@ -28,23 +28,24 @@ class HomeController extends Controller
         $cacheTtl = now()->addMinutes(config('app.home_page_cache_ttl', 10));
         $cacheKey = 'home_page_data_' . $locale;
 
-        $homeData = Cache::remember($cacheKey, $cacheTtl, function () {
+        $homeData = Cache::remember($cacheKey, $cacheTtl, function () use ($locale) {
             $services = $this->serviceService->getActiveServices();
             $products = $this->productService->getActiveProductsWithFeatures();
             $comparisonFeatures = $this->productService->getComparisonFeatures($products);
             $averageDiscount = $this->calculateAverageDiscount($products);
             $faqs = $this->faqService->getOrdered();
-            $demoDocumentation = Documentation::getByType('documentation');
-            $registrationDemo = Documentation::getByType('registration');
+            $demoDocumentation = Documentation::getByType('documentation', $locale);
+            $registrationDemo = Documentation::getByType('registration', $locale);
+
             return compact('services', 'products', 'comparisonFeatures', 'averageDiscount', 'faqs', 'demoDocumentation', 'registrationDemo');
         });
 
         // Ensure documentation variables exist (fallback for old cache)
         if (!isset($homeData['demoDocumentation'])) {
-            $homeData['demoDocumentation'] = Documentation::getByType('documentation');
+            $homeData['demoDocumentation'] = Documentation::getByType('documentation', $locale);
         }
         if (!isset($homeData['registrationDemo'])) {
-            $homeData['registrationDemo'] = Documentation::getByType('registration');
+            $homeData['registrationDemo'] = Documentation::getByType('registration', $locale);
         }
         if (!isset($homeData['faqs'])) {
             $homeData['faqs'] = $this->faqService->getOrdered();
@@ -60,21 +61,21 @@ class HomeController extends Controller
 
         return view('index', $homeData);
     }
-    
+
     private function calculateAverageDiscount($products)
     {
         if ($products->isEmpty()) {
             return 0;
         }
-        
+
         $totalDiscount = 0;
         $validProducts = 0;
-        
+
         foreach ($products as $product) {
             if ($product->monthly_price > 0 && $product->yearly_price > 0) {
                 $monthlyTotal = $product->monthly_price * 12;
                 $yearlyPrice = $product->yearly_price;
-                
+
                 if ($monthlyTotal > $yearlyPrice) {
                     $discount = (($monthlyTotal - $yearlyPrice) / $monthlyTotal) * 100;
                     $totalDiscount += $discount;
@@ -82,7 +83,7 @@ class HomeController extends Controller
                 }
             }
         }
-        
+
         return $validProducts > 0 ? round($totalDiscount / $validProducts) : 0;
     }
 
@@ -116,39 +117,20 @@ class HomeController extends Controller
     {
         return view('service-details');
     }
-    
+
     public function portfolioDetails()
     {
         return view('portfolio-details');
     }
 
-    public function downloadDocumentation(string $type)
+    public function downloadDocumentation(Request $request, string $type): BinaryFileResponse|Response
     {
-        $documentation = Documentation::getByType($type);
+        // Prefer explicit ?locale= from localized page links; missing/invalid → English
+        $locale = $request->query('locale');
 
-        if (!$documentation || !$documentation->file_path) {
-            abort(404, 'Documentation not found');
-        }
-
-        $disk = Storage::disk('public');
-
-        // Support both "demos/file.pdf" and "file.pdf" (legacy)
-        $path = $documentation->file_path;
-        if (!str_contains($path, '/')) {
-            $dir = $type === 'documentation' ? 'demos' : 'registration-demos';
-            $path = $dir . '/' . $path;
-        }
-
-        if (!$disk->exists($path)) {
-            abort(404, 'File not found');
-        }
-
-        $absolutePath = $disk->path($path);
-        $fileName = $documentation->file_name ?: basename($path);
-        $fileName = preg_replace('/[^\w\s\-\.]/', '_', $fileName) ?: 'documentation.pdf';
-
-        return response()->download($absolutePath, $fileName, [
-            'Content-Type' => 'application/pdf',
-        ]);
+        return $this->documentationService->download(
+            $type,
+            is_string($locale) ? $locale : null,
+        );
     }
 }

@@ -64,9 +64,12 @@
     <meta name="twitter:image" content="{{ asset('assets/img/logo/og-image.jpg') }}">
     <meta name="twitter:creator" content="@Gymividagym">
 
-    <!-- Favicons -->
-    <link href="{{ asset('assets/img/logo/favicon/gymivida_logo.png') }}" rel="icon">
-    <link href="{{ asset('assets/img/logo/favicon/gymivida_logo.png') }}" rel="apple-touch-icon">
+    <!-- Favicons generated from Geometric_G_App_Icon.png -->
+    <link href="{{ asset('assets/img/logo/favicon/favicon.ico') }}?v=2" rel="icon" sizes="any">
+    <link href="{{ asset('assets/img/logo/favicon/favicon-32x32.png') }}?v=2" rel="icon" type="image/png" sizes="32x32">
+    <link href="{{ asset('assets/img/logo/favicon/favicon-16x16.png') }}?v=2" rel="icon" type="image/png" sizes="16x16">
+    <link href="{{ asset('assets/img/logo/favicon/favicon-180x180.png') }}?v=2" rel="apple-touch-icon" sizes="180x180">
+    <link href="{{ asset('assets/img/logo/favicon/favicon-192x192.png') }}?v=2" rel="icon" type="image/png" sizes="192x192">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">

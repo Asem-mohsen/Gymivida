@@ -55,7 +55,7 @@
             <div class="faq-answer">{!! nl2br(e($faq->answerForLocale())) !!}</div>
             @if($faq->documentation_type)
               @php
-                $doc = \App\Models\Documentation::getByType($faq->documentation_type);
+                $doc = \App\Models\Documentation::getByType($faq->documentation_type, app()->getLocale());
               @endphp
               @if($doc && $doc->file_path)
                 <p class="faq-doc-download mb-0">

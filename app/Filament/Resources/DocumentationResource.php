@@ -2,25 +2,26 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\AppLocale;
+use App\Enums\DocumentationType;
 use App\Filament\Resources\DocumentationResource\Pages;
-use App\Filament\Resources\DocumentationResource\RelationManagers;
 use App\Models\Documentation;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Validation\Rules\Unique;
 
 class DocumentationResource extends Resource
 {
     protected static ?string $model = Documentation::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
-    
+
     protected static ?string $navigationLabel = 'Documentation Manager';
-    
+
     protected static ?string $navigationGroup = 'Content Management';
 
     public static function form(Form $form): Form
@@ -29,16 +30,32 @@ class DocumentationResource extends Resource
             ->schema([
                 Forms\Components\Select::make('type')
                     ->label('Documentation Type')
-                    ->options([
-                        'documentation' => 'Demo Documentation',
-                        'registration' => 'Registration Demo',
-                    ])
+                    ->options(DocumentationType::class)
                     ->required()
-                    ->unique(ignoreRecord: true)
-                    ->helperText('Select the type of documentation. Each type can only have one file.'),
+                    ->live()
+                    ->helperText('Select the type of documentation. Each type may have one file per language.'),
+                Forms\Components\Select::make('locale')
+                    ->label('Language')
+                    ->options(AppLocale::class)
+                    ->required()
+                    ->default(AppLocale::En->value)
+                    ->live()
+                    ->unique(
+                        ignoreRecord: true,
+                        modifyRuleUsing: function (Unique $rule, Get $get): Unique {
+                            return $rule->where('type', $get('type'));
+                        },
+                    )
+                    ->helperText('Upload an English and Arabic PDF for each type. If Arabic is missing, visitors on /ar receive the English file.'),
                 Forms\Components\FileUpload::make('file_path')
                     ->label('PDF File')
-                    ->directory(fn ($get) => $get('type') === 'documentation' ? 'demos' : 'registration-demos')
+                    ->directory(function (Get $get): string {
+                        $type = DocumentationType::tryFrom((string) $get('type'));
+                        $locale = AppLocale::normalize($get('locale'))->value;
+                        $base = $type?->storageDirectory() ?? 'demos';
+
+                        return $base . '/' . $locale;
+                    })
                     ->acceptedFileTypes(['application/pdf'])
                     ->maxSize(102400)
                     ->disk('public')
@@ -47,7 +64,7 @@ class DocumentationResource extends Resource
                 Forms\Components\TextInput::make('file_name')
                     ->label('File Name (Optional)')
                     ->maxLength(255)
-                    ->helperText('Custom name for the file. If left empty, original filename will be used.'),
+                    ->helperText('Custom name for the file. If left empty, a language-aware default filename will be used.'),
             ]);
     }
 
@@ -58,17 +75,22 @@ class DocumentationResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                     ->label('Type')
                     ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'documentation' => 'success',
-                        'registration' => 'info',
+                    ->color(fn (DocumentationType|string $state): string => match ($state instanceof DocumentationType ? $state : DocumentationType::tryFrom((string) $state)) {
+                        DocumentationType::Documentation => 'success',
+                        DocumentationType::Registration => 'info',
                         default => 'gray',
                     })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'documentation' => 'Demo Documentation',
-                        'registration' => 'Registration Demo',
-                        default => $state,
-                    })
+                    ->formatStateUsing(fn (DocumentationType|string $state): string => $state instanceof DocumentationType
+                        ? ($state->getLabel() ?? $state->value)
+                        : (DocumentationType::tryFrom((string) $state)?->getLabel() ?? (string) $state))
                     ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('locale')
+                    ->label('Language')
+                    ->badge()
+                    ->formatStateUsing(fn (AppLocale|string $state): string => $state instanceof AppLocale
+                        ? ($state->getLabel() ?? $state->value)
+                        : (AppLocale::tryFrom((string) $state)?->getLabel() ?? (string) $state))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('file_name')
                     ->label('File Name')
@@ -94,10 +116,9 @@ class DocumentationResource extends Resource
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
-                    ->options([
-                        'documentation' => 'Demo Documentation',
-                        'registration' => 'Registration Demo',
-                    ]),
+                    ->options(DocumentationType::class),
+                Tables\Filters\SelectFilter::make('locale')
+                    ->options(AppLocale::class),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -112,9 +133,7 @@ class DocumentationResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
