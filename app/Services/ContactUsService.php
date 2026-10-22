@@ -26,13 +26,10 @@ class ContactUsService
         $data['subject'] = isset($data['subject']) ? strip_tags($data['subject']) : null;
         $data['message'] = strip_tags($data['message']);
         
-        $data['wants_registration_email'] = isset($data['wants_registration_email']) && $data['wants_registration_email'];
+        // Contact Us is for inquiries only — never trigger registration emails.
+        $data['wants_registration_email'] = false;
 
         $contact = $this->contactUsRepository->create($data);
-
-        if ($contact->wants_registration_email) {
-            $this->sendRegistrationEmail($contact);
-        }
 
         $this->sendAdminNotificationEmail($contact);
 

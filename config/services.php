@@ -35,4 +35,20 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Gym Platform (Website B)
+    |--------------------------------------------------------------------------
+    |
+    | Authoritative gym registration processing lives on the gym platform.
+    | This marketing site submits registrations server-to-server.
+    | Never expose GYM_PLATFORM_API_KEY to the browser.
+    |
+    */
+    'gym_platform' => [
+        'url' => env('GYM_PLATFORM_URL', 'https://gymivida.com'),
+        'api_key' => env('GYM_PLATFORM_API_KEY'),
+        'timeout' => env('GYM_PLATFORM_TIMEOUT', 30),
+    ],
+
 ];

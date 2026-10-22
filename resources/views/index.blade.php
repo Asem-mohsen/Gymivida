@@ -19,7 +19,7 @@
                 {{ __('hero.subtitle') }}
               </p>
               <div class="hero-cta" data-aos="fade-up" data-aos-delay="400">
-                <a href="#about" class="btn-primary">{{ __('hero.get_started') }}</a>
+                <a href="{{ route('registration.show', ['locale' => $currentLocale]) }}" class="btn-primary">{{ __('registration.nav_register') }}</a>
                 @if($demoDocumentation && $demoDocumentation->file_path)
                   <a href="{{ $demoDocumentation->file_url }}" class="btn-secondary" download="{{ $demoDocumentation->file_name ?: basename($demoDocumentation->file_path) }}">
                     <i class="bi bi-download"></i>
@@ -404,8 +404,12 @@
                 </div>
 
                 <div class="pricing-footer">
-                  <a href="#contact" class="pricing-btn js-get-started {{ $product->getTranslation('name', 'en') === 'Professional' ? 'btn-featured' : '' }}">
-                    {{ __('pricing.get_started') }}
+                  @php
+                    $planEnName = $product->getTranslation('name', 'en');
+                    $planSlug = str($planEnName)->lower()->replace(' ', '-')->toString();
+                  @endphp
+                  <a href="{{ route('registration.show', ['locale' => $currentLocale, 'plan' => $planSlug]) }}" class="pricing-btn js-get-started {{ $planEnName === 'Professional' ? 'btn-featured' : '' }}" data-plan-slug="{{ $planSlug }}">
+                    {{ __('registration.start_free_trial') }}
                   </a>
                   <button
                     type="button"
@@ -1090,28 +1094,9 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="product_id">{{ __('contact.interested_plan') }} <span class="text-danger">*</span></label>
-                  <select name="product_id" id="product_id" class="form-control" required>
-                    <option value="">{{ __('contact.select_plan') }}</option>
-                  </select>
-                  <span class="error-text text-danger" id="product_id-error"></span>
-                </div>
-
-                <div class="form-group">
                   <label for="message">{{ __('contact.message') }} <span class="text-danger">*</span></label>
                   <textarea name="message" id="message" class="form-control" rows="5" required></textarea>
                   <span class="error-text text-danger" id="message-error"></span>
-                </div>
-
-                <div class="form-group">
-                  <label class="custom-checkbox-container d-flex">
-                    <input type="checkbox" name="wants_registration_email" id="wants_registration_email" value="1" checked>
-                    <span class="checkmark"></span>
-                    <span class="checkbox-content">
-                      <span class="checkbox-title">{{ __('contact.send_registration_link') }}</span>
-                      <span class="checkbox-description">{{ __('contact.send_registration_link_description') }}</span>
-                    </span>
-                  </label>
                 </div>
 
                 <button type="submit" class="submit-btn" id="submitBtn">
@@ -1184,8 +1169,6 @@
             // ignore
         }
 
-        loadProducts();
-        
         const billingToggle = document.getElementById('billingToggle');
         const monthlyPrices = document.querySelectorAll('.monthly-price');
         const yearlyPrices = document.querySelectorAll('.yearly-price');
@@ -1198,6 +1181,15 @@
         if (billingToggle) {
             billingToggle.addEventListener('change', function() {
                 const isYearly = this.checked;
+
+                document.querySelectorAll('.js-get-started[data-plan-slug]').forEach((link) => {
+                    try {
+                        const url = new URL(link.href, window.location.origin);
+                        url.searchParams.set('billing', isYearly ? 'yearly' : 'monthly');
+                        url.searchParams.set('plan', link.dataset.planSlug);
+                        link.href = url.pathname + url.search;
+                    } catch (e) {}
+                });
                 
                 monthlyPrices.forEach(price => {
                     price.style.display = isYearly ? 'none' : 'inline';
@@ -1347,32 +1339,6 @@
             input.addEventListener('input', clearFieldError);
             input.addEventListener('change', clearFieldError);
         });
-
-        function loadProducts() {
-            fetch('/api/v1/products', {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.data) {
-                    const productSelect = document.getElementById('product_id');
-                    if (productSelect) {
-                        data.data.forEach(product => {
-                            const option = document.createElement('option');
-                            option.value = product.id;
-                            option.textContent = product.name;
-                            productSelect.appendChild(option);
-                        });
-                    }
-                }
-            })
-            .catch(error => {
-                console.error('Error loading products:', error);
-            });
-        }
 
         // Prevent swipe gestures on comparison table
         const comparisonTableWrapper = document.querySelector('.comparison-table-wrapper');

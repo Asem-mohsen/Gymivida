@@ -236,6 +236,28 @@ h6 {
     padding-right: 0;
   }
 
+  .navmenu .nav-cta-item {
+    margin-inline-start: 0.35rem;
+  }
+
+  .navmenu .nav-register-btn {
+    background-color: var(--accent-color);
+    color: var(--contrast-color) !important;
+    padding: 10px 20px !important;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px color-mix(in srgb, var(--accent-color), transparent 80%);
+  }
+
+  .navmenu .nav-register-btn:hover {
+    background-color: color-mix(in srgb, var(--accent-color), black 10%);
+    color: var(--contrast-color) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
+  }
+
   .navmenu li:hover>a,
   .navmenu .active,
   .navmenu .active:focus {
@@ -369,6 +391,26 @@ h6 {
   .navmenu .active,
   .navmenu .active:focus {
     color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .nav-cta-item {
+    margin: 0.75rem 20px 0;
+  }
+
+  .navmenu .nav-register-btn {
+    justify-content: center;
+    width: 100%;
+    background-color: var(--accent-color);
+    color: var(--contrast-color) !important;
+    padding: 12px 20px !important;
+    border-radius: 6px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px color-mix(in srgb, var(--accent-color), transparent 80%);
+  }
+
+  .navmenu .nav-register-btn:hover {
+    background-color: color-mix(in srgb, var(--accent-color), black 10%);
+    color: var(--contrast-color) !important;
   }
 
   .navmenu .active i,

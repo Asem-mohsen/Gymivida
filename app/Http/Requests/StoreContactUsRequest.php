@@ -22,8 +22,6 @@ class StoreContactUsRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20'],
             'subject' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
-            'product_id' => ['required', 'integer', 'exists:products,id'],
-            'wants_registration_email' => ['nullable', 'boolean'],
         ];
     }
 
@@ -38,8 +36,6 @@ class StoreContactUsRequest extends FormRequest
             'subject.max' => 'Subject cannot exceed 255 characters.',
             'message.required' => 'Please enter your message.',
             'message.max' => 'Message cannot exceed 5000 characters.',
-            'product_id.required' => 'Please select a subscription plan.',
-            'product_id.exists' => 'The selected product is invalid.',
         ];
     }
 }

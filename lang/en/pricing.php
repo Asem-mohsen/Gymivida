@@ -18,7 +18,7 @@ return [
     'upgrading' => 'Upgrading...',
     'upgrade_request_sent' => 'Upgrade request received. We’ll apply it shortly.',
     'upgrade_failed' => 'Upgrade failed. Please try again.',
-    'all_plans_note' => 'All plans include free onboarding support and regular updates. Custom enterprise solutions available upon request.',
+    'all_plans_note' => 'All plans include free onboarding support and regular updates.',
     'download_demo_link' => 'Click here to download a demo',
     'compare_subtitle' => 'Compare Plans',
     'compare_title' => 'Feature Breakdown',

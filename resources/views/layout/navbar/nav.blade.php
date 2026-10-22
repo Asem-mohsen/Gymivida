@@ -8,12 +8,13 @@
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}">{{ __('nav.home') }}</a></li>
-          <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#about">{{ __('nav.about') }}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#services">{{ __('nav.services') }}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#pricing">{{ __('nav.pricing') }}</a></li>
-          <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#system">{{ __('nav.system') }}</a></li>
           <li><a href="{{ route('home', ['locale' => $currentLocale]) }}#contact">{{ __('nav.contact') }}</a></li>
           <li><a href="{{ route('faqs', ['locale' => $currentLocale]) }}">{{ __('nav.faq') }}</a></li>
+          <li class="nav-cta-item">
+            <a href="{{ route('registration.show', ['locale' => $currentLocale]) }}" class="nav-register-btn">{{ __('registration.nav_register') }}</a>
+          </li>
           <li class="lang-switcher-mobile-item d-xl-none">
             @include('components.language-switcher')
           </li>

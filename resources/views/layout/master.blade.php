@@ -14,6 +14,7 @@
             @include('layout.footer.footer')
 
             @yield('scripts')
+            @stack('scripts')
 
         </main>
         
