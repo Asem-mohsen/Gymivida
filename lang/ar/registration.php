@@ -108,4 +108,17 @@ return [
     'nav_register' => 'سجّل صالتك',
     'start_free_trial' => 'ابدأ التجربة المجانية',
     'contact_sales' => 'تواصل مع المبيعات',
+    'select_plan_required' => 'يرجى اختيار باقة.',
+    'field_required' => 'هذا الحقل مطلوب.',
+    'validation' => [
+        'required' => 'حقل :attribute مطلوب.',
+        'unique' => 'قيمة :attribute مستخدمة من قبل.',
+        'email' => 'يجب أن يكون :attribute بريدًا إلكترونيًا صالحًا.',
+        'regex' => 'صيغة :attribute غير صحيحة.',
+        'url' => 'يجب أن يكون :attribute رابطًا صالحًا.',
+        'min' => 'يجب ألا يقل :attribute عن :min أحرف.',
+        'max' => 'يجب ألا يزيد :attribute عن :max أحرف.',
+        'confirmed' => 'تأكيد :attribute غير متطابق.',
+    ],
 ];
+

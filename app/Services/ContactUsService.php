@@ -1,7 +1,10 @@
 <?php
 
+
+
 namespace App\Services;
 
+use App\Enums\AppLocale;
 use App\Mail\CompleteRegistrationMail;
 use App\Mail\NewContactSubmissionMail;
 use App\Models\ContactUs;
@@ -13,7 +16,8 @@ use Illuminate\Support\Str;
 class ContactUsService
 {
     public function __construct(
-        protected ContactUsRepository $contactUsRepository
+        protected ContactUsRepository $contactUsRepository,
+        protected EmailLocaleResolver $emailLocaleResolver,
     ) {}
 
     public function store(array $data): ContactUs
@@ -25,9 +29,14 @@ class ContactUsService
         $data['phone'] = isset($data['phone']) ? strip_tags($data['phone']) : null;
         $data['subject'] = isset($data['subject']) ? strip_tags($data['subject']) : null;
         $data['message'] = strip_tags($data['message']);
-        
+
         // Contact Us is for inquiries only — never trigger registration emails.
         $data['wants_registration_email'] = false;
+
+        // Persist initiating site locale so later (queued/admin) emails stay correct.
+        $data['locale'] = $this->emailLocaleResolver
+            ->resolve($data['locale'] ?? null)
+            ->value;
 
         $contact = $this->contactUsRepository->create($data);
 
@@ -38,67 +47,74 @@ class ContactUsService
 
     public function sendAdminNotificationEmail(ContactUs $contact): bool
     {
-        $adminEmail = env('ADMIN_EMAIL', 'asemmohsen911@gmail.com');
+        $adminEmail = config('mail.admin_email');
 
         try {
             Mail::to($adminEmail)->send(new NewContactSubmissionMail($contact));
-            
+
             return true;
         } catch (\Exception $e) {
             Log::error('Failed to send admin notification email', [
                 'contact_id' => $contact->id,
                 'admin_email' => $adminEmail,
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ]);
+
             return false;
         }
     }
 
-    public function sendRegistrationEmail(ContactUs $contact): bool
+    public function sendRegistrationEmail(ContactUs $contact, AppLocale|string|null $locale = null): bool
     {
-        if (!$contact->registration_token) {
+        if (! $contact->registration_token) {
             $contact->registration_token = Str::random(64);
             $contact->save();
         }
 
         $externalUrl = config('app.registration_form_endpoint');
-        $registrationUrl = $externalUrl . '?token=' . $contact->registration_token . '&email=' . urlencode($contact->email);
+        $registrationUrl = $externalUrl.'?token='.$contact->registration_token.'&email='.urlencode($contact->email);
+
+        $resolvedLocale = $this->emailLocaleResolver->resolve($locale, $contact);
 
         try {
-            Mail::to($contact->email)->send(new CompleteRegistrationMail($contact, $registrationUrl));
-            
+            Mail::to($contact->email)
+                ->locale($resolvedLocale->value)
+                ->send(new CompleteRegistrationMail($contact, $registrationUrl, $resolvedLocale));
+
             $contact->registration_email_sent_at = now();
             $contact->save();
-            
+
             return true;
         } catch (\Exception $e) {
             Log::error('Failed to send registration email', [
                 'contact_id' => $contact->id,
-                'error' => $e->getMessage()
+                'locale' => $resolvedLocale->value,
+                'error' => $e->getMessage(),
             ]);
+
             return false;
         }
     }
 
     public function verifyRegistrationToken(string $token, ?string $email = null): array
     {
-        $contact = $email 
+        $contact = $email
             ? $this->contactUsRepository->findByTokenAndEmail($token, $email)
             : $this->contactUsRepository->findByToken($token);
 
-        if (!$contact) {
+        if (! $contact) {
             return [
                 'valid' => false,
                 'message' => 'Invalid or expired registration token.',
-                'data' => null
+                'data' => null,
             ];
         }
 
-        if (!$contact->registration_token) {
+        if (! $contact->registration_token) {
             return [
                 'valid' => false,
                 'message' => 'This contact does not have a valid registration token.',
-                'data' => null
+                'data' => null,
             ];
         }
 
@@ -113,8 +129,8 @@ class ContactUsService
                 'product_id' => $contact->product_id,
                 'product_name' => $contact->product ? $contact->product->name : null,
                 'registered_at' => $contact->registration_email_sent_at?->toDateTimeString(),
-            ]
+                'locale' => $contact->preferredLocale(),
+            ],
         ];
     }
 }
-

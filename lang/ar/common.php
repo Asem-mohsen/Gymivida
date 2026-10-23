@@ -20,4 +20,9 @@ return [
     'footer_quick_links' => 'روابط سريعة',
     'footer_services' => 'الخدمات',
     'footer_contact_us' => 'اتصل بنا',
+    'footer_address_line1' => 'منطقة الأعمال بالمدينة الذكية',
+    'footer_address_line2' => 'القاهرة، مصر',
+    'footer_phone' => 'الهاتف',
+    'footer_email' => 'البريد الإلكتروني',
 ];
+

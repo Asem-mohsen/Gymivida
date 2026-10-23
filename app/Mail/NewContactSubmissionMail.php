@@ -1,28 +1,32 @@
 <?php
 
+
+
 namespace App\Mail;
 
+use App\Enums\AppLocale;
 use App\Models\ContactUs;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewContactSubmissionMail extends Mailable
+class NewContactSubmissionMail extends LocalizedMailable
 {
     use Queueable, SerializesModels;
 
-    public function __construct(public ContactUs $contact)
-    {
-        //
+    public function __construct(
+        public ContactUs $contact,
+        AppLocale|string|null $locale = null,
+    ) {
+        // Internal ops email: English by default unless an explicit locale is passed.
+        $this->localize($locale ?? AppLocale::En);
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'New Contact Form Submission - Gymivida',
+            subject: __('mail.new_contact_submission.subject'),
         );
     }
 

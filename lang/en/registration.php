@@ -108,4 +108,18 @@ return [
     'nav_register' => 'Register Your Gym',
     'start_free_trial' => 'Start Free Trial',
     'contact_sales' => 'Contact Sales',
+    'select_plan_required' => 'Please select a plan.',
+    'field_required' => 'This field is required.',
+    'validation' => [
+        'required' => 'The :attribute field is required.',
+        'unique' => 'The :attribute has already been taken.',
+        'email' => 'The :attribute must be a valid email address.',
+        'regex' => 'The :attribute format is invalid.',
+        'url' => 'The :attribute must be a valid URL.',
+        'min' => 'The :attribute must be at least :min characters.',
+        'max' => 'The :attribute may not be greater than :max characters.',
+        'confirmed' => 'The :attribute confirmation does not match.',
+    ],
 ];
+
+

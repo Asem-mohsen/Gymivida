@@ -37,8 +37,6 @@
       <div class="registration-alert" role="alert">{{ $bootstrapError }}</div>
     @endif
 
-    <div id="registration-flash" class="registration-alert" hidden></div>
-
     <div class="registration-progress" role="navigation" aria-label="{{ __('registration.progress', ['current' => $currentStep, 'total' => 5]) }}">
       @foreach([1 => 'step_owner', 2 => 'step_gym', 3 => 'step_media', 4 => 'step_social', 5 => 'step_more'] as $num => $label)
         <button type="button" class="progress-step {{ $currentStep === $num ? 'is-active' : '' }} {{ $currentStep > $num ? 'is-done' : '' }}" data-goto="{{ $num }}" {{ $currentStep >= $num ? '' : 'disabled' }}>
@@ -354,6 +352,12 @@ window.GymRegistration = {
     mediaUploading: @json(__('registration.media_uploading')),
     mediaUploaded: @json(__('registration.media_uploaded')),
     gymLogoRequired: @json(__('registration.gym_logo_required')),
+    selectPlanRequired: @json(__('registration.select_plan_required')),
+    requiredField: @json(__('registration.field_required')),
+    successTitle: @json(__('common.success')),
+    errorTitle: @json(__('common.error')),
+    validationTitle: @json(__('common.validation_error')),
+    checkFormErrors: @json(__('common.check_form_errors')),
   }
 };
 </script>

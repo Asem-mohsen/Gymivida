@@ -1,30 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ $emailTitle ?? 'Gymivida' }}</title>
+    <title>{{ $emailTitle ?? __('mail.brand') }}</title>
     <!--[if mso]>
     <style type="text/css">
         body, table, td {font-family: Arial, Helvetica, sans-serif !important;}
     </style>
     <![endif]-->
 </head>
-<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;">
+@php
+    $isRtl = app()->getLocale() === 'ar';
+    $textAlign = $isRtl ? 'right' : 'left';
+@endphp
+<body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.6; color: #333333;" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
     <!-- Outer wrapper table -->
-    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f4f4f4;">
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f4f4f4;" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
         <tr>
             <td align="center" style="padding: 20px 0;">
                 <!-- Main content table -->
-                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff; width: 100%;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="600" style="max-width: 600px; background-color: #ffffff; width: 100%;" dir="{{ $isRtl ? 'rtl' : 'ltr' }}">
                     <!-- Header Section -->
                     <tr>
                         <td style="padding: 30px 30px 20px 30px; text-align: center;">
                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                 <tr>
                                     <td style="font-size: 24px; font-weight: bold; color: #333333; line-height: 1.4;">
-                                        {{ $gymName ?? 'Gymivida' }}
+                                        {{ $gymName ?? __('mail.brand') }}
                                     </td>
                                 </tr>
                                 @if(isset($gymTagline) && $gymTagline)
@@ -50,10 +54,10 @@
                     <!-- Main Title Section -->
                     @if(isset($emailTitle) && $emailTitle)
                     <tr>
-                        <td style="padding: 25px 30px 15px 30px;">
+                        <td style="padding: 25px 30px 15px 30px; text-align: {{ $textAlign }};">
                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                 <tr>
-                                    <td style="font-size: 18px; font-weight: bold; color: #333333; line-height: 1.5;">
+                                    <td style="font-size: 18px; font-weight: bold; color: #333333; line-height: 1.5; text-align: {{ $textAlign }};">
                                         {{ $emailTitle }}
                                     </td>
                                 </tr>
@@ -63,10 +67,10 @@
                     @endif
                     <!-- Content Section -->
                     <tr>
-                        <td style="padding: 15px 30px 25px 30px;">
+                        <td style="padding: 15px 30px 25px 30px; text-align: {{ $textAlign }};">
                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                 <tr>
-                                    <td style="font-size: 14px; line-height: 1.6; color: #333333;">
+                                    <td style="font-size: 14px; line-height: 1.6; color: #333333; text-align: {{ $textAlign }}; direction: {{ $isRtl ? 'rtl' : 'ltr' }};">
                                         @yield('content')
                                     </td>
                                 </tr>
@@ -111,7 +115,7 @@
                             <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
                                 <tr>
                                     <td align="center" style="font-size: 12px; line-height: 1.6; color: #666666; padding-bottom: 8px;">
-                                        <strong style="color: #333333;">{{ $gymName ?? 'Gymivida' }}</strong>
+                                        <strong style="color: #333333;">{{ $gymName ?? __('mail.brand') }}</strong>
                                     </td>
                                 </tr>
                                 @if(isset($contactEmail) && $contactEmail)
@@ -130,7 +134,7 @@
                                 @endif
                                 <tr>
                                     <td align="center" style="font-size: 11px; line-height: 1.5; color: #999999; padding-top: 8px;">
-                                        &copy; {{ date('Y') }} {{ $gymName ?? 'Gymivida' }}. All rights reserved.
+                                        &copy; {{ date('Y') }} {{ $gymName ?? __('mail.brand') }}. {{ __('mail.all_rights_reserved') }}
                                     </td>
                                 </tr>
                             </table>

@@ -1246,8 +1246,9 @@
                 btnIcon.classList.add('d-none');
                 btnSpinner.classList.remove('d-none');
 
-                // Prepare form data
+                // Prepare form data (include site locale so emails match /en or /ar)
                 const formData = new FormData(contactForm);
+                formData.append('locale', @json($currentLocale));
 
                 // Send AJAX request
                 fetch('/api/v1/contact', {

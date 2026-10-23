@@ -1,47 +1,37 @@
 <?php
 
+
+
 namespace App\Support;
+
+use App\Enums\AppLocale;
 
 class Localization
 {
-    /**
-     * Supported locales
-     */
-    protected array $supportedLocales = ['en', 'ar'];
-
-    /**
-     * Get current locale
-     */
     public function getCurrentLocale(): string
     {
-        return app()->getLocale();
+        return AppLocale::normalize(app()->getLocale())->value;
     }
 
-    /**
-     * Get direction (rtl or ltr) for current locale
-     */
     public function getDirection(): string
     {
-        return $this->getCurrentLocale() === 'ar' ? 'rtl' : 'ltr';
+        return AppLocale::normalize($this->getCurrentLocale())->direction();
     }
 
-    /**
-     * Check if current locale is RTL
-     */
     public function isRtl(): bool
     {
-        return $this->getDirection() === 'rtl';
+        return AppLocale::normalize($this->getCurrentLocale())->isRtl();
     }
 
     /**
-     * Get alternate locale URLs for hreflang
+     * @return array<string, string>
      */
     public function getAlternateUrls(string $routeName, array $parameters = []): array
     {
         $urls = [];
         $currentLocale = $this->getCurrentLocale();
 
-        foreach ($this->supportedLocales as $locale) {
+        foreach ($this->getSupportedLocales() as $locale) {
             if ($locale !== $currentLocale) {
                 $urls[$locale] = $this->getLocalizedUrl($routeName, $parameters, $locale);
             }
@@ -50,59 +40,47 @@ class Localization
         return $urls;
     }
 
-    /**
-     * Get localized URL for a route
-     */
     public function getLocalizedUrl(string $routeName, array $parameters = [], ?string $locale = null): string
     {
-        $locale = $locale ?? $this->getCurrentLocale();
-        $parameters['locale'] = $locale;
+        $parameters['locale'] = AppLocale::normalize($locale ?? $this->getCurrentLocale())->value;
 
         return route($routeName, $parameters);
     }
 
-    /**
-     * Get current URL with different locale
-     */
     public function getCurrentUrlWithLocale(string $locale): string
     {
+        $locale = AppLocale::normalize($locale)->value;
         $currentPath = request()->path();
         $currentLocale = $this->getCurrentLocale();
 
-        // Remove current locale prefix if exists
-        if (in_array($currentLocale, $this->supportedLocales)) {
-            $currentPath = preg_replace('/^' . preg_quote($currentLocale, '/') . '\//', '', $currentPath);
+        if (AppLocale::isSupported($currentLocale)) {
+            $currentPath = preg_replace('/^'.preg_quote($currentLocale, '/').'\//', '', $currentPath) ?? $currentPath;
+            if ($currentPath === $currentLocale) {
+                $currentPath = '';
+            }
         }
 
-        // Add new locale prefix
-        return url($locale . '/' . ltrim($currentPath, '/'));
+        return url($locale.'/'.ltrim($currentPath, '/'));
     }
 
-    /**
-     * Validate locale
-     */
     public function isValidLocale(string $locale): bool
     {
-        return in_array($locale, $this->supportedLocales);
+        return AppLocale::isSupported($locale);
     }
 
     /**
-     * Get supported locales
+     * @return list<string>
      */
     public function getSupportedLocales(): array
     {
-        return $this->supportedLocales;
+        return AppLocale::values();
     }
 
-    /**
-     * Get locale name for display
-     */
     public function getLocaleName(string $locale): string
     {
-        return match ($locale) {
-            'en' => 'English',
-            'ar' => 'العربية',
-            default => $locale,
+        return match (AppLocale::normalize($locale)) {
+            AppLocale::En => 'English',
+            AppLocale::Ar => 'العربية',
         };
     }
 }

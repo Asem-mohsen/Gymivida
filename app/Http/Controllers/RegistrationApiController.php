@@ -1,9 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Registration\{SaveDraftRequest, SubmitStepRequest, UploadMediaRequest, FinalSubmitRequest};
+use App\Http\Requests\Registration\FinalSubmitRequest;
+use App\Http\Requests\Registration\SaveDraftRequest;
+use App\Http\Requests\Registration\SubmitStepRequest;
+use App\Http\Requests\Registration\UploadMediaRequest;
 use App\Services\GymRegistrationService;
+use App\Services\RegistrationErrorLocalizer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use RuntimeException;
@@ -12,6 +18,7 @@ class RegistrationApiController extends Controller
 {
     public function __construct(
         protected GymRegistrationService $registrationService,
+        protected RegistrationErrorLocalizer $errorLocalizer,
     ) {}
 
     public function start(Request $request): JsonResponse
@@ -83,10 +90,15 @@ class RegistrationApiController extends Controller
             $result = $callback();
 
             if (! $result['ok']) {
+                $localized = $this->errorLocalizer->localize(
+                    $result['message'] ?? null,
+                    is_array($result['errors'] ?? null) ? $result['errors'] : []
+                );
+
                 return response()->json([
                     'success' => false,
-                    'message' => $result['message'],
-                    'errors' => $result['errors'],
+                    'message' => $localized['message'],
+                    'errors' => $localized['errors'],
                     'data' => $result['data'],
                 ], $result['status'] >= 400 ? $result['status'] : 422);
             }
@@ -131,10 +143,12 @@ class RegistrationApiController extends Controller
 
     protected function failure(string $message, int $status): JsonResponse
     {
+        $localized = $this->errorLocalizer->localize($message, []);
+
         return response()->json([
             'success' => false,
-            'message' => $message,
-            'errors' => [],
+            'message' => $localized['message'],
+            'errors' => $localized['errors'],
         ], $status);
     }
 }

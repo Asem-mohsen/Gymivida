@@ -1,7 +1,10 @@
 <?php
 
+
+
 namespace App\Http\Middleware;
 
+use App\Enums\AppLocale;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -10,16 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LocaleMiddleware
 {
-    /**
-     * Supported locales
-     */
-    protected array $supportedLocales = ['en', 'ar'];
-
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
         $locale = $this->detectLocale($request);
@@ -30,31 +23,18 @@ class LocaleMiddleware
         return $next($request);
     }
 
-    /**
-     * Detect locale from request
-     */
     protected function detectLocale(Request $request): string
     {
-        // First, try to get locale from URL segment
         $segments = $request->segments();
-        if (!empty($segments) && in_array($segments[0], $this->supportedLocales)) {
+        if (! empty($segments) && AppLocale::isSupported($segments[0])) {
             return $segments[0];
         }
 
-        // Then, try session
-        if (Session::has('locale') && in_array(Session::get('locale'), $this->supportedLocales)) {
-            return Session::get('locale');
+        $sessionLocale = Session::get('locale');
+        if (is_string($sessionLocale) && AppLocale::isSupported($sessionLocale)) {
+            return $sessionLocale;
         }
 
-        // Finally, fallback to config
-        return config('app.fallback_locale', 'en');
-    }
-
-    /**
-     * Get supported locales
-     */
-    public function getSupportedLocales(): array
-    {
-        return $this->supportedLocales;
+        return AppLocale::normalize(config('app.fallback_locale'))->value;
     }
 }

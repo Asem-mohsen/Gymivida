@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Registration;
 
+use App\Http\Requests\Registration\Concerns\LocalizesRegistrationAttributes;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class SubmitStepRequest extends FormRequest
 {
+    use LocalizesRegistrationAttributes;
+
     public function authorize(): bool
     {
         return true;

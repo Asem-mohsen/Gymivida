@@ -3,7 +3,6 @@
   if (!cfg) return;
 
   const form = document.getElementById('gym-registration-form');
-  const flash = document.getElementById('registration-flash');
   const btnPrev = document.getElementById('btn-prev');
   const btnNext = document.getElementById('btn-next');
   const btnDraft = document.getElementById('btn-draft');
@@ -12,11 +11,25 @@
   let hasGymLogo = !!cfg.hasGymLogo;
   let submitting = false;
 
-  function showFlash(message, success) {
-    if (!flash) return;
-    flash.hidden = !message;
-    flash.textContent = message || '';
-    flash.classList.toggle('is-success', !!success);
+  function toastSuccess(message) {
+    if (typeof toastr !== 'undefined') {
+      toastr.success(message, cfg.i18n.successTitle || '');
+    }
+  }
+
+  function toastError(message) {
+    if (typeof toastr !== 'undefined') {
+      toastr.error(message || cfg.i18n.networkError, cfg.i18n.errorTitle || '');
+    }
+  }
+
+  function toastValidation(message) {
+    if (typeof toastr !== 'undefined') {
+      toastr.error(
+        message || cfg.i18n.checkFormErrors,
+        cfg.i18n.validationTitle || cfg.i18n.errorTitle || ''
+      );
+    }
   }
 
   function slugify(value) {
@@ -27,6 +40,101 @@
       .replace(/\s+/g, '-')
       .replace(/-+/g, '-')
       .replace(/^-|-$/g, '');
+  }
+
+  function toBracketName(field) {
+    if (!field.includes('.')) return field;
+    return field.split('.').reduce(function (acc, part, index) {
+      return index === 0 ? part : acc + '[' + part + ']';
+    }, '');
+  }
+
+  function findField(field) {
+    const bracketName = toBracketName(field);
+    const byName = form.querySelector('[name="' + bracketName + '"]');
+    if (byName) return byName;
+
+    return document.getElementById(field)
+      || document.getElementById(field + '_field')
+      || form.querySelector('[name="' + field + '"]');
+  }
+
+  function ensureErrorElement(input) {
+    const host = input.closest('label') || input.parentElement;
+    if (!host) return null;
+
+    let errorEl = host.querySelector(':scope > .field-error');
+    if (!errorEl) {
+      errorEl = document.createElement('span');
+      errorEl.className = 'field-error';
+      errorEl.setAttribute('role', 'alert');
+      host.appendChild(errorEl);
+    }
+    return errorEl;
+  }
+
+  function clearFieldErrors() {
+    form.querySelectorAll('.field-error').forEach(function (el) {
+      el.textContent = '';
+    });
+    form.querySelectorAll('.is-invalid').forEach(function (el) {
+      el.classList.remove('is-invalid');
+    });
+  }
+
+  function displayFieldErrors(errors) {
+    clearFieldErrors();
+    if (!errors || typeof errors !== 'object') return null;
+
+    let firstInput = null;
+
+    Object.keys(errors).forEach(function (field) {
+      const messages = errors[field];
+      const message = Array.isArray(messages) ? messages[0] : messages;
+      if (!message) return;
+
+      const input = findField(field);
+      if (!input) return;
+
+      input.classList.add('is-invalid');
+      const errorEl = ensureErrorElement(input);
+      if (errorEl) errorEl.textContent = message;
+      if (!firstInput) firstInput = input;
+    });
+
+    return firstInput;
+  }
+
+  function focusFieldError(input) {
+    if (!input) return;
+    const stepRoot = input.closest('.registration-step');
+    if (stepRoot && stepRoot.dataset.step) {
+      const step = Number(stepRoot.dataset.step);
+      if (step && step !== currentStep) {
+        currentStep = step;
+        renderStep();
+      }
+    }
+    input.focus({ preventScroll: false });
+    input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function handleApiFailure(json) {
+    const errors = json && json.errors ? json.errors : null;
+    const hasFieldErrors = errors && Object.keys(errors).length > 0;
+    const firstError = hasFieldErrors ? Object.values(errors).flat()[0] : null;
+    const message = firstError || (json && json.message) || cfg.i18n.networkError;
+
+    if (hasFieldErrors) {
+      const firstInput = displayFieldErrors(errors);
+      toastValidation(message);
+      focusFieldError(firstInput);
+    } else {
+      clearFieldErrors();
+      toastError(message);
+    }
+
+    return message;
   }
 
   function serializeStep(step) {
@@ -103,6 +211,17 @@
     return json;
   }
 
+  function showLocalFieldError(input, message) {
+    clearFieldErrors();
+    if (input) {
+      input.classList.add('is-invalid');
+      const errorEl = ensureErrorElement(input);
+      if (errorEl) errorEl.textContent = message;
+      focusFieldError(input);
+    }
+    toastValidation(message);
+  }
+
   function validateLocal(step) {
     const root = form.querySelector('.registration-step[data-step="' + step + '"]');
     if (!root) return true;
@@ -110,11 +229,11 @@
     for (const el of required) {
       if (el.type === 'file') continue;
       if (el.type === 'checkbox' && !el.checked) {
-        el.focus();
+        showLocalFieldError(el, cfg.i18n.requiredField || cfg.i18n.checkFormErrors);
         return false;
       }
       if (!el.value) {
-        el.reportValidity();
+        showLocalFieldError(el, cfg.i18n.requiredField || cfg.i18n.checkFormErrors);
         return false;
       }
     }
@@ -123,25 +242,25 @@
       const confirm = document.getElementById('owner_password_confirmation');
       if (password && confirm && (password.value || confirm.value || password.required)) {
         if (password.value.length < 8) {
-          showFlash(cfg.i18n.passwordMin || 'Password must be at least 8 characters.', false);
-          password.focus();
+          showLocalFieldError(password, cfg.i18n.passwordMin || 'Password must be at least 8 characters.');
           return false;
         }
         if (password.value !== confirm.value) {
-          showFlash(cfg.i18n.passwordMismatch || 'Passwords do not match.', false);
-          confirm.focus();
+          showLocalFieldError(confirm, cfg.i18n.passwordMismatch || 'Passwords do not match.');
           return false;
         }
       }
     }
     if (step === 2) {
       if (!document.getElementById('external_plan_id').value) {
-        showFlash('Please select a plan.', false);
+        const planInput = form.querySelector('.plan-card input[type="radio"]');
+        showLocalFieldError(planInput, cfg.i18n.selectPlanRequired || 'Please select a plan.');
         return false;
       }
     }
     if (step === 3 && !hasGymLogo) {
-      showFlash(cfg.i18n.gymLogoRequired || 'Please upload the gym logo.', false);
+      const logoInput = document.getElementById('media-input-gym_logo');
+      showLocalFieldError(logoInput, cfg.i18n.gymLogoRequired || 'Please upload the gym logo.');
       return false;
     }
     return true;
@@ -174,16 +293,19 @@
   async function saveDraft() {
     if (busy) return;
     busy = true;
-    showFlash('', false);
+    clearFieldErrors();
     try {
       await ensureDraft();
       const payload = Object.assign({}, serializeStep(currentStep), { current_step: currentStep });
       delete payload.step;
       const { response, json } = await api(cfg.routes.draft, { method: 'POST', body: payload });
-      if (!response.ok || !json.success) throw new Error(json.message || cfg.i18n.networkError);
-      showFlash(cfg.i18n.draftSaved, true);
+      if (!response.ok || !json.success) {
+        handleApiFailure(json);
+        return;
+      }
+      toastSuccess(cfg.i18n.draftSaved);
     } catch (e) {
-      showFlash(e.message || cfg.i18n.networkError, false);
+      toastError(e.message || cfg.i18n.networkError);
     } finally {
       busy = false;
     }
@@ -195,7 +317,7 @@
 
     busy = true;
     btnNext.disabled = true;
-    showFlash('', false);
+    clearFieldErrors();
 
     try {
       await ensureDraft();
@@ -204,8 +326,8 @@
         const payload = serializeStep(currentStep);
         const { response, json } = await api(cfg.routes.step, { method: 'POST', body: payload });
         if (!response.ok || !json.success) {
-          const firstError = json.errors ? Object.values(json.errors).flat()[0] : null;
-          throw new Error(firstError || json.message || cfg.i18n.networkError);
+          handleApiFailure(json);
+          return;
         }
         currentStep = Math.min(5, (json.next_step || currentStep + 1));
         renderStep();
@@ -217,14 +339,15 @@
         delete payload.step;
         const { response, json } = await api(cfg.routes.submit, { method: 'POST', body: payload });
         if (!response.ok || !json.success) {
-          const firstError = json.errors ? Object.values(json.errors).flat()[0] : null;
-          throw new Error(firstError || json.message || cfg.i18n.networkError);
+          handleApiFailure(json);
+          submitting = false;
+          return;
         }
         window.location.href = json.redirect || ('/' + cfg.locale + '/register/success');
         return;
       }
     } catch (e) {
-      showFlash(e.message || cfg.i18n.networkError, false);
+      toastError(e.message || cfg.i18n.networkError);
       submitting = false;
     } finally {
       busy = false;
@@ -291,7 +414,7 @@
     busy = true;
     if (card) card.classList.add('is-uploading');
     setMediaStatus(type, cfg.i18n.mediaUploading || 'Uploading…', true);
-    showFlash('', false);
+    clearFieldErrors();
 
     try {
       await ensureDraft();
@@ -300,8 +423,10 @@
       fd.append('type', type);
       const { response, json } = await api(cfg.routes.upload, { method: 'POST', body: fd });
       if (!response.ok || !json.success) {
-        const firstError = json.errors ? Object.values(json.errors).flat()[0] : null;
-        throw new Error(firstError || json.message || cfg.i18n.uploadFailed);
+        handleApiFailure(json);
+        input.value = '';
+        setMediaStatus(type, '', false);
+        return;
       }
       if (type === 'gym_logo') hasGymLogo = true;
       const url = json.url
@@ -309,7 +434,7 @@
         || URL.createObjectURL(file);
       showMediaPreview(type, url);
     } catch (e) {
-      showFlash(e.message || cfg.i18n.uploadFailed, false);
+      toastError(e.message || cfg.i18n.uploadFailed);
       input.value = '';
       setMediaStatus(type, '', false);
     } finally {
@@ -372,6 +497,17 @@
   });
   btnNext?.addEventListener('click', goNext);
   btnDraft?.addEventListener('click', saveDraft);
+
+  form.querySelectorAll('input, select, textarea').forEach((input) => {
+    const clear = function () {
+      this.classList.remove('is-invalid');
+      const host = this.closest('label') || this.parentElement;
+      const errorEl = host ? host.querySelector(':scope > .field-error') : null;
+      if (errorEl) errorEl.textContent = '';
+    };
+    input.addEventListener('input', clear);
+    input.addEventListener('change', clear);
+  });
 
   document.querySelectorAll('.password-toggle').forEach((btn) => {
     btn.addEventListener('click', () => {

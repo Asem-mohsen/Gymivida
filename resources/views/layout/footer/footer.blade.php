@@ -41,10 +41,10 @@
 
       <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
         <h4>{{ __('common.footer_contact_us') }}</h4>
-        <p>Smart City Business District</p>
-        <p>Cairo, Egypt</p>
-        <p class="mt-4"><strong>Phone:</strong> <span>{{ config('app.gymivida_phone') }}</span></p>
-        <p><strong>Email:</strong> <span>{{ config('app.gymivida_email') }}</span></p>
+        <p>{{ __('common.footer_address_line1') }}</p>
+        <p>{{ __('common.footer_address_line2') }}</p>
+        <p class="mt-4"><strong>{{ __('common.footer_phone') }}:</strong> <span>{{ config('app.gymivida_phone') }}</span></p>
+        <p><strong>{{ __('common.footer_email') }}:</strong> <span>{{ config('app.gymivida_email') }}</span></p>
       </div>
 
     </div>

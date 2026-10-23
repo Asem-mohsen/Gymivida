@@ -1,17 +1,27 @@
 <?php
 
+
+
 namespace App\Http\Requests;
 
+use App\Enums\AppLocale;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreContactUsRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function prepareForValidation(): void
+    {
+        if ($this->filled('locale')) {
+            $this->merge([
+                'locale' => AppLocale::normalize($this->input('locale'))->value,
+            ]);
+        }
     }
 
     public function rules(): array
@@ -22,6 +32,7 @@ class StoreContactUsRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20'],
             'subject' => ['nullable', 'string', 'max:255'],
             'message' => ['required', 'string', 'max:5000'],
+            'locale' => ['nullable', 'string', Rule::in(AppLocale::values())],
         ];
     }
 
@@ -39,4 +50,3 @@ class StoreContactUsRequest extends FormRequest
         ];
     }
 }
-

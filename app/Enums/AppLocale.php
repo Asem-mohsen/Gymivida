@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Enums;
 
 use Filament\Support\Contracts\HasLabel;
@@ -17,6 +19,16 @@ enum AppLocale: string implements HasLabel
         };
     }
 
+    public function direction(): string
+    {
+        return $this === self::Ar ? 'rtl' : 'ltr';
+    }
+
+    public function isRtl(): bool
+    {
+        return $this->direction() === 'rtl';
+    }
+
     /**
      * @return list<string>
      */
@@ -32,5 +44,14 @@ enum AppLocale: string implements HasLabel
         }
 
         return self::tryFrom((string) $locale) ?? self::En;
+    }
+
+    public static function isSupported(mixed $locale): bool
+    {
+        if ($locale instanceof self) {
+            return true;
+        }
+
+        return self::tryFrom((string) $locale) !== null;
     }
 }

@@ -115,4 +115,15 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Notification Recipient
+    |--------------------------------------------------------------------------
+    |
+    | Used for internal operational emails (e.g. new contact submissions).
+    |
+    */
+
+    'admin_email' => env('ADMIN_EMAIL', 'asemmohsen911@gmail.com'),
+
 ];

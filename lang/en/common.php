@@ -20,4 +20,9 @@ return [
     'footer_quick_links' => 'Quick Links',
     'footer_services' => 'Services',
     'footer_contact_us' => 'Contact Us',
+    'footer_address_line1' => 'Smart City Business District',
+    'footer_address_line2' => 'Cairo, Egypt',
+    'footer_phone' => 'Phone',
+    'footer_email' => 'Email',
 ];
+

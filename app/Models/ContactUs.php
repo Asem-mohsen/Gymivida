@@ -1,8 +1,12 @@
 <?php
 
+
+
 namespace App\Models;
 
+use App\Enums\AppLocale;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ContactUs extends Model
 {
@@ -19,6 +23,7 @@ class ContactUs extends Model
         'registration_token',
         'registration_email_sent_at',
         'status',
+        'locale',
     ];
 
     protected $casts = [
@@ -26,17 +31,17 @@ class ContactUs extends Model
         'registration_email_sent_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'locale' => AppLocale::class,
     ];
 
-    /**
-     * Status constants
-     */
-    const STATUS_NEW = 'new';
-    const STATUS_IN_PROGRESS = 'in_progress';
-    const STATUS_RESOLVED = 'resolved';
+    public const STATUS_NEW = 'new';
+
+    public const STATUS_IN_PROGRESS = 'in_progress';
+
+    public const STATUS_RESOLVED = 'resolved';
 
     /**
-     * Get all available statuses.
+     * @return array<string, string>
      */
     public static function getStatuses(): array
     {
@@ -48,9 +53,14 @@ class ContactUs extends Model
     }
 
     /**
-     * Get the product that the user is interested in.
+     * Locale used for user-facing emails related to this contact.
      */
-    public function product()
+    public function preferredLocale(): string
+    {
+        return AppLocale::normalize($this->locale)->value;
+    }
+
+    public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
