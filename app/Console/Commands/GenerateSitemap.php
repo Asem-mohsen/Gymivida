@@ -22,6 +22,7 @@ class GenerateSitemap extends Command
         // Routes that should be included in sitemap
         $routes = [
             'home' => ['priority' => 1.0, 'changeFrequency' => Url::CHANGE_FREQUENCY_DAILY],
+            'registration.show' => ['priority' => 0.9, 'changeFrequency' => Url::CHANGE_FREQUENCY_WEEKLY],
             'privacy' => ['priority' => 0.6, 'changeFrequency' => Url::CHANGE_FREQUENCY_MONTHLY],
             'terms' => ['priority' => 0.6, 'changeFrequency' => Url::CHANGE_FREQUENCY_MONTHLY],
             'faqs' => ['priority' => 0.6, 'changeFrequency' => Url::CHANGE_FREQUENCY_MONTHLY],
