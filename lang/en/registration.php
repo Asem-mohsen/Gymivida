@@ -2,7 +2,7 @@
 
 return [
     'page_title' => 'Register Your Gym',
-    'subtitle' => 'Complete your application in five steps. Enjoy 60 days free trial without any payment required.',
+    'subtitle' => 'Complete your application in five steps. Enjoy :days days free trial without any payment required.',
     'progress' => 'Step :current of :total',
     'save_draft' => 'Save draft',
     'draft_saved' => 'Draft saved. You can return later using this browser session or your resume link.',

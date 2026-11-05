@@ -14,6 +14,8 @@
   $currentStep = (int) ($r['current_step'] ?? 1);
   if ($currentStep < 1) $currentStep = 1;
   if ($currentStep > 5) $currentStep = 5;
+  $selectedProduct = collect($products)->firstWhere('id', $selectedPlanId);
+  $trialDays = (int) (data_get($selectedProduct, 'trial_period_days') ?: collect($products)->max('trial_period_days') ?: 0);
 @endphp
 
 <div class="page-title">
@@ -27,7 +29,7 @@
   </div>
   <div class="title-wrapper">
     <h1>{{ __('registration.page_title') }}</h1>
-    <p>{{ __('registration.subtitle') }}</p>
+    <p id="registration-subtitle">{{ __('registration.subtitle', ['days' => $trialDays > 0 ? $trialDays : 30]) }}</p>
   </div>
 </div>
 
@@ -143,9 +145,17 @@
           <textarea name="description[ar]" rows="3" dir="rtl">{{ $r['description']['ar'] ?? '' }}</textarea>
         </label>
 
-        <div class="billing-toggle" role="group" aria-label="{{ __('registration.billing_cycle') }}">
-          <button type="button" class="billing-btn {{ $billingCycle === 'monthly' ? 'is-active' : '' }}" data-billing="monthly">{{ __('registration.monthly') }}</button>
-          <button type="button" class="billing-btn {{ $billingCycle === 'yearly' ? 'is-active' : '' }}" data-billing="yearly">{{ __('registration.yearly') }}</button>
+        <div class="billing-cycle-row">
+          <div class="billing-toggle" role="group" aria-label="{{ __('registration.billing_cycle') }}">
+            <button type="button" class="billing-btn {{ $billingCycle === 'monthly' ? 'is-active' : '' }}" data-billing="monthly">{{ __('registration.monthly') }}</button>
+            <button type="button" class="billing-btn {{ $billingCycle === 'yearly' ? 'is-active' : '' }}" data-billing="yearly">{{ __('registration.yearly') }}</button>
+          </div>
+          @if($trialDays > 0)
+            <span class="registration-trial-badge" id="registration-trial-badge">
+              <i class="bi bi-gift" aria-hidden="true"></i>
+              <span data-trial-label>{{ __('pricing.days_free_trial', ['days' => $trialDays]) }}</span>
+            </span>
+          @endif
         </div>
 
         <div class="plan-grid" role="radiogroup" aria-label="{{ __('registration.select_plan') }}">
@@ -156,6 +166,7 @@
                 data-monthly="{{ $product['monthly_price'] }}"
                 data-yearly="{{ $product['yearly_price'] }}"
                 data-currency="{{ $product['currency'] }}"
+                data-trial-days="{{ $product['trial_period_days'] }}"
                 @checked((string)($selectedPlanId ?? '') === (string)$product['id'])>
               <span class="plan-card-body">
                 <strong>{{ $product['name'] }}</strong>
@@ -358,6 +369,8 @@ window.GymRegistration = {
     errorTitle: @json(__('common.error')),
     validationTitle: @json(__('common.validation_error')),
     checkFormErrors: @json(__('common.check_form_errors')),
+    daysFreeTrial: @json(__('pricing.days_free_trial')),
+    subtitleTemplate: @json(__('registration.subtitle')),
   }
 };
 </script>

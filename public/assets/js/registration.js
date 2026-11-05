@@ -290,6 +290,29 @@
     });
   }
 
+  function replaceDaysPlaceholder(template, days) {
+    return String(template || '').replace(/:days/g, String(days));
+  }
+
+  function updateTrialDays(days) {
+    const trialDays = Number(days) || 0;
+    const badge = document.getElementById('registration-trial-badge');
+    const badgeLabel = badge?.querySelector('[data-trial-label]');
+    const subtitle = document.getElementById('registration-subtitle');
+
+    if (badge) {
+      badge.hidden = trialDays <= 0;
+      if (badgeLabel && trialDays > 0) {
+        badgeLabel.textContent = replaceDaysPlaceholder(cfg.i18n.daysFreeTrial, trialDays);
+      }
+    }
+
+    if (subtitle && cfg.i18n.subtitleTemplate) {
+      const daysForSubtitle = trialDays > 0 ? trialDays : 30;
+      subtitle.textContent = replaceDaysPlaceholder(cfg.i18n.subtitleTemplate, daysForSubtitle);
+    }
+  }
+
   async function saveDraft() {
     if (busy) return;
     busy = true;
@@ -374,6 +397,7 @@
     input.addEventListener('change', () => {
       document.getElementById('external_plan_id').value = input.value;
       document.getElementById('plan_name').value = input.dataset.planName || '';
+      updateTrialDays(input.dataset.trialDays);
     });
   });
 
@@ -381,6 +405,7 @@
   if (checkedPlan) {
     document.getElementById('external_plan_id').value = checkedPlan.value;
     document.getElementById('plan_name').value = checkedPlan.dataset.planName || '';
+    updateTrialDays(checkedPlan.dataset.trialDays);
   }
 
   function setMediaStatus(type, text, visible) {
